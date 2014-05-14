@@ -21,6 +21,17 @@
 		DFF0AF5B1924084900843BC7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF3D1924084900843BC7 /* UIKit.framework */; };
 		DFF0AF631924084900843BC7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFF0AF611924084900843BC7 /* InfoPlist.strings */; };
 		DFF0AF651924084900843BC7 /* ADITLTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DFF0AF641924084900843BC7 /* ADITLTests.m */; };
+		DFF0AF70192417F800843BC7 /* BeAMentorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFF0AF6F192417F800843BC7 /* BeAMentorViewController.m */; };
+		DFF0AF7219242ABF00843BC7 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF7119242ABF00843BC7 /* Parse.framework */; };
+		DFF0AF7419242AEA00843BC7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF7319242AEA00843BC7 /* AudioToolbox.framework */; };
+		DFF0AF7619242AF300843BC7 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF7519242AF300843BC7 /* CFNetwork.framework */; };
+		DFF0AF7819242AFD00843BC7 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF7719242AFD00843BC7 /* CoreLocation.framework */; };
+		DFF0AF7A19242B0700843BC7 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF7919242B0700843BC7 /* libz.dylib */; };
+		DFF0AF7C19242B1100843BC7 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF7B19242B1100843BC7 /* MobileCoreServices.framework */; };
+		DFF0AF7E19242B1900843BC7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF7D19242B1900843BC7 /* QuartzCore.framework */; };
+		DFF0AF8019242B1F00843BC7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF7F19242B1F00843BC7 /* Security.framework */; };
+		DFF0AF8219242B2700843BC7 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF8119242B2700843BC7 /* StoreKit.framework */; };
+		DFF0AF8419242B3200843BC7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF8319242B3200843BC7 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +64,18 @@
 		DFF0AF601924084900843BC7 /* ADITLTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ADITLTests-Info.plist"; sourceTree = "<group>"; };
 		DFF0AF621924084900843BC7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DFF0AF641924084900843BC7 /* ADITLTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ADITLTests.m; sourceTree = "<group>"; };
+		DFF0AF6E192417F800843BC7 /* BeAMentorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeAMentorViewController.h; sourceTree = "<group>"; };
+		DFF0AF6F192417F800843BC7 /* BeAMentorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeAMentorViewController.m; sourceTree = "<group>"; };
+		DFF0AF7119242ABF00843BC7 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		DFF0AF7319242AEA00843BC7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		DFF0AF7519242AF300843BC7 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		DFF0AF7719242AFD00843BC7 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		DFF0AF7919242B0700843BC7 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		DFF0AF7B19242B1100843BC7 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		DFF0AF7D19242B1900843BC7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		DFF0AF7F19242B1F00843BC7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		DFF0AF8119242B2700843BC7 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		DFF0AF8319242B3200843BC7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,8 +83,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFF0AF8419242B3200843BC7 /* SystemConfiguration.framework in Frameworks */,
+				DFF0AF8219242B2700843BC7 /* StoreKit.framework in Frameworks */,
+				DFF0AF8019242B1F00843BC7 /* Security.framework in Frameworks */,
+				DFF0AF7E19242B1900843BC7 /* QuartzCore.framework in Frameworks */,
+				DFF0AF7C19242B1100843BC7 /* MobileCoreServices.framework in Frameworks */,
+				DFF0AF7A19242B0700843BC7 /* libz.dylib in Frameworks */,
+				DFF0AF7819242AFD00843BC7 /* CoreLocation.framework in Frameworks */,
+				DFF0AF7619242AF300843BC7 /* CFNetwork.framework in Frameworks */,
+				DFF0AF7419242AEA00843BC7 /* AudioToolbox.framework in Frameworks */,
 				DFF0AF3C1924084900843BC7 /* CoreGraphics.framework in Frameworks */,
 				DFF0AF3E1924084900843BC7 /* UIKit.framework in Frameworks */,
+				DFF0AF7219242ABF00843BC7 /* Parse.framework in Frameworks */,
 				DFF0AF3A1924084900843BC7 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -101,6 +134,16 @@
 		DFF0AF381924084900843BC7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DFF0AF8319242B3200843BC7 /* SystemConfiguration.framework */,
+				DFF0AF8119242B2700843BC7 /* StoreKit.framework */,
+				DFF0AF7F19242B1F00843BC7 /* Security.framework */,
+				DFF0AF7D19242B1900843BC7 /* QuartzCore.framework */,
+				DFF0AF7B19242B1100843BC7 /* MobileCoreServices.framework */,
+				DFF0AF7919242B0700843BC7 /* libz.dylib */,
+				DFF0AF7719242AFD00843BC7 /* CoreLocation.framework */,
+				DFF0AF7519242AF300843BC7 /* CFNetwork.framework */,
+				DFF0AF7319242AEA00843BC7 /* AudioToolbox.framework */,
+				DFF0AF7119242ABF00843BC7 /* Parse.framework */,
 				DFF0AF391924084900843BC7 /* Foundation.framework */,
 				DFF0AF3B1924084900843BC7 /* CoreGraphics.framework */,
 				DFF0AF3D1924084900843BC7 /* UIKit.framework */,
@@ -115,6 +158,8 @@
 				DFF0AF481924084900843BC7 /* AppDelegate.h */,
 				DFF0AF491924084900843BC7 /* AppDelegate.m */,
 				DFF0AF4B1924084900843BC7 /* Main.storyboard */,
+				DFF0AF6E192417F800843BC7 /* BeAMentorViewController.h */,
+				DFF0AF6F192417F800843BC7 /* BeAMentorViewController.m */,
 				DFF0AF4E1924084900843BC7 /* ViewController.h */,
 				DFF0AF4F1924084900843BC7 /* ViewController.m */,
 				DFF0AF511924084900843BC7 /* Images.xcassets */,
@@ -249,6 +294,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFF0AF70192417F800843BC7 /* BeAMentorViewController.m in Sources */,
 				DFF0AF501924084900843BC7 /* ViewController.m in Sources */,
 				DFF0AF4A1924084900843BC7 /* AppDelegate.m in Sources */,
 				DFF0AF461924084900843BC7 /* main.m in Sources */,
@@ -376,6 +422,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ADITL/ADITL-Prefix.pch";
 				INFOPLIST_FILE = "ADITL/ADITL-Info.plist";
@@ -389,6 +439,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ADITL/ADITL-Prefix.pch";
 				INFOPLIST_FILE = "ADITL/ADITL-Info.plist";
@@ -456,6 +510,7 @@
 				DFF0AF6A1924084900843BC7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DFF0AF6B1924084900843BC7 /* Build configuration list for PBXNativeTarget "ADITLTests" */ = {
 			isa = XCConfigurationList;
@@ -464,6 +519,7 @@
 				DFF0AF6D1924084900843BC7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
