@@ -82,7 +82,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="608" y="532"/>
+            <point key="canvasLocation" x="464" y="532"/>
         </scene>
         <!--View Controller - Find A Mentor-->
         <scene sceneID="Wiq-gh-FYh">
@@ -175,17 +175,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EVX-Xv-z6J">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onDismissKeyboardButtonPressed:" destination="Lvj-oR-eun" eventType="touchUpInside" id="UhT-xZ-fme"/>
+                                </connections>
+                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Expertise" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="atS-WI-2oV">
                                 <rect key="frame" x="37" y="83" width="258" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="onExpertiseDidEndOnExit:" destination="Lvj-oR-eun" eventType="editingDidEndOnExit" id="5Uj-Oe-dwT"/>
+                                    <action selector="onExpertiseEditingDidEnd:" destination="Lvj-oR-eun" eventType="editingDidEnd" id="gDc-aa-gPJ"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wMT-mF-2g2">
                                 <rect key="frame" x="37" y="278" width="258" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                <connections>
+                                    <action selector="emailDidEndOnExit:" destination="Lvj-oR-eun" eventType="editingDidEndOnExit" id="oe2-TM-CXn"/>
+                                    <action selector="emailEditingDidEnd:" destination="Lvj-oR-eun" eventType="editingDidEnd" id="eMb-aY-zwz"/>
+                                </connections>
                             </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="What I Can Share" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="CI2-WB-CgW">
                                 <rect key="frame" x="37" y="121" width="258" height="73"/>
@@ -202,6 +220,10 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="locationDidEndOnExit:" destination="Lvj-oR-eun" eventType="editingDidEndOnExit" id="mrs-4j-1W9"/>
+                                    <action selector="locationEditingDidEnd:" destination="Lvj-oR-eun" eventType="editingDidEnd" id="2xF-CB-1tB"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="afY-rX-qEv">
                                 <rect key="frame" x="148" y="316" width="37" height="30"/>
@@ -218,6 +240,10 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="priceDidEndOnExit:" destination="Lvj-oR-eun" eventType="editingDidEndOnExit" id="qLA-Ks-7ti"/>
+                                    <action selector="priceEditingDidEnd:" destination="Lvj-oR-eun" eventType="editingDidEnd" id="IE2-iZ-NtL"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="*" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Jm-em-CjU">
                                 <rect key="frame" x="15" y="92" width="22" height="21"/>
@@ -280,7 +306,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zPl-IA-0Xa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="131" y="532"/>
+            <point key="canvasLocation" x="55" y="532"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

@@ -34,6 +34,8 @@
     self.whatICanShareTextView.clipsToBounds = YES;
 }
 
+#pragma mark - what i can share text view delegate methods (for placehoder text to exist)
+
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
     if ([self.whatICanShareTextView.text isEqualToString:@"What I Can Share (optional)"]) {
@@ -52,18 +54,88 @@
     [self.whatICanShareTextView resignFirstResponder];
 }
 
+#pragma mark - dismissing the keyboard
+
+- (IBAction)onExpertiseEditingDidEnd:(id)sender
+{
+    [self.expertiseTextField endEditing:YES];
+}
+
+- (IBAction)onExpertiseDidEndOnExit:(id)sender
+{
+    [self.expertiseTextField endEditing:YES];
+}
+
+- (IBAction)priceEditingDidEnd:(id)sender
+{
+    [self.priceTextField endEditing:YES];
+}
+
+- (IBAction)priceDidEndOnExit:(id)sender
+{
+    [self.priceTextField endEditing:YES];
+}
+
+- (IBAction)locationEditingDidEnd:(id)sender
+{
+    [self.locationTextField endEditing:YES];
+}
+
+- (IBAction)locationDidEndOnExit:(id)sender
+{
+    [self.locationTextField endEditing:YES];
+}
+
+- (IBAction)emailEditingDidEnd:(id)sender
+{
+    [self.emailTextField endEditing:YES];
+}
+
+- (IBAction)emailDidEndOnExit:(id)sender
+{
+    [self.emailTextField endEditing:YES];
+
+}
+
+- (IBAction)onDismissKeyboardButtonPressed:(id)sender
+{
+    [self.expertiseTextField endEditing:YES];
+    [self.whatICanShareTextView endEditing:YES];
+    [self.priceTextField endEditing:YES];
+    [self.locationTextField endEditing:YES];
+    [self.emailTextField endEditing:YES];
+}
+
+#pragma mark - done button pressed
+
 - (IBAction)onDoneButtonPressed:(id)sender
 {
-//    self.locationTextField.text
+    [self.expertiseTextField endEditing:YES];
+    [self.whatICanShareTextView endEditing:YES];
+    [self.priceTextField endEditing:YES];
+    [self.locationTextField endEditing:YES];
+    [self.emailTextField endEditing:YES];
     
-    PFObject *post = [PFObject objectWithClassName:@"MentorPost"];
-    post[@"expertise"] = self.expertiseTextField.text;
-    post[@"whatICanShare"] = self.whatICanShareTextView.text;
-    post[@"price"] = @([self.priceTextField.text integerValue]);
-    post[@"locationCity"] = self.locationTextField.text;
-//    post[@"locationState"] = @NO;
-    post[@"email"] = self.emailTextField.text;
-    [post saveInBackground];
+    // ask if the poster wants their info saved into a mentor profile
+    PFUser *userNow = [PFUser currentUser];
+    if (!userNow)
+    {
+        UIAlertView *mentorPostSuccessfulAlert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"People will now be able to search your post.\n\nWe've noticed you are not using a Mentor Profile. Would you like to create one now?" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [mentorPostSuccessfulAlert show];
+    }
+    
+    
+//    PFObject *post = [PFObject objectWithClassName:@"MentorPost"];
+//    post[@"expertise"] = self.expertiseTextField.text;
+//    post[@"whatICanShare"] = self.whatICanShareTextView.text;
+//    post[@"price"] = @([self.priceTextField.text integerValue]);
+//    post[@"locationCity"] = self.locationTextField.text;
+////    post[@"locationState"] = @NO;
+//    post[@"email"] = self.emailTextField.text;
+//    [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+//        UIAlertView *mentorPostSuccessfulAlert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"People will now be able to search your post.\n\nThank you for sharing your expertise!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+//        [mentorPostSuccessfulAlert show];
+//    }];
 }
 
 
