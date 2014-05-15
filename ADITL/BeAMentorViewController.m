@@ -7,6 +7,7 @@
 //
 
 #import "BeAMentorViewController.h"
+#import <Parse/Parse.h>
 
 @interface BeAMentorViewController ()
 @property (strong, nonatomic) IBOutlet UITextField *expertiseTextField;
@@ -14,6 +15,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *priceTextField;
 @property (strong, nonatomic) IBOutlet UITextField *locationTextField;
 @property (strong, nonatomic) IBOutlet UITextField *emailTextField;
+@property (strong, nonatomic) IBOutlet UIButton *doneButton;
 
 @end
 
@@ -50,6 +52,19 @@
     [self.whatICanShareTextView resignFirstResponder];
 }
 
+- (IBAction)onDoneButtonPressed:(id)sender
+{
+//    self.locationTextField.text
+    
+    PFObject *post = [PFObject objectWithClassName:@"MentorPost"];
+    post[@"expertise"] = self.expertiseTextField.text;
+    post[@"whatICanShare"] = self.whatICanShareTextView.text;
+    post[@"price"] = @([self.priceTextField.text integerValue]);
+    post[@"locationCity"] = self.locationTextField.text;
+//    post[@"locationState"] = @NO;
+    post[@"email"] = self.emailTextField.text;
+    [post saveInBackground];
+}
 
 
 @end
