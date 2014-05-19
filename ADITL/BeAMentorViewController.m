@@ -7,7 +7,9 @@
 //
 
 #import "BeAMentorViewController.h"
+#import "ProfileViewController.h"
 #import <Parse/Parse.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface BeAMentorViewController ()
 @property (strong, nonatomic) IBOutlet UITextField *expertiseTextField;
@@ -16,6 +18,8 @@
 @property (strong, nonatomic) IBOutlet UITextField *locationTextField;
 @property (strong, nonatomic) IBOutlet UITextField *emailTextField;
 @property (strong, nonatomic) IBOutlet UIButton *doneButton;
+@property (strong, nonatomic) IBOutlet UILabel *missingField1Label;
+@property (strong, nonatomic) IBOutlet UILabel *missingField2Label;
 
 @end
 
@@ -32,6 +36,15 @@
     [self.whatICanShareTextView.layer setBorderWidth:0.5];
     self.whatICanShareTextView.layer.cornerRadius = 5;
     self.whatICanShareTextView.clipsToBounds = YES;
+    
+    self.missingField1Label.hidden = YES;
+    self.missingField2Label.hidden = YES;
+    
+    self.expertiseTextField.text = @"";
+    self.whatICanShareTextView.text = @"What I Can Share (optional)";
+    self.priceTextField.text = @"";
+    self.locationTextField.text = @"";
+    self.emailTextField.text = @"";
 }
 
 #pragma mark - what i can share text view delegate methods (for placehoder text to exist)
@@ -116,27 +129,145 @@
     [self.locationTextField endEditing:YES];
     [self.emailTextField endEditing:YES];
     
-    // ask if the poster wants their info saved into a mentor profile
-    PFUser *userNow = [PFUser currentUser];
-    if (!userNow)
+    
+    NSString *trimmedExpertiseString = [self.expertiseTextField.text stringByTrimmingCharactersInSet:
+                               [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *trimmedPriceString = [self.priceTextField.text stringByTrimmingCharactersInSet:
+                                        [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *trimmedLocationString = [self.locationTextField.text stringByTrimmingCharactersInSet:
+                                        [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *trimmedEmailString = [self.emailTextField.text stringByTrimmingCharactersInSet:
+                                        [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    
+    
+    if(![trimmedExpertiseString isEqualToString:@""] &&
+       ![trimmedPriceString isEqualToString:@""] &&
+       ![trimmedLocationString isEqualToString:@""] &&
+       ![trimmedEmailString isEqualToString:@""])
     {
-        UIAlertView *mentorPostSuccessfulAlert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"People will now be able to search your post.\n\nWe've noticed you are not using a Mentor Profile. Would you like to create one now?" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [mentorPostSuccessfulAlert show];
+        NSLog(@"textView is ok");
+        self.missingField1Label.hidden = YES;
+        self.missingField2Label.hidden = YES;
+        
+        PFUser *userNow = [PFUser currentUser];
+        if (!userNow)
+        {
+            UIAlertView *nonmentorPostSuccessfulAlert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"People will now be able to search your post.\n\nWe've noticed you are not using a Mentor Profile. Would you like to create one now?" delegate:self cancelButtonTitle:@"Yes!" otherButtonTitles: @"Maybe next time", nil];
+            [nonmentorPostSuccessfulAlert show];
+        }
+        else if (userNow)
+        {
+            [self savePost];
+            UIAlertView *mentorPostSuccessfulAlert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"People will now be able to search your post.\n\nThanks for sharing!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+            [mentorPostSuccessfulAlert show];
+        }
     }
-    
-    
-//    PFObject *post = [PFObject objectWithClassName:@"MentorPost"];
-//    post[@"expertise"] = self.expertiseTextField.text;
-//    post[@"whatICanShare"] = self.whatICanShareTextView.text;
-//    post[@"price"] = @([self.priceTextField.text integerValue]);
-//    post[@"locationCity"] = self.locationTextField.text;
-////    post[@"locationState"] = @NO;
-//    post[@"email"] = self.emailTextField.text;
-//    [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//        UIAlertView *mentorPostSuccessfulAlert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"People will now be able to search your post.\n\nThank you for sharing your expertise!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-//        [mentorPostSuccessfulAlert show];
-//    }];
+    else
+    {
+        NSLog(@"textView has not ok");
+        
+        self.missingField1Label.hidden = NO;
+        self.missingField2Label.hidden = NO;
+        
+        if ([trimmedExpertiseString isEqualToString:@""])
+        {
+            self.expertiseTextField.backgroundColor = [UIColor whiteColor];
+            self.expertiseTextField.layer.borderWidth = 0.5f;
+            self.expertiseTextField.layer.cornerRadius = 5.0f;
+            self.expertiseTextField.layer.masksToBounds = YES;
+            self.expertiseTextField.layer.borderColor = [[UIColor redColor] CGColor];
+        }
+        else
+        {
+            self.expertiseTextField.layer.borderColor = [[UIColor colorWithWhite: 0.8 alpha:1] CGColor];
+        }
+        
+        if ([trimmedPriceString isEqualToString:@""])
+        {
+            self.priceTextField.backgroundColor = [UIColor whiteColor];
+            self.priceTextField.layer.borderWidth = 0.5f;
+            self.priceTextField.layer.cornerRadius = 5.0f;
+            self.priceTextField.layer.masksToBounds = YES;
+            self.priceTextField.layer.borderColor = [[UIColor redColor] CGColor];
+        }
+        else
+        {
+            self.priceTextField.layer.borderColor = [[UIColor colorWithWhite: 0.8 alpha:1] CGColor];
+        }
+        
+        if ([trimmedLocationString isEqualToString:@""])
+        {
+            self.locationTextField.backgroundColor = [UIColor whiteColor];
+            self.locationTextField.layer.borderWidth = 0.5f;
+            self.locationTextField.layer.cornerRadius = 5.0f;
+            self.locationTextField.layer.masksToBounds = YES;
+            self.locationTextField.layer.borderColor = [[UIColor redColor] CGColor];
+        }
+        else
+        {
+            self.locationTextField.layer.borderColor = [[UIColor colorWithWhite: 0.8 alpha:1] CGColor];
+        }
+        
+        if ([trimmedEmailString isEqualToString:@""])
+        {
+            self.emailTextField.backgroundColor = [UIColor whiteColor];
+            self.emailTextField.layer.borderWidth = 0.5f;
+            self.emailTextField.layer.cornerRadius = 5.0f;
+            self.emailTextField.layer.masksToBounds = YES;
+            self.emailTextField.layer.borderColor = [[UIColor redColor] CGColor];
+        }
+        else
+        {
+            self.emailTextField.layer.borderColor = [[UIColor colorWithWhite: 0.8 alpha:1] CGColor];
+        }
+    }
 }
 
+- (void)alertView:(UIAlertView *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    // the user clicked one of the OK/Cancel buttons
+    if (buttonIndex == 0)
+    {
+        [self savePost];
+        
+        PFUser *userNow = [PFUser currentUser];
+        if (!userNow)
+        {
+            [self performSegueWithIdentifier:@"SignUpSegue" sender:self];
+            
+            NSMutableArray *navigationArray = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
+            [navigationArray removeObjectAtIndex:1];
+            self.navigationController.viewControllers = navigationArray;
+        }
+    }
+    else
+    {
+        [self savePost];
+    }
+}
+
+- (void)savePost
+{
+    PFObject *post = [PFObject objectWithClassName:@"MentorPost"];
+    post[@"expertise"] = self.expertiseTextField.text;
+    post[@"whatICanShare"] = self.whatICanShareTextView.text;
+    post[@"price"] = @([self.priceTextField.text integerValue]);
+    post[@"locationCity"] = self.locationTextField.text;
+    //    post[@"locationState"] = @NO;
+    post[@"email"] = self.emailTextField.text;
+    [post saveInBackground];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"SignUpSegue"])
+    {
+        ProfileViewController *pvc = segue.destinationViewController;
+        pvc.expertiseString = self.expertiseTextField.text;
+        pvc.whatICanShareString = self.whatICanShareTextView.text;
+        pvc.locationString = self.locationTextField.text;
+        pvc.emailString = self.emailTextField.text;
+    }
+}
 
 @end
