@@ -42,6 +42,7 @@
 		DFF0AF8019242B1F00843BC7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF7F19242B1F00843BC7 /* Security.framework */; };
 		DFF0AF8219242B2700843BC7 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF8119242B2700843BC7 /* StoreKit.framework */; };
 		DFF0AF8419242B3200843BC7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF8319242B3200843BC7 /* SystemConfiguration.framework */; };
+		DFFBC8BC192A95C900BCE173 /* SearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFFBC8BB192A95C900BCE173 /* SearchResultsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +101,8 @@
 		DFF0AF7F19242B1F00843BC7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		DFF0AF8119242B2700843BC7 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		DFF0AF8319242B3200843BC7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		DFFBC8BA192A95C900BCE173 /* SearchResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultsViewController.h; sourceTree = "<group>"; };
+		DFFBC8BB192A95C900BCE173 /* SearchResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +196,8 @@
 				DFF0AF481924084900843BC7 /* AppDelegate.h */,
 				DFF0AF491924084900843BC7 /* AppDelegate.m */,
 				DFF0AF4B1924084900843BC7 /* Main.storyboard */,
+				DFFBC8BA192A95C900BCE173 /* SearchResultsViewController.h */,
+				DFFBC8BB192A95C900BCE173 /* SearchResultsViewController.m */,
 				DF75ACD81926E1A8002FA12A /* LogInViewController.h */,
 				DF75ACD91926E1A8002FA12A /* LogInViewController.m */,
 				DF75ACC91926DD4F002FA12A /* RootViewController.h */,
@@ -338,6 +343,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFFBC8BC192A95C900BCE173 /* SearchResultsViewController.m in Sources */,
 				DF75ACDA1926E1A8002FA12A /* LogInViewController.m in Sources */,
 				DFF0AF70192417F800843BC7 /* BeAMentorViewController.m in Sources */,
 				DF75ACCB1926DD4F002FA12A /* RootViewController.m in Sources */,
