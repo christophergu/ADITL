@@ -7,7 +7,7 @@
 //
 
 #import "BeAMentorViewController.h"
-#import "ProfileViewController.h"
+#import "LogInViewController.h"
 #import <Parse/Parse.h>
 #import <QuartzCore/QuartzCore.h>
 
@@ -16,7 +16,6 @@
 @property (strong, nonatomic) IBOutlet UITextView *whatICanShareTextView;
 @property (strong, nonatomic) IBOutlet UITextField *priceTextField;
 @property (strong, nonatomic) IBOutlet UITextField *locationTextField;
-@property (strong, nonatomic) IBOutlet UITextField *emailTextField;
 @property (strong, nonatomic) IBOutlet UIButton *doneButton;
 @property (strong, nonatomic) IBOutlet UILabel *missingField1Label;
 @property (strong, nonatomic) IBOutlet UILabel *missingField2Label;
@@ -44,7 +43,6 @@
     self.whatICanShareTextView.text = @"What I Can Share (optional)";
     self.priceTextField.text = @"";
     self.locationTextField.text = @"";
-    self.emailTextField.text = @"";
 }
 
 #pragma mark - what i can share text view delegate methods (for placehoder text to exist)
@@ -99,24 +97,13 @@
     [self.locationTextField endEditing:YES];
 }
 
-- (IBAction)emailEditingDidEnd:(id)sender
-{
-    [self.emailTextField endEditing:YES];
-}
-
-- (IBAction)emailDidEndOnExit:(id)sender
-{
-    [self.emailTextField endEditing:YES];
-
-}
-
 - (IBAction)onDismissKeyboardButtonPressed:(id)sender
 {
     [self.expertiseTextField endEditing:YES];
     [self.whatICanShareTextView endEditing:YES];
     [self.priceTextField endEditing:YES];
     [self.locationTextField endEditing:YES];
-    [self.emailTextField endEditing:YES];
+//    [self.emailTextField endEditing:YES];
 }
 
 #pragma mark - done button pressed
@@ -127,8 +114,6 @@
     [self.whatICanShareTextView endEditing:YES];
     [self.priceTextField endEditing:YES];
     [self.locationTextField endEditing:YES];
-    [self.emailTextField endEditing:YES];
-    
     
     NSString *trimmedExpertiseString = [self.expertiseTextField.text stringByTrimmingCharactersInSet:
                                [NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -136,15 +121,10 @@
                                         [NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *trimmedLocationString = [self.locationTextField.text stringByTrimmingCharactersInSet:
                                         [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    NSString *trimmedEmailString = [self.emailTextField.text stringByTrimmingCharactersInSet:
-                                        [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    
-    
     
     if(![trimmedExpertiseString isEqualToString:@""] &&
        ![trimmedPriceString isEqualToString:@""] &&
-       ![trimmedLocationString isEqualToString:@""] &&
-       ![trimmedEmailString isEqualToString:@""])
+       ![trimmedLocationString isEqualToString:@""])
     {
         NSLog(@"textView is ok");
         self.missingField1Label.hidden = YES;
@@ -153,12 +133,11 @@
         PFUser *userNow = [PFUser currentUser];
         if (!userNow)
         {
-            UIAlertView *nonmentorPostSuccessfulAlert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"People will now be able to search your post.\n\nWe've noticed you are not using a Mentor Profile. Would you like to create one now?" delegate:self cancelButtonTitle:@"Yes!" otherButtonTitles: @"Maybe next time", nil];
+            UIAlertView *nonmentorPostSuccessfulAlert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"People will now be able to search your post.\n\nWe've noticed you are not using a Mentor Profile. Would you like to create one now?" delegate:self cancelButtonTitle:@"Yes!" otherButtonTitles: nil];
             [nonmentorPostSuccessfulAlert show];
         }
         else if (userNow)
         {
-            [self savePost];
             UIAlertView *mentorPostSuccessfulAlert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"People will now be able to search your post.\n\nThanks for sharing!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
             [mentorPostSuccessfulAlert show];
         }
@@ -208,19 +187,6 @@
         {
             self.locationTextField.layer.borderColor = [[UIColor colorWithWhite: 0.8 alpha:1] CGColor];
         }
-        
-        if ([trimmedEmailString isEqualToString:@""])
-        {
-            self.emailTextField.backgroundColor = [UIColor whiteColor];
-            self.emailTextField.layer.borderWidth = 0.5f;
-            self.emailTextField.layer.cornerRadius = 5.0f;
-            self.emailTextField.layer.masksToBounds = YES;
-            self.emailTextField.layer.borderColor = [[UIColor redColor] CGColor];
-        }
-        else
-        {
-            self.emailTextField.layer.borderColor = [[UIColor colorWithWhite: 0.8 alpha:1] CGColor];
-        }
     }
 }
 
@@ -228,10 +194,13 @@
     // the user clicked one of the OK/Cancel buttons
     if (buttonIndex == 0)
     {
-        [self savePost];
-        
         PFUser *userNow = [PFUser currentUser];
-        if (!userNow)
+        
+        if (userNow)
+        {
+            [self savePost];
+        }
+        else if (!userNow)
         {
             [self performSegueWithIdentifier:@"SignUpSegue" sender:self];
             
@@ -239,10 +208,6 @@
             [navigationArray removeObjectAtIndex:1];
             self.navigationController.viewControllers = navigationArray;
         }
-    }
-    else
-    {
-        [self savePost];
     }
 }
 
@@ -254,7 +219,10 @@
     post[@"price"] = @([self.priceTextField.text integerValue]);
     post[@"locationCity"] = self.locationTextField.text;
     //    post[@"locationState"] = @NO;
-    post[@"email"] = self.emailTextField.text;
+    PFUser *userNow = [PFUser currentUser];
+    if (userNow) {
+        post[@"mentor"] = userNow;
+    }
     [post saveInBackground];
 }
 
@@ -262,11 +230,15 @@
 {
     if ([[segue identifier] isEqualToString:@"SignUpSegue"])
     {
-        ProfileViewController *pvc = segue.destinationViewController;
-        pvc.expertiseString = self.expertiseTextField.text;
-        pvc.whatICanShareString = self.whatICanShareTextView.text;
-        pvc.locationString = self.locationTextField.text;
-        pvc.emailString = self.emailTextField.text;
+        LogInViewController *lvc = segue.destinationViewController;
+        
+        // pass over unfinished post
+        PFObject *post = [PFObject objectWithClassName:@"MentorPost"];
+        post[@"expertise"] = self.expertiseTextField.text;
+        post[@"whatICanShare"] = self.whatICanShareTextView.text;
+        post[@"price"] = @([self.priceTextField.text integerValue]);
+        post[@"locationCity"] = self.locationTextField.text;
+        lvc.post = post;
     }
 }
 

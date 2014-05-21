@@ -7,8 +7,10 @@
 //
 
 #import "FindAMentorViewController.h"
+#import "FindAMentorCollectionViewCell.h"
 
 @interface FindAMentorViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
+@property (strong, nonatomic) NSArray *categoriesArray;
 
 @end
 
@@ -16,12 +18,13 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 0;
+    return [self.categoriesArray count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CategoryCellReuseID" forIndexPath:indexPath];
+    FindAMentorCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CategoryCellReuseID" forIndexPath:indexPath];
+    cell.categoryLabel.text = self.categoriesArray[indexPath.row];
     return cell;
 }
 
@@ -29,6 +32,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.categoriesArray = @[@"Art",@"Cooking"];
 }
 
 @end

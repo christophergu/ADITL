@@ -111,12 +111,30 @@
 //    NSData* data = UIImageJPEGRepresentation(pickedImage,1.0f);
 //    PFFile *imageFile = [PFFile fileWithData:data];
 //    user[@"avatar"] = imageFile;
-    
+     
     [user signUpInBackgroundWithTarget:self selector:@selector(handleSignUp:error:)];
 }
 
+//- (void) saveUnfinishedPost
+//{
+//    if (self.post)
+//    {
+//        NSLog(@"ya");
+//        PFUser *userNow = [PFUser currentUser];
+//        if (userNow) {
+//            self.post[@"mentor"] = userNow;
+//        }
+//        [self.post saveInBackground];
+//    }
+//    else if (!self.post)
+//    {
+//        NSLog(@"nah");
+//    }
+//}
+
 - (void)handleSignUp:(NSNumber *)result error:(NSError *)error
 {
+//    [self saveUnfinishedPost];
 //    if (!error)
 //    {
 //        [PFUser logInWithUsernameInBackground:self.usernameTextField.text password:self.passwordTextField.text block:^(PFUser *user, NSError *error) {

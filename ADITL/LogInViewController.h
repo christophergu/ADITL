@@ -9,5 +9,6 @@
 #import <Parse/Parse.h>
 
 @interface LogInViewController : PFLogInViewController
+@property (strong, nonatomic) PFObject *post;
 
 @end
