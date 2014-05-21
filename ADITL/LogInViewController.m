@@ -28,6 +28,11 @@
     
     self.delegate = self;
     self.signUpController.delegate = self;
+    
+    if (self.post) {
+        [self presentViewController:self.signUpController animated:NO completion:^{
+        }];
+    }
 }
 
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user
@@ -40,6 +45,7 @@
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user
 {
     [self dismissViewControllerAnimated:NO completion:^{
+        [self saveUnfinishedPost];
         [self performSegueWithIdentifier:@"SignUpToProfileSegue" sender:self];
     }];
 
@@ -51,6 +57,24 @@
     NSMutableArray *navigationArray = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
     [navigationArray removeObjectAtIndex:1];
     self.navigationController.viewControllers = navigationArray;
+}
+
+- (void) saveUnfinishedPost
+{
+    if (self.post)
+    {
+        NSLog(@"ya");
+//        [self dismissModalViewControllerAnimated:NO];
+        PFUser *userNow = [PFUser currentUser];
+        if (userNow) {
+            self.post[@"mentor"] = userNow;
+        }
+        [self.post saveInBackground];
+    }
+    else if (!self.post)
+    {
+        NSLog(@"nah");
+    }
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
