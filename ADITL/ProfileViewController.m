@@ -23,6 +23,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *websiteTextField;
 @property (strong, nonatomic) IBOutlet UITextField *emailTextField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *logoutBarButtonItem;
 
 @end
 
@@ -45,12 +46,22 @@
     self.whatICanShareTextView.layer.cornerRadius = 5;
     self.whatICanShareTextView.clipsToBounds = YES;
     
-    self.nameTextField.text = self.usernameString;
-    self.passwordTextField.text = self.passwordString;
-    self.expertiseTextField.text = self.expertiseString;
-    self.whatICanShareTextView.text = self.whatICanShareString;
-    self.locationTextField.text = self.locationString;
-    self.emailTextField.text = self.emailString;
+    PFUser *currentUser = [PFUser currentUser];
+    if (currentUser && !self.mentorThatPostedUser) {
+        self.nameTextField.text = currentUser[@"username"];
+        self.passwordTextField.text = currentUser[@"password"]; // change placeholder to "Change password?"
+        self.emailTextField.text = currentUser[@"email"];
+    }
+    else if (self.mentorThatPostedUser)
+    {
+        [self.logoutBarButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor clearColor]} forState:UIControlStateNormal];
+        self.logoutBarButtonItem.enabled = NO;
+        
+        [self.mentorThatPostedUser fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+            self.nameTextField.text = self.mentorThatPostedUser[@"username"];
+            self.emailTextField.text = self.mentorThatPostedUser[@"email"];
+        }];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated

@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface SearchResultsViewController : UIViewController
+@property (strong, nonatomic) NSString *categoryString;
+@property (strong, nonatomic) NSString *locationString;
+
 
 @end

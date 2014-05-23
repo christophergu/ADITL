@@ -35,7 +35,11 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    ProfileViewController *pvc = segue.destinationViewController;
+    if ([segue.identifier isEqualToString:@"SearchResultDetailsToProfileSegue"])
+    {
+        ProfileViewController *pvc = segue.destinationViewController;
+        pvc.mentorThatPostedUser = self.selectedPost[@"mentor"];
+    }
 }
 
 @end

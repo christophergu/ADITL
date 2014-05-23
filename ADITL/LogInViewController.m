@@ -79,19 +79,19 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    ProfileViewController *pvc = segue.destinationViewController;
-    
-    if ([[segue identifier] isEqualToString:@"LogInToProfileSegue"])
-    {
-        pvc.usernameString = self.logInView.usernameField.text;
-        pvc.passwordString = self.logInView.passwordField.text;
-    }
-    else if ([[segue identifier] isEqualToString:@"SignUpToProfileSegue"])
-    {
-        pvc.usernameString = self.signUpController.signUpView.usernameField.text;
-        pvc.passwordString = self.signUpController.signUpView.passwordField.text;
-        pvc.emailString = self.signUpController.signUpView.emailField.text;
-    }
+//    ProfileViewController *pvc = segue.destinationViewController;
+//    
+//    if ([[segue identifier] isEqualToString:@"LogInToProfileSegue"])
+//    {
+//        pvc.usernameString = self.logInView.usernameField.text;
+//        pvc.passwordString = self.logInView.passwordField.text;
+//    }
+//    else if ([[segue identifier] isEqualToString:@"SignUpToProfileSegue"])
+//    {
+//        pvc.usernameString = self.signUpController.signUpView.usernameField.text;
+//        pvc.passwordString = self.signUpController.signUpView.passwordField.text;
+//        pvc.emailString = self.signUpController.signUpView.emailField.text;
+//    }
 }
 
 @end

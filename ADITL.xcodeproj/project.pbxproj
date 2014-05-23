@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		DF0F00BE1926B4CB009EA0CB /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0F00BD1926B4CB009EA0CB /* ProfileViewController.m */; };
+		DF464410192EBEEB001803F4 /* BeAMentorCategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DF46440F192EBEEB001803F4 /* BeAMentorCategoryTableViewCell.m */; };
+		DF464413192ED57F001803F4 /* MessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF464412192ED57F001803F4 /* MessagesViewController.m */; };
 		DF75ACC81926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = DF75ACC71926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.m */; };
 		DF75ACCB1926DD4F002FA12A /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF75ACCA1926DD4F002FA12A /* RootViewController.m */; };
 		DF75ACCD1926E0AC002FA12A /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF75ACCC1926E0AC002FA12A /* FacebookSDK.framework */; };
@@ -61,6 +63,10 @@
 /* Begin PBXFileReference section */
 		DF0F00BC1926B4CB009EA0CB /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		DF0F00BD1926B4CB009EA0CB /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		DF46440E192EBEEB001803F4 /* BeAMentorCategoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeAMentorCategoryTableViewCell.h; sourceTree = "<group>"; };
+		DF46440F192EBEEB001803F4 /* BeAMentorCategoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeAMentorCategoryTableViewCell.m; sourceTree = "<group>"; };
+		DF464411192ED57F001803F4 /* MessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesViewController.h; sourceTree = "<group>"; };
+		DF464412192ED57F001803F4 /* MessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagesViewController.m; sourceTree = "<group>"; };
 		DF75ACC61926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollViewThatDoesNotAnimateWithKeyboard.h; sourceTree = "<group>"; };
 		DF75ACC71926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollViewThatDoesNotAnimateWithKeyboard.m; sourceTree = "<group>"; };
 		DF75ACC91926DD4F002FA12A /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
@@ -205,10 +211,6 @@
 				DFF0AF481924084900843BC7 /* AppDelegate.h */,
 				DFF0AF491924084900843BC7 /* AppDelegate.m */,
 				DFF0AF4B1924084900843BC7 /* Main.storyboard */,
-				DFFBC8BA192A95C900BCE173 /* SearchResultsViewController.h */,
-				DFFBC8BB192A95C900BCE173 /* SearchResultsViewController.m */,
-				DFFBC8BD192AA07400BCE173 /* SearchResultsDetailViewController.h */,
-				DFFBC8BE192AA07400BCE173 /* SearchResultsDetailViewController.m */,
 				DF75ACD81926E1A8002FA12A /* LogInViewController.h */,
 				DF75ACD91926E1A8002FA12A /* LogInViewController.m */,
 				DF75ACC91926DD4F002FA12A /* RootViewController.h */,
@@ -221,7 +223,15 @@
 				DFF0AF6F192417F800843BC7 /* BeAMentorViewController.m */,
 				DF75ACDB1927281C002FA12A /* FindAMentorViewController.h */,
 				DF75ACDC1927281C002FA12A /* FindAMentorViewController.m */,
+				DFFBC8BA192A95C900BCE173 /* SearchResultsViewController.h */,
+				DFFBC8BB192A95C900BCE173 /* SearchResultsViewController.m */,
+				DFFBC8BD192AA07400BCE173 /* SearchResultsDetailViewController.h */,
+				DFFBC8BE192AA07400BCE173 /* SearchResultsDetailViewController.m */,
+				DF464411192ED57F001803F4 /* MessagesViewController.h */,
+				DF464412192ED57F001803F4 /* MessagesViewController.m */,
 				DFF0AF511924084900843BC7 /* Images.xcassets */,
+				DF46440E192EBEEB001803F4 /* BeAMentorCategoryTableViewCell.h */,
+				DF46440F192EBEEB001803F4 /* BeAMentorCategoryTableViewCell.m */,
 				DF75ACC61926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.h */,
 				DF75ACC71926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.m */,
 				DFF2ADA7192D67D300564407 /* FindAMentorCollectionViewCell.h */,
@@ -362,7 +372,9 @@
 				DF75ACDA1926E1A8002FA12A /* LogInViewController.m in Sources */,
 				DFF0AF70192417F800843BC7 /* BeAMentorViewController.m in Sources */,
 				DFF2ADA6192D64D900564407 /* BeAMentorCategoryViewController.m in Sources */,
+				DF464410192EBEEB001803F4 /* BeAMentorCategoryTableViewCell.m in Sources */,
 				DFF2ADA9192D67D300564407 /* FindAMentorCollectionViewCell.m in Sources */,
+				DF464413192ED57F001803F4 /* MessagesViewController.m in Sources */,
 				DF75ACCB1926DD4F002FA12A /* RootViewController.m in Sources */,
 				DF75ACC81926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.m in Sources */,
 				DF75ACDD1927281C002FA12A /* FindAMentorViewController.m in Sources */,

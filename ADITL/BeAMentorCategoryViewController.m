@@ -7,10 +7,13 @@
 //
 
 #import "BeAMentorCategoryViewController.h"
+#import "BeAMentorViewController.h"
+#import "BeAMentorCategoryTableViewCell.h"
 
 @interface BeAMentorCategoryViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *categoriesArray;
+
 
 @end
 
@@ -20,7 +23,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.categoriesArray = @[@"Art",@"Cooking"];
+    NSDictionary *categoryArt = @{@"Art": [UIImage imageNamed:@"art"]};
+    NSDictionary *categoryCooking = @{@"Cooking": [UIImage imageNamed:@"cooking"]};
+    self.categoriesArray = @[categoryArt, categoryCooking];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -30,9 +35,22 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CategoryCellReuseID"];
-    cell.textLabel.text = self.categoriesArray[indexPath.row];
+    BeAMentorCategoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CategoryCellReuseID"];
+    
+    cell.categoryTextLabel.text = [self.categoriesArray[indexPath.row] allKeys][0];
+    cell.categoryImageView.image = self.categoriesArray[indexPath.row][cell.categoryTextLabel.text];
+    cell.categoryImageView.contentMode = UIViewContentModeScaleAspectFill;
+    cell.categoryImageView.clipsToBounds = YES;
+    
     return cell;
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UITableViewCell *)cell
+{
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    BeAMentorViewController *bamvc = segue.destinationViewController;
+    NSString *categoryString = [self.categoriesArray[indexPath.row] allKeys][0];
+    bamvc.categoryString = categoryString;
 }
 
 @end

@@ -24,24 +24,14 @@
     // Do any additional setup after loading the view.
     
     PFQuery *searchResultsQuery = [PFQuery queryWithClassName:@"MentorPost"];
+    [searchResultsQuery whereKey:@"category" equalTo:self.categoryString];
+    if (self.locationString.length)
+    {
+        [searchResultsQuery whereKey:@"locationCity" equalTo:self.locationString];
+    }
     [searchResultsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        
         self.searchResultsArray = objects;
-//        for (PFObject *recommendation in objects) {
-//            [self.currentUser addUniqueObject:recommendation forKey:@"recommendations"];
-//        }
-//        int recommendationCount = [self.currentUser[@"recommendations"] count];
-//        for (int i = 0; i < recommendationCount; i++)
-//        {
-//            PFObject *recommendation = self.currentUser[@"recommendations"][i];
-//            [recommendation fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error)
-//             {
-//                 if (![self.recommendationsArray containsObject:recommendation])
-//                 {
-//                     [self.recommendationsArray addObject:recommendation];
-//                 }
-//             }];
-//        }
+
         [self.myTableView reloadData];
     }];
 }

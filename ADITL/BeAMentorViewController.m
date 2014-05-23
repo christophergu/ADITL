@@ -19,6 +19,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *doneButton;
 @property (strong, nonatomic) IBOutlet UILabel *missingField1Label;
 @property (strong, nonatomic) IBOutlet UILabel *missingField2Label;
+@property (strong, nonatomic) IBOutlet UILabel *categoryLabel;
 
 @end
 
@@ -28,6 +29,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.categoryLabel.text = [NSString stringWithFormat:@"Category: %@",self.categoryString];
     
     self.whatICanShareTextView.text = @"What I Can Share (optional)";
     self.whatICanShareTextView.textColor = [UIColor colorWithWhite: 0.8 alpha:1]; //optional
@@ -214,6 +217,7 @@
 - (void)savePost
 {
     PFObject *post = [PFObject objectWithClassName:@"MentorPost"];
+    post[@"category"] = self.categoryString;
     post[@"expertise"] = self.expertiseTextField.text;
     post[@"whatICanShare"] = self.whatICanShareTextView.text;
     post[@"price"] = @([self.priceTextField.text integerValue]);

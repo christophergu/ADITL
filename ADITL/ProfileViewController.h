@@ -7,13 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 
 @interface ProfileViewController : UIViewController
-@property (strong, nonatomic) NSString *usernameString;
-@property (strong, nonatomic) NSString *passwordString;
-@property (strong, nonatomic) NSString *expertiseString;
-@property (strong, nonatomic) NSString *whatICanShareString;
-@property (strong, nonatomic) NSString *locationString;
-@property (strong, nonatomic) NSString *emailString;
+@property (strong, nonatomic) PFUser *mentorThatPostedUser;
 
 @end

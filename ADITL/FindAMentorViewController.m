@@ -8,9 +8,12 @@
 
 #import "FindAMentorViewController.h"
 #import "FindAMentorCollectionViewCell.h"
+#import "SearchResultsViewController.h"
 
 @interface FindAMentorViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (strong, nonatomic) NSArray *categoriesArray;
+@property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic) IBOutlet UITextField *locationTextField;
 
 @end
 
@@ -24,7 +27,8 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     FindAMentorCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CategoryCellReuseID" forIndexPath:indexPath];
-    cell.categoryLabel.text = self.categoriesArray[indexPath.row];
+    cell.categoryLabel.text = [self.categoriesArray[indexPath.row] allKeys][0];
+    cell.categoryImageView.image = self.categoriesArray[indexPath.row][cell.categoryLabel.text];
     return cell;
 }
 
@@ -32,7 +36,18 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.categoriesArray = @[@"Art",@"Cooking"];
+    NSDictionary *categoryArt = @{@"Art": [UIImage imageNamed:@"art"]};
+    NSDictionary *categoryCooking = @{@"Cooking": [UIImage imageNamed:@"cooking"]};
+    self.categoriesArray = @[categoryArt, categoryCooking];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UICollectionViewCell *)cell
+{
+    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
+    SearchResultsViewController *srvc = segue.destinationViewController;
+    NSString *categoryString = [self.categoriesArray[indexPath.row] allKeys][0];
+    srvc.locationString = self.locationTextField.text;
+    srvc.categoryString = categoryString;
 }
 
 @end
