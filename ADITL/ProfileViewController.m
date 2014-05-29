@@ -7,6 +7,8 @@
 //
 
 #import "ProfileViewController.h"
+#import "ProfileConversationBoxViewController.h"
+#import "ProfilePostsViewController.h"
 #import <Parse/Parse.h>
 
 @interface ProfileViewController () <UIScrollViewDelegate>
@@ -24,6 +26,9 @@
 @property (strong, nonatomic) IBOutlet UITextField *emailTextField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *logoutBarButtonItem;
+@property (strong, nonatomic) IBOutlet UILabel *conversationCounterLabel;
+@property (strong, nonatomic) NSArray *conversationArray;
+@property (strong, nonatomic) NSArray *postArray;
 
 @end
 
@@ -62,6 +67,21 @@
             self.emailTextField.text = self.mentorThatPostedUser[@"email"];
         }];
     }
+    
+    NSArray *currentUserArray = @[currentUser[@"email"]];
+    
+    PFQuery *conversationQuery = [PFQuery queryWithClassName:@"ConversationThread"];
+    [conversationQuery whereKey:@"chattersArray" containsAllObjectsInArray:currentUserArray];
+    [conversationQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        self.conversationCounterLabel.text = [NSString stringWithFormat:@"x%lu",(unsigned long)[objects count]];
+        self.conversationArray = objects;
+    }];
+    
+    PFQuery *postQuery = [PFQuery queryWithClassName:@"MentorPost"];
+    [postQuery whereKey:@"mentor" equalTo:currentUser];
+    [postQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        self.postArray = objects;
+    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -175,6 +195,30 @@
     [self.websiteTextField endEditing:YES];
     [self.emailTextField endEditing:YES];
     [self.passwordTextField endEditing:YES];
+}
+
+- (IBAction)onConversationButtonPressed:(id)sender
+{
+    [self performSegueWithIdentifier:@"ConversationBoxSegue" sender:self];
+}
+
+- (IBAction)onViewPostsButtonPressed:(id)sender
+{
+    [self performSegueWithIdentifier:@"ViewPostsSegue" sender:self];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"ConversationBoxSegue"])
+    {
+        ProfileConversationBoxViewController *pcbvc = segue.destinationViewController;
+        pcbvc.conversationArray = self.conversationArray;
+    }
+    else if ([segue.identifier isEqualToString:@"ViewPostsSegue"])
+    {
+        ProfilePostsViewController *ppvc = segue.destinationViewController;
+        ppvc.postArray = self.postArray;
+    }
 }
 
 @end

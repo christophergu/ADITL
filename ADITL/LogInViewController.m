@@ -8,6 +8,7 @@
 
 #import "LogInViewController.h"
 #import "ProfileViewController.h"
+#import "ConversationViewController.h"
 
 @interface LogInViewController ()<PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate>
 
@@ -36,20 +37,44 @@
 }
 
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user
-{    
-    [self performSegueWithIdentifier:@"LogInToProfileSegue" sender:self];
-    
-    [self removeLogInSignUpFromStack];
+{
+    if (self.becauseLoginRequired)
+    {
+        
+        
+        [self performSegueWithIdentifier:@"LoginToConversationVCSegue" sender:self];
+        
+        NSMutableArray *navigationArray = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
+        [navigationArray removeObjectAtIndex:4];
+        self.navigationController.viewControllers = navigationArray;
+    }
+    else
+    {
+        [self performSegueWithIdentifier:@"LogInToProfileSegue" sender:self];
+        
+        [self removeLogInSignUpFromStack];
+    }
 }
 
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user
 {
-    [self dismissViewControllerAnimated:NO completion:^{
-        [self saveUnfinishedPost];
-        [self performSegueWithIdentifier:@"SignUpToProfileSegue" sender:self];
-    }];
-
-    [self removeLogInSignUpFromStack];
+    if (self.becauseLoginRequired)
+    {
+        [self performSegueWithIdentifier:@"LoginToConversationVCSegue" sender:self];
+        
+        NSMutableArray *navigationArray = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
+        [navigationArray removeObjectAtIndex:4];
+        self.navigationController.viewControllers = navigationArray;
+    }
+    else
+    {
+        [self dismissViewControllerAnimated:NO completion:^{
+            [self saveUnfinishedPost];
+            [self performSegueWithIdentifier:@"SignUpToProfileSegue" sender:self];
+        }];
+        
+        [self removeLogInSignUpFromStack];
+    }
 }
 
 - (void)removeLogInSignUpFromStack
@@ -79,19 +104,12 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-//    ProfileViewController *pvc = segue.destinationViewController;
-//    
-//    if ([[segue identifier] isEqualToString:@"LogInToProfileSegue"])
-//    {
-//        pvc.usernameString = self.logInView.usernameField.text;
-//        pvc.passwordString = self.logInView.passwordField.text;
-//    }
-//    else if ([[segue identifier] isEqualToString:@"SignUpToProfileSegue"])
-//    {
-//        pvc.usernameString = self.signUpController.signUpView.usernameField.text;
-//        pvc.passwordString = self.signUpController.signUpView.passwordField.text;
-//        pvc.emailString = self.signUpController.signUpView.emailField.text;
-//    }
+    ConversationViewController *cvc = segue.destinationViewController;
+    
+    if ([[segue identifier] isEqualToString:@"LoginToConversationVCSegue"])
+    {
+        cvc.conversation = self.conversation;
+    }
 }
 
 @end

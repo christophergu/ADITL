@@ -10,5 +10,8 @@
 
 @interface LogInViewController : PFLogInViewController
 @property (strong, nonatomic) PFObject *post;
+@property BOOL becauseLoginRequired;
+@property (strong, nonatomic) NSString *mentorString;
+@property (strong, nonatomic) PFObject *conversation;
 
 @end
