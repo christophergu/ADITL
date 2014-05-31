@@ -28,7 +28,9 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *logoutBarButtonItem;
 @property (strong, nonatomic) IBOutlet UILabel *conversationCounterLabel;
 @property (strong, nonatomic) NSArray *conversationArray;
-@property (strong, nonatomic) NSArray *postArray;
+@property (strong, nonatomic) NSMutableDictionary *postDictionary;
+@property (strong, nonatomic) NSMutableArray *postGroupsArray;
+
 
 @end
 
@@ -77,10 +79,39 @@
         self.conversationArray = objects;
     }];
     
+    self.postGroupsArray = [NSMutableArray new];
+    
     PFQuery *postQuery = [PFQuery queryWithClassName:@"MentorPost"];
     [postQuery whereKey:@"mentor" equalTo:currentUser];
-    [postQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        self.postArray = objects;
+    [postQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+    {
+//        self.postArray = objects;
+        
+        self.postDictionary = [NSMutableDictionary new];
+        
+        for (PFObject *post in objects)
+        {
+            if (![self.postGroupsArray containsObject:post[@"category"]]) {
+                [self.postGroupsArray addObject:post[@"category"]];
+            }
+        }
+        [self.postGroupsArray sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+        
+        for (NSString *groupName in self.postGroupsArray)
+        {
+            NSMutableArray *postArray = [NSMutableArray new];
+            
+            for (PFObject *post in objects)
+            {
+                if ([post[@"category"] isEqualToString:groupName])
+                {
+                    [postArray addObject:post];
+                }
+            }
+            [self.postDictionary setObject:postArray forKey:groupName];
+        }
+        
+        NSLog(@"%@",self.postDictionary);
     }];
 }
 
@@ -217,7 +248,8 @@
     else if ([segue.identifier isEqualToString:@"ViewPostsSegue"])
     {
         ProfilePostsViewController *ppvc = segue.destinationViewController;
-        ppvc.postArray = self.postArray;
+        ppvc.postDictionary = self.postDictionary;
+        ppvc.postGroupsArray = self.postGroupsArray;
     }
 }
 

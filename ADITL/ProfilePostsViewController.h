@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ProfilePostsViewController : UIViewController
-@property (strong, nonatomic) NSArray *postArray;
+@property (strong, nonatomic) NSMutableDictionary *postDictionary;
+@property (strong, nonatomic) NSMutableArray *postGroupsArray;
 
 @end
