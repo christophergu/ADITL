@@ -8,7 +8,6 @@
 
 #import "ProfileViewController.h"
 #import "ProfileConversationBoxViewController.h"
-#import "ProfilePostsViewController.h"
 #import <Parse/Parse.h>
 
 @interface ProfileViewController () <UIScrollViewDelegate>
@@ -30,6 +29,7 @@
 @property (strong, nonatomic) NSArray *conversationArray;
 @property (strong, nonatomic) NSMutableDictionary *postDictionary;
 @property (strong, nonatomic) NSMutableArray *postGroupsArray;
+@property (strong, nonatomic) IBOutlet UIButton *interestAddButton;
 
 
 @end
@@ -41,17 +41,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.interestAddButton.layer.cornerRadius = 5.0f;
+    
     self.aboutMeTextView.textColor = [UIColor colorWithWhite: 0.8 alpha:1]; //optional
     [self.aboutMeTextView.layer setBorderColor:[[UIColor colorWithWhite: 0.8 alpha:1] CGColor]];
     [self.aboutMeTextView.layer setBorderWidth:0.5];
     self.aboutMeTextView.layer.cornerRadius = 5;
     self.aboutMeTextView.clipsToBounds = YES;
-    
-    self.whatICanShareTextView.textColor = [UIColor colorWithWhite: 0.8 alpha:1]; //optional
-    [self.whatICanShareTextView.layer setBorderColor:[[UIColor colorWithWhite: 0.8 alpha:1] CGColor]];
-    [self.whatICanShareTextView.layer setBorderWidth:0.5];
-    self.whatICanShareTextView.layer.cornerRadius = 5;
-    self.whatICanShareTextView.clipsToBounds = YES;
     
     PFUser *currentUser = [PFUser currentUser];
     if (currentUser && !self.mentorThatPostedUser) {
@@ -78,41 +74,6 @@
         self.conversationCounterLabel.text = [NSString stringWithFormat:@"x%lu",(unsigned long)[objects count]];
         self.conversationArray = objects;
     }];
-    
-    self.postGroupsArray = [NSMutableArray new];
-    
-    PFQuery *postQuery = [PFQuery queryWithClassName:@"MentorPost"];
-    [postQuery whereKey:@"mentor" equalTo:currentUser];
-    [postQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-    {
-//        self.postArray = objects;
-        
-        self.postDictionary = [NSMutableDictionary new];
-        
-        for (PFObject *post in objects)
-        {
-            if (![self.postGroupsArray containsObject:post[@"category"]]) {
-                [self.postGroupsArray addObject:post[@"category"]];
-            }
-        }
-        [self.postGroupsArray sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-        
-        for (NSString *groupName in self.postGroupsArray)
-        {
-            NSMutableArray *postArray = [NSMutableArray new];
-            
-            for (PFObject *post in objects)
-            {
-                if ([post[@"category"] isEqualToString:groupName])
-                {
-                    [postArray addObject:post];
-                }
-            }
-            [self.postDictionary setObject:postArray forKey:groupName];
-        }
-        
-        NSLog(@"%@",self.postDictionary);
-    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -124,36 +85,25 @@
     [self.scrollView addSubview:self.uiViewForScrollView];
 }
 
-#pragma mark - what i can share text view delegate methods (for placehoder text to exist)
-
-- (void)textViewDidBeginEditing:(UITextView *)textView
-{
-    if ([self.aboutMeTextView.text isEqualToString:@"About Me"]) {
-        self.aboutMeTextView.text = @"";
-        self.aboutMeTextView.textColor = [UIColor blackColor]; //optional
-//        [self.aboutMeTextView becomeFirstResponder];
-    }
-    if ([self.whatICanShareTextView.text isEqualToString:@"What I Can Share"])
-    {
-        self.whatICanShareTextView.text = @"";
-        self.whatICanShareTextView.textColor = [UIColor blackColor]; //optional
-//        [self.whatICanShareTextView becomeFirstResponder];
-    }
-}
-
-- (void)textViewDidEndEditing:(UITextView *)textView
-{
-    if ([self.aboutMeTextView.text isEqualToString:@""]) {
-        self.aboutMeTextView.text = @"About Me";
-        self.aboutMeTextView.textColor = [UIColor colorWithWhite: 0.8 alpha:1]; //optional
-        [self.aboutMeTextView resignFirstResponder];
-    }
-    if ([self.whatICanShareTextView.text isEqualToString:@""]) {
-        self.whatICanShareTextView.text = @"What I Can Share";
-        self.whatICanShareTextView.textColor = [UIColor colorWithWhite: 0.8 alpha:1]; //optional
-        [self.whatICanShareTextView resignFirstResponder];
-    }
-}
+//#pragma mark - what i can share text view delegate methods (for placehoder text to exist)
+//
+//- (void)textViewDidBeginEditing:(UITextView *)textView
+//{
+//    if ([self.aboutMeTextView.text isEqualToString:@"About Me"]) {
+//        self.aboutMeTextView.text = @"";
+//        self.aboutMeTextView.textColor = [UIColor blackColor]; //optional
+////        [self.aboutMeTextView becomeFirstResponder];
+//    }
+//}
+//
+//- (void)textViewDidEndEditing:(UITextView *)textView
+//{
+//    if ([self.aboutMeTextView.text isEqualToString:@""]) {
+//        self.aboutMeTextView.text = @"About Me";
+//        self.aboutMeTextView.textColor = [UIColor colorWithWhite: 0.8 alpha:1]; //optional
+//        [self.aboutMeTextView resignFirstResponder];
+//    }
+//}
 
 - (IBAction)onSaveButtonPressed:(id)sender
 {
@@ -244,12 +194,6 @@
     {
         ProfileConversationBoxViewController *pcbvc = segue.destinationViewController;
         pcbvc.conversationArray = self.conversationArray;
-    }
-    else if ([segue.identifier isEqualToString:@"ViewPostsSegue"])
-    {
-        ProfilePostsViewController *ppvc = segue.destinationViewController;
-        ppvc.postDictionary = self.postDictionary;
-        ppvc.postGroupsArray = self.postGroupsArray;
     }
 }
 

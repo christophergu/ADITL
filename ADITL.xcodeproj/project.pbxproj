@@ -10,7 +10,6 @@
 		DF0F00BE1926B4CB009EA0CB /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0F00BD1926B4CB009EA0CB /* ProfileViewController.m */; };
 		DF107B4A19367ED200C23952 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF107B4919367ED200C23952 /* ConversationViewController.m */; };
 		DF107B4E1936C60500C23952 /* ProfileConversationBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF107B4D1936C60500C23952 /* ProfileConversationBoxViewController.m */; };
-		DF107B511936CCFB00C23952 /* ProfilePostsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF107B501936CCFB00C23952 /* ProfilePostsViewController.m */; };
 		DF172301193A9D560041914F /* ConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF172300193A9D560041914F /* ConfirmationViewController.m */; };
 		DF464410192EBEEB001803F4 /* BeAMentorCategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DF46440F192EBEEB001803F4 /* BeAMentorCategoryTableViewCell.m */; };
 		DF75ACC81926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = DF75ACC71926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.m */; };
@@ -50,7 +49,6 @@
 		DFF2ADA6192D64D900564407 /* BeAMentorCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFF2ADA5192D64D900564407 /* BeAMentorCategoryViewController.m */; };
 		DFF2ADA9192D67D300564407 /* FindAMentorCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DFF2ADA8192D67D300564407 /* FindAMentorCollectionViewCell.m */; };
 		DFFBC8BC192A95C900BCE173 /* SearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFFBC8BB192A95C900BCE173 /* SearchResultsViewController.m */; };
-		DFFBC8BF192AA07400BCE173 /* SearchResultsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFFBC8BE192AA07400BCE173 /* SearchResultsDetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,8 +68,6 @@
 		DF107B4919367ED200C23952 /* ConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewController.m; sourceTree = "<group>"; };
 		DF107B4C1936C60500C23952 /* ProfileConversationBoxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileConversationBoxViewController.h; sourceTree = "<group>"; };
 		DF107B4D1936C60500C23952 /* ProfileConversationBoxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileConversationBoxViewController.m; sourceTree = "<group>"; };
-		DF107B4F1936CCFB00C23952 /* ProfilePostsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfilePostsViewController.h; sourceTree = "<group>"; };
-		DF107B501936CCFB00C23952 /* ProfilePostsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfilePostsViewController.m; sourceTree = "<group>"; };
 		DF1722FF193A9D560041914F /* ConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmationViewController.h; sourceTree = "<group>"; };
 		DF172300193A9D560041914F /* ConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmationViewController.m; sourceTree = "<group>"; };
 		DF46440E192EBEEB001803F4 /* BeAMentorCategoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeAMentorCategoryTableViewCell.h; sourceTree = "<group>"; };
@@ -125,8 +121,6 @@
 		DFF2ADA8192D67D300564407 /* FindAMentorCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindAMentorCollectionViewCell.m; sourceTree = "<group>"; };
 		DFFBC8BA192A95C900BCE173 /* SearchResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultsViewController.h; sourceTree = "<group>"; };
 		DFFBC8BB192A95C900BCE173 /* SearchResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsViewController.m; sourceTree = "<group>"; };
-		DFFBC8BD192AA07400BCE173 /* SearchResultsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultsDetailViewController.h; sourceTree = "<group>"; };
-		DFFBC8BE192AA07400BCE173 /* SearchResultsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsDetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,8 +222,6 @@
 				DF0F00BD1926B4CB009EA0CB /* ProfileViewController.m */,
 				DF107B4C1936C60500C23952 /* ProfileConversationBoxViewController.h */,
 				DF107B4D1936C60500C23952 /* ProfileConversationBoxViewController.m */,
-				DF107B4F1936CCFB00C23952 /* ProfilePostsViewController.h */,
-				DF107B501936CCFB00C23952 /* ProfilePostsViewController.m */,
 				DFF2ADA4192D64D900564407 /* BeAMentorCategoryViewController.h */,
 				DFF2ADA5192D64D900564407 /* BeAMentorCategoryViewController.m */,
 				DFF0AF6E192417F800843BC7 /* BeAMentorViewController.h */,
@@ -238,8 +230,6 @@
 				DF75ACDC1927281C002FA12A /* FindAMentorViewController.m */,
 				DFFBC8BA192A95C900BCE173 /* SearchResultsViewController.h */,
 				DFFBC8BB192A95C900BCE173 /* SearchResultsViewController.m */,
-				DFFBC8BD192AA07400BCE173 /* SearchResultsDetailViewController.h */,
-				DFFBC8BE192AA07400BCE173 /* SearchResultsDetailViewController.m */,
 				DF107B4819367ED200C23952 /* ConversationViewController.h */,
 				DF107B4919367ED200C23952 /* ConversationViewController.m */,
 				DF1722FF193A9D560041914F /* ConfirmationViewController.h */,
@@ -383,7 +373,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF107B511936CCFB00C23952 /* ProfilePostsViewController.m in Sources */,
 				DF172301193A9D560041914F /* ConfirmationViewController.m in Sources */,
 				DFFBC8BC192A95C900BCE173 /* SearchResultsViewController.m in Sources */,
 				DF75ACDA1926E1A8002FA12A /* LogInViewController.m in Sources */,
@@ -395,7 +384,6 @@
 				DF75ACC81926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.m in Sources */,
 				DF75ACDD1927281C002FA12A /* FindAMentorViewController.m in Sources */,
 				DF107B4A19367ED200C23952 /* ConversationViewController.m in Sources */,
-				DFFBC8BF192AA07400BCE173 /* SearchResultsDetailViewController.m in Sources */,
 				DFF0AF4A1924084900843BC7 /* AppDelegate.m in Sources */,
 				DFF0AF461924084900843BC7 /* main.m in Sources */,
 				DF0F00BE1926B4CB009EA0CB /* ProfileViewController.m in Sources */,

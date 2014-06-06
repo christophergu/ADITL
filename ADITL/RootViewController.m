@@ -10,24 +10,16 @@
 #import <Parse/Parse.h>
 
 @interface RootViewController ()
+@property (strong, nonatomic) IBOutlet UIButton *loginButton;
 
 @end
 
 @implementation RootViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.loginButton.layer.cornerRadius = 5.0f;
 }
 
 - (IBAction)onMentorLogInButtonPressed:(id)sender

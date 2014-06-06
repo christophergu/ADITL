@@ -19,6 +19,15 @@
 
 @implementation FindAMentorViewController
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    NSDictionary *categoryArt = @{@"Art": [UIImage imageNamed:@"art"]};
+    NSDictionary *categoryCooking = @{@"Cooking": [UIImage imageNamed:@"cooking"]};
+    self.categoriesArray = @[categoryArt, categoryCooking];
+}
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return [self.categoriesArray count];
@@ -30,15 +39,6 @@
     cell.categoryLabel.text = [self.categoriesArray[indexPath.row] allKeys][0];
     cell.categoryImageView.image = self.categoriesArray[indexPath.row][cell.categoryLabel.text];
     return cell;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    NSDictionary *categoryArt = @{@"Art": [UIImage imageNamed:@"art"]};
-    NSDictionary *categoryCooking = @{@"Cooking": [UIImage imageNamed:@"cooking"]};
-    self.categoriesArray = @[categoryArt, categoryCooking];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UICollectionViewCell *)cell

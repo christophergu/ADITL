@@ -7,7 +7,6 @@
 //
 
 #import "SearchResultsViewController.h"
-#import "SearchResultsDetailViewController.h"
 #import <Parse/Parse.h>
 
 @interface SearchResultsViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -55,9 +54,8 @@
     if ([segue.identifier isEqualToString:@"SearchResultsDetailSegue"])
     {
         NSIndexPath *indexPath = [self.myTableView indexPathForCell:cell];
-        SearchResultsDetailViewController *srdvc = segue.destinationViewController;
         
-        srdvc.selectedPost = self.searchResultsArray[indexPath.row];
+//        srdvc.selectedPost = self.searchResultsArray[indexPath.row];
     }
 }
 
