@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF0B776F19422C8B00B4ED61 /* EnthusiastProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0B776E19422C8B00B4ED61 /* EnthusiastProfileViewController.m */; };
+		DF0B77721942687300B4ED61 /* AddToShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0B77711942687300B4ED61 /* AddToShareViewController.m */; };
 		DF0F00BE1926B4CB009EA0CB /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0F00BD1926B4CB009EA0CB /* ProfileViewController.m */; };
 		DF107B4A19367ED200C23952 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF107B4919367ED200C23952 /* ConversationViewController.m */; };
 		DF107B4E1936C60500C23952 /* ProfileConversationBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF107B4D1936C60500C23952 /* ProfileConversationBoxViewController.m */; };
@@ -62,6 +64,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DF0B776D19422C8B00B4ED61 /* EnthusiastProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnthusiastProfileViewController.h; sourceTree = "<group>"; };
+		DF0B776E19422C8B00B4ED61 /* EnthusiastProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnthusiastProfileViewController.m; sourceTree = "<group>"; };
+		DF0B77701942687300B4ED61 /* AddToShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddToShareViewController.h; sourceTree = "<group>"; };
+		DF0B77711942687300B4ED61 /* AddToShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddToShareViewController.m; sourceTree = "<group>"; };
 		DF0F00BC1926B4CB009EA0CB /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		DF0F00BD1926B4CB009EA0CB /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		DF107B4819367ED200C23952 /* ConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewController.h; sourceTree = "<group>"; };
@@ -220,8 +226,12 @@
 				DF75ACCA1926DD4F002FA12A /* RootViewController.m */,
 				DF0F00BC1926B4CB009EA0CB /* ProfileViewController.h */,
 				DF0F00BD1926B4CB009EA0CB /* ProfileViewController.m */,
+				DF0B776D19422C8B00B4ED61 /* EnthusiastProfileViewController.h */,
+				DF0B776E19422C8B00B4ED61 /* EnthusiastProfileViewController.m */,
 				DF107B4C1936C60500C23952 /* ProfileConversationBoxViewController.h */,
 				DF107B4D1936C60500C23952 /* ProfileConversationBoxViewController.m */,
+				DF0B77701942687300B4ED61 /* AddToShareViewController.h */,
+				DF0B77711942687300B4ED61 /* AddToShareViewController.m */,
 				DFF2ADA4192D64D900564407 /* BeAMentorCategoryViewController.h */,
 				DFF2ADA5192D64D900564407 /* BeAMentorCategoryViewController.m */,
 				DFF0AF6E192417F800843BC7 /* BeAMentorViewController.h */,
@@ -385,6 +395,8 @@
 				DF75ACDD1927281C002FA12A /* FindAMentorViewController.m in Sources */,
 				DF107B4A19367ED200C23952 /* ConversationViewController.m in Sources */,
 				DFF0AF4A1924084900843BC7 /* AppDelegate.m in Sources */,
+				DF0B77721942687300B4ED61 /* AddToShareViewController.m in Sources */,
+				DF0B776F19422C8B00B4ED61 /* EnthusiastProfileViewController.m in Sources */,
 				DFF0AF461924084900843BC7 /* main.m in Sources */,
 				DF0F00BE1926B4CB009EA0CB /* ProfileViewController.m in Sources */,
 				DF107B4E1936C60500C23952 /* ProfileConversationBoxViewController.m in Sources */,
