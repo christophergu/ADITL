@@ -11,6 +11,7 @@
 		DF107B4A19367ED200C23952 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF107B4919367ED200C23952 /* ConversationViewController.m */; };
 		DF107B4E1936C60500C23952 /* ProfileConversationBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF107B4D1936C60500C23952 /* ProfileConversationBoxViewController.m */; };
 		DF107B511936CCFB00C23952 /* ProfilePostsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF107B501936CCFB00C23952 /* ProfilePostsViewController.m */; };
+		DF172301193A9D560041914F /* ConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF172300193A9D560041914F /* ConfirmationViewController.m */; };
 		DF464410192EBEEB001803F4 /* BeAMentorCategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DF46440F192EBEEB001803F4 /* BeAMentorCategoryTableViewCell.m */; };
 		DF75ACC81926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = DF75ACC71926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.m */; };
 		DF75ACCB1926DD4F002FA12A /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF75ACCA1926DD4F002FA12A /* RootViewController.m */; };
@@ -71,6 +72,8 @@
 		DF107B4D1936C60500C23952 /* ProfileConversationBoxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileConversationBoxViewController.m; sourceTree = "<group>"; };
 		DF107B4F1936CCFB00C23952 /* ProfilePostsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfilePostsViewController.h; sourceTree = "<group>"; };
 		DF107B501936CCFB00C23952 /* ProfilePostsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfilePostsViewController.m; sourceTree = "<group>"; };
+		DF1722FF193A9D560041914F /* ConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmationViewController.h; sourceTree = "<group>"; };
+		DF172300193A9D560041914F /* ConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmationViewController.m; sourceTree = "<group>"; };
 		DF46440E192EBEEB001803F4 /* BeAMentorCategoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeAMentorCategoryTableViewCell.h; sourceTree = "<group>"; };
 		DF46440F192EBEEB001803F4 /* BeAMentorCategoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeAMentorCategoryTableViewCell.m; sourceTree = "<group>"; };
 		DF75ACC61926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollViewThatDoesNotAnimateWithKeyboard.h; sourceTree = "<group>"; };
@@ -239,6 +242,8 @@
 				DFFBC8BE192AA07400BCE173 /* SearchResultsDetailViewController.m */,
 				DF107B4819367ED200C23952 /* ConversationViewController.h */,
 				DF107B4919367ED200C23952 /* ConversationViewController.m */,
+				DF1722FF193A9D560041914F /* ConfirmationViewController.h */,
+				DF172300193A9D560041914F /* ConfirmationViewController.m */,
 				DFF0AF511924084900843BC7 /* Images.xcassets */,
 				DF46440E192EBEEB001803F4 /* BeAMentorCategoryTableViewCell.h */,
 				DF46440F192EBEEB001803F4 /* BeAMentorCategoryTableViewCell.m */,
@@ -379,6 +384,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF107B511936CCFB00C23952 /* ProfilePostsViewController.m in Sources */,
+				DF172301193A9D560041914F /* ConfirmationViewController.m in Sources */,
 				DFFBC8BC192A95C900BCE173 /* SearchResultsViewController.m in Sources */,
 				DF75ACDA1926E1A8002FA12A /* LogInViewController.m in Sources */,
 				DFF0AF70192417F800843BC7 /* BeAMentorViewController.m in Sources */,

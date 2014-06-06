@@ -11,6 +11,7 @@
 #import <Parse/Parse.h>
 
 @interface ProfilePostsViewController ()<UITableViewDelegate, UITableViewDataSource>
+@property (strong, nonatomic) PFObject *selectedPost;
 
 @end
 
@@ -56,13 +57,18 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSString *key = [self.postGroupsArray objectAtIndex:indexPath.section];
+    NSArray *category = [self.postDictionary objectForKey:key];
+
+    self.selectedPost = category[indexPath.row];
+    
     [self performSegueWithIdentifier:@"PostToPostSegue" sender:self];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     SearchResultsDetailViewController *srdvc = segue.destinationViewController;
-//    srdvc.selectedPost = self.
+    srdvc.selectedPost = self.selectedPost;
 }
 
 @end

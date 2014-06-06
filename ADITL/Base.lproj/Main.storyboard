@@ -775,6 +775,37 @@
             </objects>
             <point key="canvasLocation" x="1396" y="-146"/>
         </scene>
+        <!--Confirmation View Controller-->
+        <scene sceneID="WsF-0o-rbi">
+            <objects>
+                <viewController id="sGJ-Es-gag" customClass="ConfirmationViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9QA-ce-1tj"/>
+                        <viewControllerLayoutGuide type="bottom" id="4Fk-q2-qyl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kak-dW-G2I">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jbT-BH-3Dy">
+                                <rect key="frame" x="131" y="479" width="59" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Confirm!">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onConfirmButtonPressed:" destination="sGJ-Es-gag" eventType="touchUpInside" id="oh0-oA-cU9"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="eAt-5D-7pk"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hI3-78-EuZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2257" y="-146"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="D3F-gr-L7e">
             <objects>
@@ -861,11 +892,14 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dz0-6R-R0J">
-                                <rect key="frame" x="134" y="389" width="53" height="30"/>
+                                <rect key="frame" x="134" y="383" width="53" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Accept!">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="sGJ-Es-gag" kind="modal" id="k9F-Hl-e4O"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -895,11 +929,11 @@
                         <viewControllerLayoutGuide type="bottom" id="GRT-Hp-8nf"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="xW4-mj-QwG">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hx5-at-1gg">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </scrollView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Write a message..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BMO-UC-oje">
@@ -922,6 +956,18 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ewq-l2-7Pt">
+                        <nil key="title"/>
+                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="baA-be-s7Z">
+                            <rect key="frame" x="77" y="6" width="150" height="33"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <state key="normal" title="  Accept!">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <segue destination="sGJ-Es-gag" kind="modal" id="VN4-6s-fHX"/>
+                            </connections>
+                        </button>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="sqw-RO-qAK">
                             <view key="customView" contentMode="scaleToFill" id="2KH-4j-1c3">
                                 <rect key="frame" x="233" y="5" width="71" height="33"/>
@@ -948,6 +994,7 @@
                             </view>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="scrollView" destination="Hx5-at-1gg" id="enR-Kd-bjo"/>
                         <outlet property="writeTextField" destination="BMO-UC-oje" id="LTl-Dj-dqk"/>
@@ -955,7 +1002,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QN2-QI-y34" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2257" y="-146"/>
+            <point key="canvasLocation" x="2649" y="532"/>
         </scene>
     </scenes>
     <resources>
@@ -968,9 +1015,10 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="GLg-oK-tJg"/>
         <segue reference="igu-Kc-dRE"/>
-        <segue reference="AYD-Qe-hCw"/>
+        <segue reference="GLg-oK-tJg"/>
         <segue reference="5Fz-nn-VCG"/>
+        <segue reference="nwc-JL-XjX"/>
+        <segue reference="VN4-6s-fHX"/>
     </inferredMetricsTieBreakers>
 </document>
