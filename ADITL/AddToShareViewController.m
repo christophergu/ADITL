@@ -24,6 +24,9 @@
 @property (strong, nonatomic) PFUser *currentUser;
 @property (strong, nonatomic) PFObject *leaderInterest;
 
+@property (strong, nonatomic) IBOutlet UILabel *categoryHeaderLabel;
+@property (strong, nonatomic) IBOutlet UILabel *subcategoryHeaderLabel;
+@property (strong, nonatomic) IBOutlet UILabel *priceHeaderLabel;
 
 @end
 
@@ -48,6 +51,24 @@
     self.categoryView.alpha = 0.0;
     self.subcategoryView.alpha = 0.0;
     self.priceView.alpha = 0.0;
+    
+    if (self.fromEnthusiast)
+    {
+        self.categoryHeaderLabel.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:198.0/255.0 blue:72.0/255.0 alpha:1];
+        self.subcategoryHeaderLabel.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:198.0/255.0 blue:72.0/255.0 alpha:1];
+        self.priceHeaderLabel.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:198.0/255.0 blue:72.0/255.0 alpha:1];
+        
+        self.doneButton.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:198.0/255.0 blue:72.0/255.0 alpha:1];
+    }
+    else
+    {
+        self.categoryHeaderLabel.backgroundColor = [UIColor colorWithRed:68.0/255.0 green:121.0/255.0 blue:255.0/255.0 alpha:1];
+        self.subcategoryHeaderLabel.backgroundColor = [UIColor colorWithRed:68.0/255.0 green:121.0/255.0 blue:255.0/255.0 alpha:1];
+        self.priceHeaderLabel.backgroundColor = [UIColor colorWithRed:68.0/255.0 green:121.0/255.0 blue:255.0/255.0 alpha:1];
+        
+        self.doneButton.backgroundColor = [UIColor colorWithRed:68.0/255.0 green:121.0/255.0 blue:255.0/255.0 alpha:1];
+    }
+
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -71,6 +92,14 @@
 {
     AddToShareCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AddToShareCellReuseID" forIndexPath:indexPath];
     cell.categoryLabel.text = [self.categoriesArray[indexPath.row] allKeys][0];
+    if (self.fromEnthusiast)
+    {
+        cell.categoryLabel.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:198.0/255.0 blue:72.0/255.0 alpha:1];
+    }
+    else
+    {
+        cell.categoryLabel.backgroundColor = [UIColor colorWithRed:68.0/255.0 green:121.0/255.0 blue:255.0/255.0 alpha:1];
+    }
     cell.categoryImageView.image = self.categoriesArray[indexPath.row][cell.categoryLabel.text];
     return cell;
 }

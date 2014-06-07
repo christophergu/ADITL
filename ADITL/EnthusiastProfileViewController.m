@@ -8,6 +8,7 @@
 
 #import "EnthusiastProfileViewController.h"
 #import "ProfileConversationBoxViewController.h"
+#import "AddToShareViewController.h"
 
 @interface EnthusiastProfileViewController () <UIScrollViewDelegate>
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -218,10 +219,10 @@
         ProfileConversationBoxViewController *pcbvc = segue.destinationViewController;
         pcbvc.conversationArray = self.conversationArray;
     }
-    else if ([segue.identifier isEqualToString:@"AddInterestSegue"])
+    else if ([segue.identifier isEqualToString:@"AddInterestFromEnthusiastSegue"])
     {
-        //        ProfileConversationBoxViewController *pcbvc = segue.destinationViewController;
-        //        pcbvc.conversationArray = self.conversationArray;
+        AddToShareViewController *atsvc = segue.destinationViewController;
+        atsvc.fromEnthusiast = 1;
     }
 }
 

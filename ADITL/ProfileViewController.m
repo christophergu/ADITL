@@ -63,6 +63,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShareCellReuseID"];
     cell.textLabel.text = [category objectAtIndex:indexPath.row][@"subcategory"];
     cell.detailTextLabel.text = [category objectAtIndex:indexPath.row][@"price"];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }
@@ -72,8 +73,6 @@
     NSString *groupName = [self.interestGroupsArray objectAtIndex:section];
     return groupName;
 }
-
-
 
 - (void)fetchInterestsToShare
 {
@@ -113,16 +112,6 @@
          [self.myTableView reloadData];
      }];
 }
-
-
-
-
-
-
-
-
-
-
 
 -(void)viewWillAppear:(BOOL)animated
 {

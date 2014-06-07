@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface AddToShareViewController : UIViewController
+@property BOOL fromEnthusiast;
 
 @end
