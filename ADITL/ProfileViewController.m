@@ -11,7 +11,7 @@
 #import "EnthusiastProfileViewController.h"
 #import <Parse/Parse.h>
 
-@interface ProfileViewController () <UIScrollViewDelegate>
+@interface ProfileViewController () <UIScrollViewDelegate,UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIView *uiViewForScrollView;
 @property (strong, nonatomic) IBOutlet UIButton *saveButton;
@@ -27,27 +27,118 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *logoutBarButtonItem;
 @property (strong, nonatomic) IBOutlet UILabel *conversationCounterLabel;
 @property (strong, nonatomic) NSArray *conversationArray;
-@property (strong, nonatomic) NSMutableDictionary *postDictionary;
-@property (strong, nonatomic) NSMutableArray *postGroupsArray;
+@property (strong, nonatomic) NSMutableDictionary *interestDictionary;
+@property (strong, nonatomic) NSMutableArray *interestGroupsArray;
 @property (strong, nonatomic) IBOutlet UIButton *interestAddButton;
+@property (strong, nonatomic) IBOutlet UIButton *interestEditDelButton;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
+@property (strong, nonatomic) PFUser *currentUser;
+@property (strong, nonatomic) IBOutlet UITableView *myTableView;
 
 
 @end
 
 @implementation ProfileViewController
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return self.interestGroupsArray.count;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    NSString *key = [self.interestGroupsArray objectAtIndex:section];
+    
+    NSArray *category = [self.interestDictionary objectForKey:key];
+    
+    return category.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *key = [self.interestGroupsArray objectAtIndex:indexPath.section];
+    
+    NSArray *category = [self.interestDictionary objectForKey:key];
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShareCellReuseID"];
+    cell.textLabel.text = [category objectAtIndex:indexPath.row][@"subcategory"];
+    cell.detailTextLabel.text = [category objectAtIndex:indexPath.row][@"price"];
+    
+    return cell;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    NSString *groupName = [self.interestGroupsArray objectAtIndex:section];
+    return groupName;
+}
+
+
+
+- (void)fetchInterestsToShare
+{
+    self.interestGroupsArray = [NSMutableArray new];
+    
+    PFQuery *postQuery = [PFQuery queryWithClassName:@"LeaderInterest"];
+    [postQuery whereKey:@"leaderEmail" equalTo:self.currentUser.email];
+    [postQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+     {
+         //        self.postArray = objects;
+         
+         self.interestDictionary = [NSMutableDictionary new];
+         
+         for (PFObject *post in objects)
+         {
+             if (![self.interestGroupsArray containsObject:post[@"category"]]) {
+                 [self.interestGroupsArray addObject:post[@"category"]];
+             }
+         }
+         [self.interestGroupsArray sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+         
+         for (NSString *groupName in self.interestGroupsArray)
+         {
+             NSMutableArray *postArray = [NSMutableArray new];
+             
+             for (PFObject *post in objects)
+             {
+                 if ([post[@"category"] isEqualToString:groupName])
+                 {
+                     [postArray addObject:post];
+                 }
+             }
+             [self.interestDictionary setObject:postArray forKey:groupName];
+         }
+         
+         NSLog(@"%@",self.interestDictionary);
+         [self.myTableView reloadData];
+     }];
+}
+
+
+
+
+
+
+
+
+
+
+
 -(void)viewWillAppear:(BOOL)animated
 {
     self.segmentedControl.selectedSegmentIndex=0;
+    [self fetchInterestsToShare];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.currentUser = [PFUser currentUser];
     
     self.interestAddButton.layer.cornerRadius = 5.0f;
+    
+    self.interestEditDelButton.layer.cornerRadius = 5.0f;
     
     self.aboutMeTextView.textColor = [UIColor colorWithWhite: 0.8 alpha:1]; //optional
     [self.aboutMeTextView.layer setBorderColor:[[UIColor colorWithWhite: 0.8 alpha:1] CGColor]];
