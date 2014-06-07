@@ -70,14 +70,23 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RootCellReuseID" id="1PO-xg-aO6">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RootCellReuseID" id="1PO-xg-aO6" customClass="RootCollectionViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZFg-qR-RXf">
+                                                    <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </imageView>
+                                            </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <connections>
+                                            <outlet property="imageView" destination="ZFg-qR-RXf" id="9Fj-xr-6xJ"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
@@ -104,6 +113,7 @@
                     <navigationItem key="navigationItem" title="LiveIt!" id="ROL-xK-4M4"/>
                     <connections>
                         <outlet property="loginButton" destination="IuK-zJ-J08" id="0zE-B2-lpr"/>
+                        <outlet property="myCollectionView" destination="zQI-t4-gR6" id="RKh-MM-I43"/>
                         <segue destination="YlF-tT-kZb" kind="push" identifier="RootToProfileSegue" id="mta-dz-wZS"/>
                         <segue destination="zz1-Ld-w55" kind="push" identifier="RootToLogInSegue" id="2Pa-x8-mq7"/>
                     </connections>
@@ -798,7 +808,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <prototypes>
-                                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="WHc-vA-qoj">
+                                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShareCellReuseID" id="WHc-vA-qoj">
                                                         <rect key="frame" x="0.0" y="22" width="278" height="44"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WHc-vA-qoj" id="LC0-uR-jVK">
@@ -807,6 +817,10 @@
                                                         </tableViewCellContentView>
                                                     </tableViewCell>
                                                 </prototypes>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="0Tz-kO-7CU" id="puA-8W-hun"/>
+                                                    <outlet property="delegate" destination="0Tz-kO-7CU" id="VJq-ro-CkE"/>
+                                                </connections>
                                             </tableView>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="What I Want to Learn" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d6p-fK-JvL">
                                                 <rect key="frame" x="23" y="372" width="145" height="21"/>
@@ -913,6 +927,7 @@
                         <outlet property="interestAddButton" destination="npJ-ge-9Ez" id="Y1s-2d-hhg"/>
                         <outlet property="locationTextField" destination="ipd-9I-cj4" id="h9A-wB-CZO"/>
                         <outlet property="logoutBarButtonItem" destination="sVk-Kl-sZs" id="FlH-2W-tCr"/>
+                        <outlet property="myTableView" destination="eQ1-Vo-Dic" id="ElQ-go-mgn"/>
                         <outlet property="nameTextField" destination="t90-Wa-1MF" id="USJ-OJ-2W7"/>
                         <outlet property="passwordTextField" destination="LMo-fR-FUB" id="TYm-d3-qKc"/>
                         <outlet property="saveButton" destination="tHg-gB-qUJ" id="IGp-f1-3Wf"/>
@@ -1457,9 +1472,9 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="AdV-Jf-0Ua"/>
         <segue reference="mta-dz-wZS"/>
         <segue reference="2Pa-x8-mq7"/>
-        <segue reference="O6V-i9-Vrh"/>
-        <segue reference="doy-5C-BRo"/>
+        <segue reference="Fpu-Rf-qjf"/>
     </inferredMetricsTieBreakers>
 </document>

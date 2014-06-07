@@ -10,6 +10,7 @@
 		DF0B776F19422C8B00B4ED61 /* EnthusiastProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0B776E19422C8B00B4ED61 /* EnthusiastProfileViewController.m */; };
 		DF0B77721942687300B4ED61 /* AddToShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0B77711942687300B4ED61 /* AddToShareViewController.m */; };
 		DF0B777519426BB100B4ED61 /* AddToShareCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0B777419426BB100B4ED61 /* AddToShareCollectionViewCell.m */; };
+		DF0B777819429C7300B4ED61 /* RootCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0B777719429C7300B4ED61 /* RootCollectionViewCell.m */; };
 		DF0F00BE1926B4CB009EA0CB /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0F00BD1926B4CB009EA0CB /* ProfileViewController.m */; };
 		DF107B4A19367ED200C23952 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF107B4919367ED200C23952 /* ConversationViewController.m */; };
 		DF107B4E1936C60500C23952 /* ProfileConversationBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF107B4D1936C60500C23952 /* ProfileConversationBoxViewController.m */; };
@@ -71,6 +72,8 @@
 		DF0B77711942687300B4ED61 /* AddToShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddToShareViewController.m; sourceTree = "<group>"; };
 		DF0B777319426BB100B4ED61 /* AddToShareCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddToShareCollectionViewCell.h; sourceTree = "<group>"; };
 		DF0B777419426BB100B4ED61 /* AddToShareCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddToShareCollectionViewCell.m; sourceTree = "<group>"; };
+		DF0B777619429C7300B4ED61 /* RootCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootCollectionViewCell.h; sourceTree = "<group>"; };
+		DF0B777719429C7300B4ED61 /* RootCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootCollectionViewCell.m; sourceTree = "<group>"; };
 		DF0F00BC1926B4CB009EA0CB /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		DF0F00BD1926B4CB009EA0CB /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		DF107B4819367ED200C23952 /* ConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewController.h; sourceTree = "<group>"; };
@@ -252,6 +255,8 @@
 				DF46440F192EBEEB001803F4 /* BeAMentorCategoryTableViewCell.m */,
 				DF75ACC61926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.h */,
 				DF75ACC71926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.m */,
+				DF0B777619429C7300B4ED61 /* RootCollectionViewCell.h */,
+				DF0B777719429C7300B4ED61 /* RootCollectionViewCell.m */,
 				DFF2ADA7192D67D300564407 /* FindAMentorCollectionViewCell.h */,
 				DFF2ADA8192D67D300564407 /* FindAMentorCollectionViewCell.m */,
 				DF0B777319426BB100B4ED61 /* AddToShareCollectionViewCell.h */,
@@ -393,6 +398,7 @@
 				DF75ACDA1926E1A8002FA12A /* LogInViewController.m in Sources */,
 				DF0B777519426BB100B4ED61 /* AddToShareCollectionViewCell.m in Sources */,
 				DFF0AF70192417F800843BC7 /* BeAMentorViewController.m in Sources */,
+				DF0B777819429C7300B4ED61 /* RootCollectionViewCell.m in Sources */,
 				DFF2ADA6192D64D900564407 /* BeAMentorCategoryViewController.m in Sources */,
 				DF464410192EBEEB001803F4 /* BeAMentorCategoryTableViewCell.m in Sources */,
 				DFF2ADA9192D67D300564407 /* FindAMentorCollectionViewCell.m in Sources */,

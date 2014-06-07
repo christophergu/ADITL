@@ -23,6 +23,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *doneButton;
 @property (strong, nonatomic) PFUser *currentUser;
 @property (strong, nonatomic) PFObject *leaderInterest;
+@property (strong, nonatomic) PFObject *enthusiastInterest;
 
 @property (strong, nonatomic) IBOutlet UILabel *categoryHeaderLabel;
 @property (strong, nonatomic) IBOutlet UILabel *subcategoryHeaderLabel;
@@ -51,6 +52,7 @@
     self.categoryView.alpha = 0.0;
     self.subcategoryView.alpha = 0.0;
     self.priceView.alpha = 0.0;
+    self.doneButton.alpha = 0.0;
     
     if (self.fromEnthusiast)
     {
@@ -67,19 +69,6 @@
         self.priceHeaderLabel.backgroundColor = [UIColor colorWithRed:68.0/255.0 green:121.0/255.0 blue:255.0/255.0 alpha:1];
         
         self.doneButton.backgroundColor = [UIColor colorWithRed:68.0/255.0 green:121.0/255.0 blue:255.0/255.0 alpha:1];
-    }
-
-}
-
--(void)viewWillDisappear:(BOOL)animated
-{
-    if ((self.leaderInterest[@"category"]==NULL)||
-        (self.leaderInterest[@"subcategory"]==NULL)||
-        (self.leaderInterest[@"price"]==NULL))
-    {
-        [self.leaderInterest deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            NSLog(@"deleted");
-        }];
     }
 }
 
@@ -106,22 +95,41 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.leaderInterest = [PFObject objectWithClassName:@"LeaderInterest"];
-    self.leaderInterest[@"category"] = [self.categoriesArray[indexPath.row] allKeys][0];
-    self.leaderInterest[@"leaderEmail"] = self.currentUser.email;
-    
-    self.categoryLabel.text = self.leaderInterest[@"category"];
-    if (self.categoryView.alpha == 0.0)
+    if (self.fromEnthusiast)
     {
-        [UIView animateWithDuration:0.5 animations:^{
-            self.categoryView.alpha = 1.0;
-        } completion:^(BOOL finished) {
-            [self.leaderInterest saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        self.enthusiastInterest = [PFObject objectWithClassName:@"EnthusiastInterest"];
+        self.enthusiastInterest[@"category"] = [self.categoriesArray[indexPath.row] allKeys][0];
+        self.enthusiastInterest[@"enthusiastEmail"] = self.currentUser.email;
+        
+        self.categoryLabel.text = self.enthusiastInterest[@"category"];
+        if (self.categoryView.alpha == 0.0)
+        {
+            [UIView animateWithDuration:0.5 animations:^{
+                self.categoryView.alpha = 1.0;
+            } completion:^(BOOL finished) {
                 [UIView animateWithDuration:0.4 animations:^{
                     self.subcategoryView.alpha = 1.0;
                 }];
             }];
-        }];
+        }
+    }
+    else
+    {
+        self.leaderInterest = [PFObject objectWithClassName:@"LeaderInterest"];
+        self.leaderInterest[@"category"] = [self.categoriesArray[indexPath.row] allKeys][0];
+        self.leaderInterest[@"leaderEmail"] = self.currentUser.email;
+        
+        self.categoryLabel.text = self.leaderInterest[@"category"];
+        if (self.categoryView.alpha == 0.0)
+        {
+            [UIView animateWithDuration:0.5 animations:^{
+                self.categoryView.alpha = 1.0;
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:0.4 animations:^{
+                    self.subcategoryView.alpha = 1.0;
+                }];
+            }];
+        }
     }
 }
 
@@ -129,14 +137,20 @@
 {
     
     if (!(allTrim(self.subcategoryTextField.text).length == 0) ) {
-        self.leaderInterest[@"subcategory"] = self.subcategoryTextField.text;
-        
-        [self.leaderInterest saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-         {
-             [UIView animateWithDuration:0.4 animations:^{
-                 self.priceView.alpha = 1.0;
-             }];
-         }];
+        if (self.fromEnthusiast)
+        {
+            self.enthusiastInterest[@"subcategory"] = self.subcategoryTextField.text;
+            [UIView animateWithDuration:0.4 animations:^{
+                self.doneButton.alpha = 1.0;
+            }];
+        }
+        else
+        {
+            self.leaderInterest[@"subcategory"] = self.subcategoryTextField.text;
+            [UIView animateWithDuration:0.4 animations:^{
+                self.priceView.alpha = 1.0;
+            }];
+        }
     }
     else
     {
@@ -151,27 +165,59 @@
 
 - (IBAction)priceDidEndOnExit:(id)sender
 {
-    self.leaderInterest[@"price"] = self.priceTextField.text;
+    if (self.fromEnthusiast)
+    {
+        self.enthusiastInterest[@"price"] = self.priceTextField.text;
+    }
+    else
+    {
+        self.leaderInterest[@"price"] = self.priceTextField.text;
+        [UIView animateWithDuration:0.4 animations:^{
+            self.doneButton.alpha = 1.0;
+        }];
+    }
 }
 
 - (IBAction)onDoneButtonPressed:(id)sender
 {
-    if (!(self.leaderInterest[@"category"]==NULL)&&
-        !(self.leaderInterest[@"subcategory"]==NULL)&&
-        !(self.leaderInterest[@"price"]==NULL))
+    if (self.fromEnthusiast)
     {
-        [self.leaderInterest saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            NSLog(@"leader interest complete");
-        }];
+        if (!(self.enthusiastInterest[@"category"]==NULL)&&
+            !(self.enthusiastInterest[@"subcategory"]==NULL))
+        {
+            [self.enthusiastInterest saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                NSLog(@"enthusiast interest complete");
+            }];
+        }
+        else
+        {
+            UIAlertView *incompleteAlert = [[UIAlertView alloc]initWithTitle:@"Oops!"
+                                                                     message:@"All fields must be completed to add."
+                                                                    delegate:self
+                                                           cancelButtonTitle:@"OK"
+                                                           otherButtonTitles: nil];
+            [incompleteAlert show];
+        }
     }
     else
     {
-        UIAlertView *incompleteAlert = [[UIAlertView alloc]initWithTitle:@"Oops!"
-                                                                 message:@"All fields must be completed to add."
-                                                                delegate:self
-                                                       cancelButtonTitle:@"OK"
-                                                       otherButtonTitles: nil];
-        [incompleteAlert show];
+        if (!(self.leaderInterest[@"category"]==NULL)&&
+            !(self.leaderInterest[@"subcategory"]==NULL)&&
+            !(self.leaderInterest[@"price"]==NULL))
+        {
+            [self.leaderInterest saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                NSLog(@"leader interest complete");
+            }];
+        }
+        else
+        {
+            UIAlertView *incompleteAlert = [[UIAlertView alloc]initWithTitle:@"Oops!"
+                                                                     message:@"All fields must be completed to add."
+                                                                    delegate:self
+                                                           cancelButtonTitle:@"OK"
+                                                           otherButtonTitles: nil];
+            [incompleteAlert show];
+        }
     }
 }
 

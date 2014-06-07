@@ -108,7 +108,6 @@
              [self.interestDictionary setObject:postArray forKey:groupName];
          }
          
-         NSLog(@"%@",self.interestDictionary);
          [self.myTableView reloadData];
      }];
 }
