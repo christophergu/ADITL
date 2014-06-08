@@ -1,5 +1,5 @@
 //
-//  FindAMentorCollectionViewCell.h
+//  SearchCollectionViewCell.h
 //  ADITL
 //
 //  Created by Christopher Gu on 5/21/14.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FindAMentorCollectionViewCell : UICollectionViewCell
+@interface SearchCollectionViewCell : UICollectionViewCell
 @property (strong, nonatomic) IBOutlet UIImageView *categoryImageView;
 @property (strong, nonatomic) IBOutlet UILabel *categoryLabel;
 

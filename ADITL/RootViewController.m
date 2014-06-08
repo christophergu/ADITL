@@ -8,6 +8,7 @@
 
 #import "RootViewController.h"
 #import "RootCollectionViewCell.h"
+#import "SearchViewController.h"
 #import <Parse/Parse.h>
 
 @interface RootViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
@@ -61,6 +62,21 @@
 - (IBAction)unwindToBeginning:(UIStoryboardSegue *)unwindSegue
 {
     [PFUser logOut];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    SearchViewController *svc = segue.destinationViewController;
+    
+    if ([segue.identifier isEqualToString:@"SearchLeadersSegue"])
+    {
+        NSLog(@"leader");
+    }
+    else if ([segue.identifier isEqualToString:@"SearchEnthusiastsSegue"])
+    {
+        NSLog(@"enthusiast");
+        svc.fromEnthusiast = 1;
+    }
 }
 
 @end

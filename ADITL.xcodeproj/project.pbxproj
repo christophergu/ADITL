@@ -15,7 +15,6 @@
 		DF107B4A19367ED200C23952 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF107B4919367ED200C23952 /* ConversationViewController.m */; };
 		DF107B4E1936C60500C23952 /* ProfileConversationBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF107B4D1936C60500C23952 /* ProfileConversationBoxViewController.m */; };
 		DF172301193A9D560041914F /* ConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF172300193A9D560041914F /* ConfirmationViewController.m */; };
-		DF464410192EBEEB001803F4 /* BeAMentorCategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DF46440F192EBEEB001803F4 /* BeAMentorCategoryTableViewCell.m */; };
 		DF75ACC81926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = DF75ACC71926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.m */; };
 		DF75ACCB1926DD4F002FA12A /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF75ACCA1926DD4F002FA12A /* RootViewController.m */; };
 		DF75ACCD1926E0AC002FA12A /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF75ACCC1926E0AC002FA12A /* FacebookSDK.framework */; };
@@ -25,7 +24,7 @@
 		DF75ACD51926E0F1002FA12A /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DF75ACD41926E0F1002FA12A /* libsqlite3.dylib */; };
 		DF75ACD71926E0FF002FA12A /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF75ACD61926E0FF002FA12A /* Social.framework */; };
 		DF75ACDA1926E1A8002FA12A /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF75ACD91926E1A8002FA12A /* LogInViewController.m */; };
-		DF75ACDD1927281C002FA12A /* FindAMentorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF75ACDC1927281C002FA12A /* FindAMentorViewController.m */; };
+		DF75ACDD1927281C002FA12A /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF75ACDC1927281C002FA12A /* SearchViewController.m */; };
 		DFF0AF3A1924084900843BC7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF391924084900843BC7 /* Foundation.framework */; };
 		DFF0AF3C1924084900843BC7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF3B1924084900843BC7 /* CoreGraphics.framework */; };
 		DFF0AF3E1924084900843BC7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF3D1924084900843BC7 /* UIKit.framework */; };
@@ -39,7 +38,6 @@
 		DFF0AF5B1924084900843BC7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF3D1924084900843BC7 /* UIKit.framework */; };
 		DFF0AF631924084900843BC7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFF0AF611924084900843BC7 /* InfoPlist.strings */; };
 		DFF0AF651924084900843BC7 /* ADITLTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DFF0AF641924084900843BC7 /* ADITLTests.m */; };
-		DFF0AF70192417F800843BC7 /* BeAMentorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFF0AF6F192417F800843BC7 /* BeAMentorViewController.m */; };
 		DFF0AF7219242ABF00843BC7 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF7119242ABF00843BC7 /* Parse.framework */; };
 		DFF0AF7419242AEA00843BC7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF7319242AEA00843BC7 /* AudioToolbox.framework */; };
 		DFF0AF7619242AF300843BC7 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF7519242AF300843BC7 /* CFNetwork.framework */; };
@@ -50,8 +48,7 @@
 		DFF0AF8019242B1F00843BC7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF7F19242B1F00843BC7 /* Security.framework */; };
 		DFF0AF8219242B2700843BC7 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF8119242B2700843BC7 /* StoreKit.framework */; };
 		DFF0AF8419242B3200843BC7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF8319242B3200843BC7 /* SystemConfiguration.framework */; };
-		DFF2ADA6192D64D900564407 /* BeAMentorCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFF2ADA5192D64D900564407 /* BeAMentorCategoryViewController.m */; };
-		DFF2ADA9192D67D300564407 /* FindAMentorCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DFF2ADA8192D67D300564407 /* FindAMentorCollectionViewCell.m */; };
+		DFF2ADA9192D67D300564407 /* SearchCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DFF2ADA8192D67D300564407 /* SearchCollectionViewCell.m */; };
 		DFFBC8BC192A95C900BCE173 /* SearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFFBC8BB192A95C900BCE173 /* SearchResultsViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -82,8 +79,6 @@
 		DF107B4D1936C60500C23952 /* ProfileConversationBoxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileConversationBoxViewController.m; sourceTree = "<group>"; };
 		DF1722FF193A9D560041914F /* ConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmationViewController.h; sourceTree = "<group>"; };
 		DF172300193A9D560041914F /* ConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmationViewController.m; sourceTree = "<group>"; };
-		DF46440E192EBEEB001803F4 /* BeAMentorCategoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeAMentorCategoryTableViewCell.h; sourceTree = "<group>"; };
-		DF46440F192EBEEB001803F4 /* BeAMentorCategoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeAMentorCategoryTableViewCell.m; sourceTree = "<group>"; };
 		DF75ACC61926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollViewThatDoesNotAnimateWithKeyboard.h; sourceTree = "<group>"; };
 		DF75ACC71926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollViewThatDoesNotAnimateWithKeyboard.m; sourceTree = "<group>"; };
 		DF75ACC91926DD4F002FA12A /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
@@ -96,8 +91,8 @@
 		DF75ACD61926E0FF002FA12A /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		DF75ACD81926E1A8002FA12A /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
 		DF75ACD91926E1A8002FA12A /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
-		DF75ACDB1927281C002FA12A /* FindAMentorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindAMentorViewController.h; sourceTree = "<group>"; };
-		DF75ACDC1927281C002FA12A /* FindAMentorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindAMentorViewController.m; sourceTree = "<group>"; };
+		DF75ACDB1927281C002FA12A /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		DF75ACDC1927281C002FA12A /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		DFF0AF361924084900843BC7 /* ADITL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ADITL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFF0AF391924084900843BC7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DFF0AF3B1924084900843BC7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -115,8 +110,6 @@
 		DFF0AF601924084900843BC7 /* ADITLTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ADITLTests-Info.plist"; sourceTree = "<group>"; };
 		DFF0AF621924084900843BC7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DFF0AF641924084900843BC7 /* ADITLTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ADITLTests.m; sourceTree = "<group>"; };
-		DFF0AF6E192417F800843BC7 /* BeAMentorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeAMentorViewController.h; sourceTree = "<group>"; };
-		DFF0AF6F192417F800843BC7 /* BeAMentorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeAMentorViewController.m; sourceTree = "<group>"; };
 		DFF0AF7119242ABF00843BC7 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		DFF0AF7319242AEA00843BC7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		DFF0AF7519242AF300843BC7 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -127,10 +120,8 @@
 		DFF0AF7F19242B1F00843BC7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		DFF0AF8119242B2700843BC7 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		DFF0AF8319242B3200843BC7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		DFF2ADA4192D64D900564407 /* BeAMentorCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeAMentorCategoryViewController.h; sourceTree = "<group>"; };
-		DFF2ADA5192D64D900564407 /* BeAMentorCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeAMentorCategoryViewController.m; sourceTree = "<group>"; };
-		DFF2ADA7192D67D300564407 /* FindAMentorCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindAMentorCollectionViewCell.h; sourceTree = "<group>"; };
-		DFF2ADA8192D67D300564407 /* FindAMentorCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindAMentorCollectionViewCell.m; sourceTree = "<group>"; };
+		DFF2ADA7192D67D300564407 /* SearchCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchCollectionViewCell.h; sourceTree = "<group>"; };
+		DFF2ADA8192D67D300564407 /* SearchCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchCollectionViewCell.m; sourceTree = "<group>"; };
 		DFFBC8BA192A95C900BCE173 /* SearchResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultsViewController.h; sourceTree = "<group>"; };
 		DFFBC8BB192A95C900BCE173 /* SearchResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -238,12 +229,8 @@
 				DF107B4D1936C60500C23952 /* ProfileConversationBoxViewController.m */,
 				DF0B77701942687300B4ED61 /* AddToShareViewController.h */,
 				DF0B77711942687300B4ED61 /* AddToShareViewController.m */,
-				DFF2ADA4192D64D900564407 /* BeAMentorCategoryViewController.h */,
-				DFF2ADA5192D64D900564407 /* BeAMentorCategoryViewController.m */,
-				DFF0AF6E192417F800843BC7 /* BeAMentorViewController.h */,
-				DFF0AF6F192417F800843BC7 /* BeAMentorViewController.m */,
-				DF75ACDB1927281C002FA12A /* FindAMentorViewController.h */,
-				DF75ACDC1927281C002FA12A /* FindAMentorViewController.m */,
+				DF75ACDB1927281C002FA12A /* SearchViewController.h */,
+				DF75ACDC1927281C002FA12A /* SearchViewController.m */,
 				DFFBC8BA192A95C900BCE173 /* SearchResultsViewController.h */,
 				DFFBC8BB192A95C900BCE173 /* SearchResultsViewController.m */,
 				DF107B4819367ED200C23952 /* ConversationViewController.h */,
@@ -251,14 +238,12 @@
 				DF1722FF193A9D560041914F /* ConfirmationViewController.h */,
 				DF172300193A9D560041914F /* ConfirmationViewController.m */,
 				DFF0AF511924084900843BC7 /* Images.xcassets */,
-				DF46440E192EBEEB001803F4 /* BeAMentorCategoryTableViewCell.h */,
-				DF46440F192EBEEB001803F4 /* BeAMentorCategoryTableViewCell.m */,
 				DF75ACC61926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.h */,
 				DF75ACC71926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.m */,
 				DF0B777619429C7300B4ED61 /* RootCollectionViewCell.h */,
 				DF0B777719429C7300B4ED61 /* RootCollectionViewCell.m */,
-				DFF2ADA7192D67D300564407 /* FindAMentorCollectionViewCell.h */,
-				DFF2ADA8192D67D300564407 /* FindAMentorCollectionViewCell.m */,
+				DFF2ADA7192D67D300564407 /* SearchCollectionViewCell.h */,
+				DFF2ADA8192D67D300564407 /* SearchCollectionViewCell.m */,
 				DF0B777319426BB100B4ED61 /* AddToShareCollectionViewCell.h */,
 				DF0B777419426BB100B4ED61 /* AddToShareCollectionViewCell.m */,
 				DFF0AF401924084900843BC7 /* Supporting Files */,
@@ -397,14 +382,11 @@
 				DFFBC8BC192A95C900BCE173 /* SearchResultsViewController.m in Sources */,
 				DF75ACDA1926E1A8002FA12A /* LogInViewController.m in Sources */,
 				DF0B777519426BB100B4ED61 /* AddToShareCollectionViewCell.m in Sources */,
-				DFF0AF70192417F800843BC7 /* BeAMentorViewController.m in Sources */,
 				DF0B777819429C7300B4ED61 /* RootCollectionViewCell.m in Sources */,
-				DFF2ADA6192D64D900564407 /* BeAMentorCategoryViewController.m in Sources */,
-				DF464410192EBEEB001803F4 /* BeAMentorCategoryTableViewCell.m in Sources */,
-				DFF2ADA9192D67D300564407 /* FindAMentorCollectionViewCell.m in Sources */,
+				DFF2ADA9192D67D300564407 /* SearchCollectionViewCell.m in Sources */,
 				DF75ACCB1926DD4F002FA12A /* RootViewController.m in Sources */,
 				DF75ACC81926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.m in Sources */,
-				DF75ACDD1927281C002FA12A /* FindAMentorViewController.m in Sources */,
+				DF75ACDD1927281C002FA12A /* SearchViewController.m in Sources */,
 				DF107B4A19367ED200C23952 /* ConversationViewController.m in Sources */,
 				DFF0AF4A1924084900843BC7 /* AppDelegate.m in Sources */,
 				DF0B77721942687300B4ED61 /* AddToShareViewController.m in Sources */,

@@ -11,6 +11,8 @@
 @interface SearchResultsViewController : UIViewController
 @property (strong, nonatomic) NSString *categoryString;
 @property (strong, nonatomic) NSString *locationString;
+@property BOOL fromEnthusiast;
+
 
 
 @end

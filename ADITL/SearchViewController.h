@@ -1,5 +1,5 @@
 //
-//  FindAMentorViewController.h
+//  SearchViewController.h
 //  ADITL
 //
 //  Created by Christopher Gu on 5/17/14.
@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FindAMentorViewController : UIViewController
+@interface SearchViewController : UIViewController
+@property BOOL fromEnthusiast;
 
 @end

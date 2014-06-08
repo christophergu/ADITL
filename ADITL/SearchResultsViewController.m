@@ -21,18 +21,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    PFQuery *searchResultsQuery = [PFQuery queryWithClassName:@"MentorPost"];
-    [searchResultsQuery whereKey:@"category" equalTo:self.categoryString];
-    if (self.locationString.length)
-    {
-        [searchResultsQuery whereKey:@"locationCity" equalTo:self.locationString];
-    }
-    [searchResultsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        self.searchResultsArray = objects;
 
-        [self.myTableView reloadData];
-    }];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
