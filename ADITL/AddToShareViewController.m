@@ -185,6 +185,7 @@
         if (!(self.enthusiastInterest[@"category"]==NULL)&&
             !(self.enthusiastInterest[@"subcategory"]==NULL))
         {
+            self.enthusiastInterest[@"enthusiastPointer"] = self.currentUser;
             [self.enthusiastInterest saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 NSLog(@"enthusiast interest complete");
             }];
@@ -205,6 +206,7 @@
             !(self.leaderInterest[@"subcategory"]==NULL)&&
             !(self.leaderInterest[@"price"]==NULL))
         {
+            self.leaderInterest[@"leaderPointer"] = self.currentUser;
             [self.leaderInterest saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 NSLog(@"leader interest complete");
             }];

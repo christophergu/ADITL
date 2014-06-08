@@ -11,6 +11,7 @@
 		DF0B77721942687300B4ED61 /* AddToShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0B77711942687300B4ED61 /* AddToShareViewController.m */; };
 		DF0B777519426BB100B4ED61 /* AddToShareCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0B777419426BB100B4ED61 /* AddToShareCollectionViewCell.m */; };
 		DF0B777819429C7300B4ED61 /* RootCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0B777719429C7300B4ED61 /* RootCollectionViewCell.m */; };
+		DF0E341C1944321800F654E0 /* SearchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0E341B1944321800F654E0 /* SearchTableViewCell.m */; };
 		DF0F00BE1926B4CB009EA0CB /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0F00BD1926B4CB009EA0CB /* ProfileViewController.m */; };
 		DF107B4A19367ED200C23952 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF107B4919367ED200C23952 /* ConversationViewController.m */; };
 		DF107B4E1936C60500C23952 /* ProfileConversationBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF107B4D1936C60500C23952 /* ProfileConversationBoxViewController.m */; };
@@ -71,6 +72,8 @@
 		DF0B777419426BB100B4ED61 /* AddToShareCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddToShareCollectionViewCell.m; sourceTree = "<group>"; };
 		DF0B777619429C7300B4ED61 /* RootCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootCollectionViewCell.h; sourceTree = "<group>"; };
 		DF0B777719429C7300B4ED61 /* RootCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootCollectionViewCell.m; sourceTree = "<group>"; };
+		DF0E341A1944321800F654E0 /* SearchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTableViewCell.h; sourceTree = "<group>"; };
+		DF0E341B1944321800F654E0 /* SearchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTableViewCell.m; sourceTree = "<group>"; };
 		DF0F00BC1926B4CB009EA0CB /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		DF0F00BD1926B4CB009EA0CB /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		DF107B4819367ED200C23952 /* ConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationViewController.h; sourceTree = "<group>"; };
@@ -242,6 +245,8 @@
 				DF75ACC71926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.m */,
 				DF0B777619429C7300B4ED61 /* RootCollectionViewCell.h */,
 				DF0B777719429C7300B4ED61 /* RootCollectionViewCell.m */,
+				DF0E341A1944321800F654E0 /* SearchTableViewCell.h */,
+				DF0E341B1944321800F654E0 /* SearchTableViewCell.m */,
 				DFF2ADA7192D67D300564407 /* SearchCollectionViewCell.h */,
 				DFF2ADA8192D67D300564407 /* SearchCollectionViewCell.m */,
 				DF0B777319426BB100B4ED61 /* AddToShareCollectionViewCell.h */,
@@ -381,6 +386,7 @@
 				DF172301193A9D560041914F /* ConfirmationViewController.m in Sources */,
 				DFFBC8BC192A95C900BCE173 /* SearchResultsViewController.m in Sources */,
 				DF75ACDA1926E1A8002FA12A /* LogInViewController.m in Sources */,
+				DF0E341C1944321800F654E0 /* SearchTableViewCell.m in Sources */,
 				DF0B777519426BB100B4ED61 /* AddToShareCollectionViewCell.m in Sources */,
 				DF0B777819429C7300B4ED61 /* RootCollectionViewCell.m in Sources */,
 				DFF2ADA9192D67D300564407 /* SearchCollectionViewCell.m in Sources */,

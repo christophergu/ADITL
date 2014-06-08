@@ -8,17 +8,19 @@
 
 #import "SearchViewController.h"
 #import "SearchCollectionViewCell.h"
+#import "SearchTableViewCell.h"
 #import "SearchResultsViewController.h"
 #import <Parse/Parse.h>
 
 @interface SearchViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) NSArray *categoriesArray;
 @property (strong, nonatomic) NSArray *categoriesKeysArray;
+@property (strong, nonatomic) NSArray *searchResultsArray;
+@property (strong, nonatomic) NSMutableArray *userNameArray;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) IBOutlet UITextField *locationTextField;
 @property (strong, nonatomic) IBOutlet UIView *subcategoryView;
 @property (strong, nonatomic) IBOutlet UITableView *subcategoryTableView;
-@property (strong, nonatomic) NSArray *searchResultsArray;
 @property (strong, nonatomic) IBOutlet UITableView *myTableView;
 
 @end
@@ -32,10 +34,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShareCellReuseID"];
-    cell.textLabel.text = [self.searchResultsArray objectAtIndex:indexPath.row][@"subcategory"];
-    cell.detailTextLabel.text = [self.searchResultsArray objectAtIndex:indexPath.row][@"price"];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    SearchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShareCellReuseID"];
+    cell.userSubcategoryLabel.text = [self.searchResultsArray objectAtIndex:indexPath.row][@"subcategory"];
+    if (!(self.userNameArray.count == 0) && ![self.userNameArray isEqual:NULL])
+    {
+        cell.userNameLabel.text = [NSString stringWithFormat:@"by %@",[self.userNameArray objectAtIndex:indexPath.row]];
+    }
+    cell.userPriceLabel.text = [self.searchResultsArray objectAtIndex:indexPath.row][@"price"];
     
     return cell;
 }
@@ -48,6 +53,7 @@
     NSDictionary *categoryCooking = @{@"Cooking": [UIImage imageNamed:@"cooking"]};
     self.categoriesArray = @[categoryArt, categoryCooking];
     self.categoriesKeysArray = @[@"Art", @"Cooking"];
+    self.userNameArray = [NSMutableArray new];
     
 }
 
@@ -69,6 +75,7 @@
     if (self.fromEnthusiast)
     {
         PFQuery *searchResultsQuery = [PFQuery queryWithClassName:@"EnthusiastInterest"];
+        [searchResultsQuery includeKey:@"enthusiastPointer"];
         [searchResultsQuery whereKey:@"category" equalTo:self.categoriesKeysArray[indexPath.row]];
         //        if (self.locationString.length)
         //        {
@@ -77,12 +84,18 @@
         [searchResultsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             self.searchResultsArray = objects;
             
+            for (PFObject *enthusiastInterest in self.searchResultsArray)
+            {
+                [self.userNameArray addObject:enthusiastInterest[@"enthusiastPointer"][@"username"]];
+            }
+            
             [self.myTableView reloadData];
         }];
     }
     else
     {
         PFQuery *searchResultsQuery = [PFQuery queryWithClassName:@"LeaderInterest"];
+        [searchResultsQuery includeKey:@"leaderPointer"];
         [searchResultsQuery whereKey:@"category" equalTo:self.categoriesKeysArray[indexPath.row]];
         //        if (self.locationString.length)
         //        {
@@ -90,6 +103,11 @@
         //        }
         [searchResultsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             self.searchResultsArray = objects;
+            
+            for (PFObject *leaderInterest in self.searchResultsArray)
+            {
+                [self.userNameArray addObject:leaderInterest[@"leaderPointer"][@"username"]];
+            }
             
             [self.myTableView reloadData];
         }];
