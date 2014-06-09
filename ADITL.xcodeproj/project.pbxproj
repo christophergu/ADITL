@@ -50,7 +50,6 @@
 		DFF0AF8219242B2700843BC7 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF8119242B2700843BC7 /* StoreKit.framework */; };
 		DFF0AF8419242B3200843BC7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF8319242B3200843BC7 /* SystemConfiguration.framework */; };
 		DFF2ADA9192D67D300564407 /* SearchCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DFF2ADA8192D67D300564407 /* SearchCollectionViewCell.m */; };
-		DFFBC8BC192A95C900BCE173 /* SearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFFBC8BB192A95C900BCE173 /* SearchResultsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,8 +124,6 @@
 		DFF0AF8319242B3200843BC7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		DFF2ADA7192D67D300564407 /* SearchCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchCollectionViewCell.h; sourceTree = "<group>"; };
 		DFF2ADA8192D67D300564407 /* SearchCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchCollectionViewCell.m; sourceTree = "<group>"; };
-		DFFBC8BA192A95C900BCE173 /* SearchResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultsViewController.h; sourceTree = "<group>"; };
-		DFFBC8BB192A95C900BCE173 /* SearchResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,8 +231,6 @@
 				DF0B77711942687300B4ED61 /* AddToShareViewController.m */,
 				DF75ACDB1927281C002FA12A /* SearchViewController.h */,
 				DF75ACDC1927281C002FA12A /* SearchViewController.m */,
-				DFFBC8BA192A95C900BCE173 /* SearchResultsViewController.h */,
-				DFFBC8BB192A95C900BCE173 /* SearchResultsViewController.m */,
 				DF107B4819367ED200C23952 /* ConversationViewController.h */,
 				DF107B4919367ED200C23952 /* ConversationViewController.m */,
 				DF1722FF193A9D560041914F /* ConfirmationViewController.h */,
@@ -384,7 +379,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF172301193A9D560041914F /* ConfirmationViewController.m in Sources */,
-				DFFBC8BC192A95C900BCE173 /* SearchResultsViewController.m in Sources */,
 				DF75ACDA1926E1A8002FA12A /* LogInViewController.m in Sources */,
 				DF0E341C1944321800F654E0 /* SearchTableViewCell.m in Sources */,
 				DF0B777519426BB100B4ED61 /* AddToShareCollectionViewCell.m in Sources */,

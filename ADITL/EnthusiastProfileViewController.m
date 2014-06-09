@@ -7,6 +7,7 @@
 //
 
 #import "EnthusiastProfileViewController.h"
+#import "ProfileViewController.h"
 #import "ProfileConversationBoxViewController.h"
 #import "AddToShareViewController.h"
 
@@ -32,6 +33,7 @@
 @property (strong, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (strong, nonatomic) PFUser *currentUser;
 @property (strong, nonatomic) IBOutlet UITableView *myTableView;
+@property (strong, nonatomic) IBOutlet UIImageView *avatarImageView;
 
 @end
 
@@ -104,8 +106,6 @@
              }
              [self.interestDictionary setObject:postArray forKey:groupName];
          }
-         
-         NSLog(@"%@",self.interestDictionary);
          [self.myTableView reloadData];
      }];
 }
@@ -142,24 +142,21 @@
     self.aboutMeTextView.clipsToBounds = YES;
     
     PFUser *currentUser = [PFUser currentUser];
-    if (currentUser && !self.mentorThatPostedUser) {
+    
+    if (self.fromSearch)
+    {
+        [self.logoutBarButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor clearColor]} forState:UIControlStateNormal];
+        self.logoutBarButtonItem.enabled = NO;
+
+        self.nameTextField.text = self.enthusiastChosenFromSearch[@"username"];
+        self.emailTextField.text = self.enthusiastChosenFromSearch[@"email"];
+    }
+    else
+    {
         self.nameTextField.text = currentUser[@"username"];
         self.passwordTextField.text = currentUser[@"password"]; // change placeholder to "Change password?"
         self.emailTextField.text = currentUser[@"email"];
     }
-    else if (self.mentorThatPostedUser)
-    {
-        [self.logoutBarButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor clearColor]} forState:UIControlStateNormal];
-        self.logoutBarButtonItem.enabled = NO;
-        
-        [self.mentorThatPostedUser fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-            self.nameTextField.text = self.mentorThatPostedUser[@"username"];
-            self.emailTextField.text = self.mentorThatPostedUser[@"email"];
-        }];
-    }
-    
-
-    
     
     NSArray *currentUserArray = @[currentUser[@"email"]];
     
@@ -174,6 +171,16 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [self fetchInterestsToShare];
+    
+    if (self.currentUser[@"avatar"])
+    {
+        [self.currentUser[@"avatar"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            if (!error) {
+                UIImage *photo = [UIImage imageWithData:data];
+                self.avatarImageView.image = photo;
+            }
+        }];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -205,76 +212,29 @@
 //    }
 //}
 
-//- (IBAction)onSaveButtonPressed:(id)sender
-//{
-//    [self createNewUser];
-//}
-
 - (IBAction)segmentedControlIndexChanged:(id)sender {
-    if(self.segmentedControl.selectedSegmentIndex==0)
+    if (self.fromSearch)
     {
-        [UIView beginAnimations:@"animation" context:nil];
-        [UIView setAnimationDuration:0.8];
-        [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:self.navigationController.view cache:NO];
-        [UIView commitAnimations];
-        [self.navigationController popViewControllerAnimated:YES];
+        if(self.segmentedControl.selectedSegmentIndex==0)
+        {
+            [UIView beginAnimations:@"animation" context:nil];
+            [self performSegueWithIdentifier:@"FromSearchEnthusiastSegue" sender:self];
+            [UIView setAnimationDuration:0.8];
+            [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.navigationController.view cache:NO];
+            [UIView commitAnimations];
+        }
     }
-}
-
-- (void)createNewUser
-{
-    PFUser *user = [PFUser user];
-    user.username = self.nameTextField.text;
-    user.password = self.passwordTextField.text;
-    user.email = self.emailTextField.text;
-    //    NSDate *joinDate = [NSDate date];
-    //    user[@"joinDate"] = joinDate;
-    
-    //    UIImage *pickedImage = [UIImage imageNamed:@"defaultUserImage"];
-    //    NSData* data = UIImageJPEGRepresentation(pickedImage,1.0f);
-    //    PFFile *imageFile = [PFFile fileWithData:data];
-    //    user[@"avatar"] = imageFile;
-    
-    [user signUpInBackgroundWithTarget:self selector:@selector(handleSignUp:error:)];
-}
-
-//- (void) saveUnfinishedPost
-//{
-//    if (self.post)
-//    {
-//        NSLog(@"ya");
-//        PFUser *userNow = [PFUser currentUser];
-//        if (userNow) {
-//            self.post[@"mentor"] = userNow;
-//        }
-//        [self.post saveInBackground];
-//    }
-//    else if (!self.post)
-//    {
-//        NSLog(@"nah");
-//    }
-//}
-
-- (void)handleSignUp:(NSNumber *)result error:(NSError *)error
-{
-    //    [self saveUnfinishedPost];
-    //    if (!error)
-    //    {
-    //        [PFUser logInWithUsernameInBackground:self.usernameTextField.text password:self.passwordTextField.text block:^(PFUser *user, NSError *error) {
-    //            if (user) {
-    //                [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-    //            }
-    //            else
-    //            {
-    //                UIAlertView *logInFailAlert = [[UIAlertView alloc] initWithTitle:@"Log In Error" message:@"Username or Password is Incorrect" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-    //                [logInFailAlert show];            }
-    //        }];
-    //    }
-    //    else
-    //    {
-    //        UIAlertView *signUpErrorAlert = [[UIAlertView alloc] initWithTitle:@"Sign In Failed" message:[NSString stringWithFormat:@"%@",[error userInfo][@"error"]] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-    //        [signUpErrorAlert show];
-    //    }
+    else
+    {
+        if(self.segmentedControl.selectedSegmentIndex==0)
+        {
+            [UIView beginAnimations:@"animation" context:nil];
+            [UIView setAnimationDuration:0.8];
+            [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:self.navigationController.view cache:NO];
+            [UIView commitAnimations];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
 }
 
 - (IBAction)onDismissKeyboardButtonPressed:(id)sender
@@ -304,6 +264,11 @@
     {
         AddToShareViewController *atsvc = segue.destinationViewController;
         atsvc.fromEnthusiast = 1;
+    }
+    else if ([segue.identifier isEqualToString:@"FromSearchEnthusiastSegue"])
+    {
+        ProfileViewController *pvc = segue.destinationViewController;
+        pvc.fromSearch = 1;
     }
 }
 

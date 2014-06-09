@@ -11,7 +11,7 @@
 #import "EnthusiastProfileViewController.h"
 #import <Parse/Parse.h>
 
-@interface ProfileViewController () <UIScrollViewDelegate,UITableViewDelegate, UITableViewDataSource>
+@interface ProfileViewController () <UIScrollViewDelegate,UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIView *uiViewForScrollView;
 @property (strong, nonatomic) IBOutlet UIButton *saveButton;
@@ -34,6 +34,8 @@
 @property (strong, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (strong, nonatomic) PFUser *currentUser;
 @property (strong, nonatomic) IBOutlet UITableView *myTableView;
+@property (strong, nonatomic) IBOutlet UIButton *myAvatarPhotoButton;
+@property (strong, nonatomic) IBOutlet UIImageView *avatarImageView;
 
 
 @end
@@ -116,6 +118,16 @@
 {
     self.segmentedControl.selectedSegmentIndex=0;
     [self fetchInterestsToShare];
+    
+    if (self.currentUser[@"avatar"])
+    {
+        [self.currentUser[@"avatar"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            if (!error) {
+                UIImage *photo = [UIImage imageWithData:data];
+                self.avatarImageView.image = photo;
+            }
+        }];
+    }
 }
 
 - (void)viewDidLoad
@@ -135,20 +147,20 @@
     self.aboutMeTextView.clipsToBounds = YES;
     
     PFUser *currentUser = [PFUser currentUser];
-    if (currentUser && !self.mentorThatPostedUser) {
-        self.nameTextField.text = currentUser[@"username"];
-        self.passwordTextField.text = currentUser[@"password"]; // change placeholder to "Change password?"
-        self.emailTextField.text = currentUser[@"email"];
-    }
-    else if (self.mentorThatPostedUser)
+    
+    if (self.fromSearch)
     {
         [self.logoutBarButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor clearColor]} forState:UIControlStateNormal];
         self.logoutBarButtonItem.enabled = NO;
         
-        [self.mentorThatPostedUser fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-            self.nameTextField.text = self.mentorThatPostedUser[@"username"];
-            self.emailTextField.text = self.mentorThatPostedUser[@"email"];
-        }];
+        self.nameTextField.text = self.leaderChosenFromSearch[@"username"];
+        self.emailTextField.text = self.leaderChosenFromSearch[@"email"];
+    }
+    else
+    {
+        self.nameTextField.text = currentUser[@"username"];
+        self.passwordTextField.text = currentUser[@"password"]; // change placeholder to "Change password?"
+        self.emailTextField.text = currentUser[@"email"];
     }
     
     NSArray *currentUserArray = @[currentUser[@"email"]];
@@ -190,82 +202,35 @@
 //    }
 //}
 
-//- (IBAction)onSaveButtonPressed:(id)sender
-//{
-//    [self createNewUser];
-//}
-
 - (IBAction)segmentedControlIndexChanged:(id)sender {
     if(self.segmentedControl.selectedSegmentIndex==1)
     {
 
     }
 }
-- (IBAction)onEnthusiastSubstituteButtonPressed:(id)sender {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    EnthusiastProfileViewController *epvc =[storyboard instantiateViewControllerWithIdentifier:@"EnthusiastProfileViewControllerID"];
-    
-    [UIView beginAnimations:@"animation" context:nil];
-    [self.navigationController pushViewController:epvc animated:NO];
-    [UIView setAnimationDuration:0.8];
-    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.navigationController.view cache:NO];
-    [UIView commitAnimations];
-}
 
-- (void)createNewUser
+- (IBAction)onEnthusiastSubstituteButtonPressed:(id)sender
 {
-    PFUser *user = [PFUser user];
-    user.username = self.nameTextField.text;
-    user.password = self.passwordTextField.text;
-    user.email = self.emailTextField.text;
-//    NSDate *joinDate = [NSDate date];
-//    user[@"joinDate"] = joinDate;
-    
-//    UIImage *pickedImage = [UIImage imageNamed:@"defaultUserImage"];
-//    NSData* data = UIImageJPEGRepresentation(pickedImage,1.0f);
-//    PFFile *imageFile = [PFFile fileWithData:data];
-//    user[@"avatar"] = imageFile;
-     
-    [user signUpInBackgroundWithTarget:self selector:@selector(handleSignUp:error:)];
-}
-
-//- (void) saveUnfinishedPost
-//{
-//    if (self.post)
-//    {
-//        NSLog(@"ya");
-//        PFUser *userNow = [PFUser currentUser];
-//        if (userNow) {
-//            self.post[@"mentor"] = userNow;
-//        }
-//        [self.post saveInBackground];
-//    }
-//    else if (!self.post)
-//    {
-//        NSLog(@"nah");
-//    }
-//}
-
-- (void)handleSignUp:(NSNumber *)result error:(NSError *)error
-{
-//    [self saveUnfinishedPost];
-//    if (!error)
-//    {
-//        [PFUser logInWithUsernameInBackground:self.usernameTextField.text password:self.passwordTextField.text block:^(PFUser *user, NSError *error) {
-//            if (user) {
-//                [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-//            }
-//            else
-//            {
-//                UIAlertView *logInFailAlert = [[UIAlertView alloc] initWithTitle:@"Log In Error" message:@"Username or Password is Incorrect" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-//                [logInFailAlert show];            }
-//        }];
-//    }
-//    else
-//    {
-//        UIAlertView *signUpErrorAlert = [[UIAlertView alloc] initWithTitle:@"Sign In Failed" message:[NSString stringWithFormat:@"%@",[error userInfo][@"error"]] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-//        [signUpErrorAlert show];
-//    }
+    if (self.fromSearchEnthusiast)
+    {
+        NSLog(@"from search enthusiast %hhd",self.fromSearchEnthusiast);
+        [UIView beginAnimations:@"animation" context:nil];
+        [UIView setAnimationDuration:0.8];
+        [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:self.navigationController.view cache:NO];
+        [UIView commitAnimations];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else
+    {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        EnthusiastProfileViewController *epvc =[storyboard instantiateViewControllerWithIdentifier:@"EnthusiastProfileViewControllerID"];
+        
+        [UIView beginAnimations:@"animation" context:nil];
+        [self.navigationController pushViewController:epvc animated:NO];
+        [UIView setAnimationDuration:0.8];
+        [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.navigationController.view cache:NO];
+        [UIView commitAnimations];
+    }
 }
 
 - (IBAction)onDismissKeyboardButtonPressed:(id)sender
@@ -287,6 +252,44 @@
 - (IBAction)onViewPostsButtonPressed:(id)sender
 {
     [self performSegueWithIdentifier:@"ViewPostsSegue" sender:self];
+}
+
+- (IBAction)onImageViewButtonPressed:(id)sender
+{
+    UIImagePickerController * picker = [[UIImagePickerController alloc] init];
+	picker.delegate = self;
+    
+	if((UIButton *) sender == self.myAvatarPhotoButton)
+    {
+		picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+	} else
+    {
+		picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+	}
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [[picker presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+    
+    // saving a uiimage to pffile
+    UIImage *pickedImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    NSData* data = UIImagePNGRepresentation(pickedImage);// UIImageJPEGRepresentation(pickedImage,1.0f);
+    PFFile *imageFile = [PFFile fileWithData:data];
+    PFUser *user = [PFUser currentUser];
+    
+    user[@"avatar"] = imageFile;
+    
+    // getting a uiimage from pffile
+    [user[@"avatar"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        if (!error) {
+            UIImage *photo = [UIImage imageWithData:data];
+            self.avatarImageView.image = photo;
+        }
+    }];
+    
+    [user saveInBackground];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

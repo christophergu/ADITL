@@ -122,49 +122,6 @@
             </objects>
             <point key="canvasLocation" x="464" y="532"/>
         </scene>
-        <!--Search Results View Controller-->
-        <scene sceneID="wyZ-0N-M85">
-            <objects>
-                <viewController id="reH-5U-LXJ" customClass="SearchResultsViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="O2R-ab-FWt"/>
-                        <viewControllerLayoutGuide type="bottom" id="odT-Dl-U9z"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="3aa-bB-kQe">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="iHx-Xw-DsM">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SearchResultsCellReuseID" id="w1s-Xi-0SS">
-                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="w1s-Xi-0SS" id="cge-jz-mxa">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="reH-5U-LXJ" id="ww6-RH-78U"/>
-                                    <outlet property="delegate" destination="reH-5U-LXJ" id="Q0h-nZ-fNa"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="WZv-4R-vJq"/>
-                    <connections>
-                        <outlet property="myTableView" destination="iHx-Xw-DsM" id="Djm-cB-fPW"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="seG-Ad-Obh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1410" y="-162"/>
-        </scene>
         <!--Log In View Controller-->
         <scene sceneID="ucx-TK-Tfx">
             <objects>
@@ -191,7 +148,7 @@
         <!--Profile View Controller - My Profile-->
         <scene sceneID="Q3U-Dh-6ip">
             <objects>
-                <viewController id="YlF-tT-kZb" customClass="ProfileViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LeaderProfileViewControllerID" id="YlF-tT-kZb" customClass="ProfileViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Bob-sS-5Cl"/>
                         <viewControllerLayoutGuide type="bottom" id="eH8-d2-Ez0"/>
@@ -426,6 +383,16 @@
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OzA-CQ-Bzd">
+                                                <rect key="frame" x="23" y="55" width="96" height="98"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="onImageViewButtonPressed:" destination="YlF-tT-kZb" eventType="touchUpInside" id="El8-v2-Foy"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
@@ -487,6 +454,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="aboutMeTextView" destination="N4f-E0-tJl" id="ww8-AN-Zf6"/>
+                        <outlet property="avatarImageView" destination="OQb-nE-E5r" id="IrN-dS-Iv2"/>
                         <outlet property="conversationCounterLabel" destination="C4w-v2-avf" id="TyA-gQ-VBh"/>
                         <outlet property="dismissKeyboardButton" destination="PaX-P3-l7d" id="v9e-WT-uUN"/>
                         <outlet property="emailTextField" destination="YIl-Yo-T63" id="vNL-Ex-E1K"/>
@@ -495,6 +463,7 @@
                         <outlet property="interestEditDelButton" destination="MZL-TW-cl4" id="xIM-gW-qC1"/>
                         <outlet property="locationTextField" destination="crm-3d-sir" id="cCn-8i-gzq"/>
                         <outlet property="logoutBarButtonItem" destination="nIY-yE-a2X" id="vCo-RQ-LS1"/>
+                        <outlet property="myAvatarPhotoButton" destination="OzA-CQ-Bzd" id="faB-RN-yfC"/>
                         <outlet property="myTableView" destination="g6N-pZ-rVo" id="tjO-Xv-Dej"/>
                         <outlet property="nameTextField" destination="Rbr-6G-9ge" id="l1k-PQ-DEi"/>
                         <outlet property="passwordTextField" destination="Rr9-zb-VsJ" id="4Iv-H5-wLI"/>
@@ -504,7 +473,6 @@
                         <outlet property="uiViewForScrollView" destination="Vua-ai-LEc" id="DOn-r3-Y1v"/>
                         <outlet property="websiteTextField" destination="l9t-Q5-NJ7" id="ugb-LL-4VQ"/>
                         <segue destination="hPf-Xa-Mqy" kind="push" identifier="ConversationBoxSegue" id="O6V-i9-Vrh"/>
-                        <segue destination="0Tz-kO-7CU" kind="push" identifier="EnthusiastProfileSegue" id="7Oz-G2-tvi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OdB-Np-ZEq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -920,6 +888,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="aboutMeTextView" destination="duF-D2-Wjp" id="lo1-zL-SdN"/>
+                        <outlet property="avatarImageView" destination="Bno-n2-9hz" id="aFJ-sb-fBn"/>
                         <outlet property="conversationCounterLabel" destination="KdD-3l-tub" id="MHi-a6-FEt"/>
                         <outlet property="dismissKeyboardButton" destination="p4D-Ib-Y9L" id="Wc7-mZ-feU"/>
                         <outlet property="emailTextField" destination="F9P-rj-JYu" id="Wec-BP-BwB"/>
@@ -936,6 +905,7 @@
                         <outlet property="uiViewForScrollView" destination="GP5-sl-OMt" id="dq6-kX-sO4"/>
                         <outlet property="websiteTextField" destination="9Zb-sp-0R9" id="YWo-4H-VTn"/>
                         <segue destination="hPf-Xa-Mqy" kind="push" identifier="ConversationBoxSegue" id="AdV-Jf-0Ua"/>
+                        <segue destination="YlF-tT-kZb" kind="push" identifier="FromSearchEnthusiastSegue" id="OuL-kD-t26"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qeB-jA-dc3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1145,11 +1115,13 @@
                         <outlet property="myTableView" destination="7fX-IO-ulZ" id="mSn-QC-4nT"/>
                         <outlet property="subcategoryTableView" destination="7fX-IO-ulZ" id="U77-8O-ItE"/>
                         <outlet property="subcategoryView" destination="CZ5-lz-KGK" id="Z39-lg-J7k"/>
+                        <segue destination="0Tz-kO-7CU" kind="push" identifier="SearchToEnthusiastSegue" id="tmf-w6-1Bq"/>
+                        <segue destination="YlF-tT-kZb" kind="push" identifier="SearchToLeaderSegue" id="Pix-bB-IDo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L4k-8O-NeW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1004" y="-162"/>
+            <point key="canvasLocation" x="1487" y="532"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="IjF-gH-wbx">
@@ -1318,9 +1290,9 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="s07-k2-dOL"/>
-        <segue reference="mta-dz-wZS"/>
         <segue reference="AdV-Jf-0Ua"/>
+        <segue reference="s07-k2-dOL"/>
         <segue reference="Fpu-Rf-qjf"/>
+        <segue reference="OuL-kD-t26"/>
     </inferredMetricsTieBreakers>
 </document>

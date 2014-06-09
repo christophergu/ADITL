@@ -10,6 +10,8 @@
 #import <Parse/Parse.h>
 
 @interface ProfileViewController : UIViewController
-@property (strong, nonatomic) PFUser *mentorThatPostedUser;
+@property (strong, nonatomic) PFUser *leaderChosenFromSearch;
+@property BOOL fromSearch;
+@property BOOL fromSearchEnthusiast;
 
 @end
