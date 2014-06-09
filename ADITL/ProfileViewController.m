@@ -47,7 +47,16 @@
     self.segmentedControl.selectedSegmentIndex=0;
     [self fetchInterestsToShare];
     
-    if (self.currentUser[@"avatar"])
+    if (self.fromSearch || self.fromSearchEnthusiast)
+    {
+        [self.leaderChosenFromSearch[@"avatar"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            if (!error) {
+                UIImage *photo = [UIImage imageWithData:data];
+                self.avatarImageView.image = photo;
+            }
+        }];
+    }
+    else if (self.currentUser[@"avatar"])
     {
         [self.currentUser[@"avatar"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
             if (!error) {
