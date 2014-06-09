@@ -140,7 +140,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     //    self.scrollView.pagingEnabled = YES;
-    self.scrollView.contentSize = CGSizeMake(320, 800);
+    self.scrollView.contentSize = CGSizeMake(320, 1100);
     self.scrollView.scrollEnabled = YES;
     self.scrollView.userInteractionEnabled = YES;
     [self.scrollView addSubview:self.uiViewForScrollView];
