@@ -11,6 +11,8 @@
 #import "ProfileConversationBoxViewController.h"
 #import "AddToShareViewController.h"
 
+#define allTrim( object ) [object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ]
+
 @interface EnthusiastProfileViewController () <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIView *uiViewForScrollView;
@@ -18,7 +20,6 @@
 @property (strong, nonatomic) IBOutlet UIButton *dismissKeyboardButton;
 
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
-@property (strong, nonatomic) IBOutlet UITextField *expertiseTextField;
 @property (strong, nonatomic) IBOutlet UITextField *locationTextField;
 @property (strong, nonatomic) IBOutlet UITextView *aboutMeTextView;
 @property (strong, nonatomic) IBOutlet UITextField *websiteTextField;
@@ -35,6 +36,9 @@
 @property (strong, nonatomic) IBOutlet UITableView *myTableView;
 @property (strong, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (strong, nonatomic) IBOutlet UIButton *myAvatarPhotoButton;
+@property (strong, nonatomic) IBOutlet UILabel *appointmentCounterLabel;
+@property (strong, nonatomic) IBOutlet UIButton *interestEditDelButton;
+@property (strong, nonatomic) IBOutlet UIButton *websiteButton;
 
 @end
 
@@ -90,6 +94,26 @@
     
     if (self.fromSearch || self.fromSearchLeader)
     {
+        if (!(allTrim(self.websiteButton.titleLabel.text).length == 0))
+        {
+            self.websiteButton.alpha = 1.0;
+            [self.websiteButton setTitle:self.enthusiastChosenFromSearch[@"website"] forState:UIControlStateNormal];
+        }
+        
+        self.interestAddButton.alpha = 0.0;
+        self.interestEditDelButton.alpha = 0.0;
+        self.conversationCounterLabel.alpha = 0.0;
+        self.appointmentCounterLabel.alpha = 0.0;
+        
+        self.nameTextField.borderStyle = UITextBorderStyleNone;
+        self.nameTextField.enabled = NO;
+        self.locationTextField.borderStyle = UITextBorderStyleNone;
+        self.locationTextField.enabled = NO;
+        self.websiteTextField.alpha = 0.0;
+        self.emailTextField.alpha = 0.0;
+        self.passwordTextField.alpha = 0.0;
+        self.aboutMeTextView.editable = NO;
+        
         [self.logoutBarButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor clearColor]} forState:UIControlStateNormal];
         self.logoutBarButtonItem.enabled = NO;
         
@@ -252,7 +276,6 @@
 - (IBAction)onDismissKeyboardButtonPressed:(id)sender
 {
     [self.nameTextField endEditing:YES];
-    [self.expertiseTextField endEditing:YES];
     [self.locationTextField endEditing:YES];
     [self.aboutMeTextView endEditing:YES];
     [self.websiteTextField endEditing:YES];
@@ -322,6 +345,7 @@
     else if ([segue.identifier isEqualToString:@"FromSearchEnthusiastSegue"])
     {
         ProfileViewController *pvc = segue.destinationViewController;
+        pvc.leaderChosenFromSearch = self.enthusiastChosenFromSearch;
         pvc.fromSearchEnthusiast = 1;
     }
 }

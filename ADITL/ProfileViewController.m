@@ -9,7 +9,8 @@
 #import "ProfileViewController.h"
 #import "ProfileConversationBoxViewController.h"
 #import "EnthusiastProfileViewController.h"
-#import <Parse/Parse.h>
+
+#define allTrim( object ) [object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ]
 
 @interface ProfileViewController () <UIScrollViewDelegate,UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -18,7 +19,6 @@
 @property (strong, nonatomic) IBOutlet UIButton *dismissKeyboardButton;
 
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
-@property (strong, nonatomic) IBOutlet UITextField *expertiseTextField;
 @property (strong, nonatomic) IBOutlet UITextField *locationTextField;
 @property (strong, nonatomic) IBOutlet UITextView *aboutMeTextView;
 @property (strong, nonatomic) IBOutlet UITextField *websiteTextField;
@@ -36,6 +36,8 @@
 @property (strong, nonatomic) IBOutlet UITableView *myTableView;
 @property (strong, nonatomic) IBOutlet UIButton *myAvatarPhotoButton;
 @property (strong, nonatomic) IBOutlet UIImageView *avatarImageView;
+@property (strong, nonatomic) IBOutlet UILabel *appointmentCounterLabel;
+@property (strong, nonatomic) IBOutlet UIButton *websiteButton;
 
 
 @end
@@ -73,18 +75,6 @@
     // Do any additional setup after loading the view.
     self.currentUser = [PFUser currentUser];
     
-    self.interestAddButton.layer.cornerRadius = 5.0f;
-    
-    self.interestEditDelButton.layer.cornerRadius = 5.0f;
-    
-    self.aboutMeTextView.textColor = [UIColor colorWithWhite: 0.8 alpha:1]; //optional
-    [self.aboutMeTextView.layer setBorderColor:[[UIColor colorWithWhite: 0.8 alpha:1] CGColor]];
-    [self.aboutMeTextView.layer setBorderWidth:0.5];
-    self.aboutMeTextView.layer.cornerRadius = 5;
-    self.aboutMeTextView.clipsToBounds = YES;
-    
-    PFUser *currentUser = [PFUser currentUser];
-    
     // checks which view controller directed you here
     if (self.fromSearchEnthusiast)
     {
@@ -98,8 +88,28 @@
         self.logoutBarButtonItem.enabled = NO;
     }
     
-    if (self.fromSearch)
+    if (self.fromSearch || self.fromSearchEnthusiast)
     {
+        if (!(allTrim(self.websiteButton.titleLabel.text).length == 0))
+        {
+            self.websiteButton.alpha = 1.0;
+            [self.websiteButton setTitle:self.leaderChosenFromSearch[@"website"] forState:UIControlStateNormal];
+        }
+        
+        self.interestAddButton.alpha = 0.0;
+        self.interestEditDelButton.alpha = 0.0;
+        self.conversationCounterLabel.alpha = 0.0;
+        self.appointmentCounterLabel.alpha = 0.0;
+        
+        self.nameTextField.borderStyle = UITextBorderStyleNone;
+        self.nameTextField.enabled = NO;
+        self.locationTextField.borderStyle = UITextBorderStyleNone;
+        self.locationTextField.enabled = NO;
+        self.websiteTextField.alpha = 0.0;
+        self.emailTextField.alpha = 0.0;
+        self.passwordTextField.alpha = 0.0;
+        self.aboutMeTextView.editable = NO;
+        
         [self.logoutBarButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor clearColor]} forState:UIControlStateNormal];
         self.logoutBarButtonItem.enabled = NO;
         
@@ -108,12 +118,23 @@
     }
     else
     {
-        self.nameTextField.text = currentUser[@"username"];
-        self.passwordTextField.text = currentUser[@"password"]; // change placeholder to "Change password?"
-        self.emailTextField.text = currentUser[@"email"];
+        self.websiteButton.alpha = 0.0;
+        
+        self.interestAddButton.layer.cornerRadius = 5.0f;
+        self.interestEditDelButton.layer.cornerRadius = 5.0f;
+        
+        self.aboutMeTextView.textColor = [UIColor colorWithWhite: 0.8 alpha:1]; //optional
+        [self.aboutMeTextView.layer setBorderColor:[[UIColor colorWithWhite: 0.8 alpha:1] CGColor]];
+        [self.aboutMeTextView.layer setBorderWidth:0.5];
+        self.aboutMeTextView.layer.cornerRadius = 5;
+        self.aboutMeTextView.clipsToBounds = YES;
+        
+        self.nameTextField.text = self.currentUser[@"username"];
+        self.passwordTextField.text = self.currentUser[@"password"]; // change placeholder to "Change password?"
+        self.emailTextField.text = self.currentUser[@"email"];
     }
     
-    NSArray *currentUserArray = @[currentUser[@"email"]];
+    NSArray *currentUserArray = @[self.currentUser[@"email"]];
     
     PFQuery *conversationQuery = [PFQuery queryWithClassName:@"ConversationThread"];
     [conversationQuery whereKey:@"chattersArray" containsAllObjectsInArray:currentUserArray];
@@ -239,6 +260,21 @@
     }
 }
 
+- (IBAction)onWebsiteButtonPressed:(id)sender
+{
+    
+}
+
+- (IBAction)onSaveButtonPressed:(id)sender
+{
+    self.currentUser.username = self.nameTextField.text;
+    self.currentUser.password = self.passwordTextField.text;
+    self.currentUser.email = self.emailTextField.text;
+    self.currentUser[@"website"] = self.websiteTextField.text;
+    
+    [self.currentUser saveInBackground];
+}
+
 - (IBAction)onEnthusiastSubstituteButtonPressed:(id)sender
 {
     if (self.fromSearchEnthusiast)
@@ -263,7 +299,6 @@
 - (IBAction)onDismissKeyboardButtonPressed:(id)sender
 {
     [self.nameTextField endEditing:YES];
-    [self.expertiseTextField endEditing:YES];
     [self.locationTextField endEditing:YES];
     [self.aboutMeTextView endEditing:YES];
     [self.websiteTextField endEditing:YES];
@@ -328,6 +363,7 @@
     else if ([segue.identifier isEqualToString:@"FromLeaderSegue"])
     {
         EnthusiastProfileViewController *epvc = segue.destinationViewController;
+        epvc.enthusiastChosenFromSearch = self.leaderChosenFromSearch;
         epvc.fromSearchLeader = 1;
     }
 }
