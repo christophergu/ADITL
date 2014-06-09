@@ -143,7 +143,7 @@
     
     PFUser *currentUser = [PFUser currentUser];
     
-    if (self.fromSearch)
+    if (self.fromSearch || self.fromSearchLeader)
     {
         [self.logoutBarButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor clearColor]} forState:UIControlStateNormal];
         self.logoutBarButtonItem.enabled = NO;
@@ -268,7 +268,7 @@
     else if ([segue.identifier isEqualToString:@"FromSearchEnthusiastSegue"])
     {
         ProfileViewController *pvc = segue.destinationViewController;
-        pvc.fromSearch = 1;
+        pvc.fromSearchEnthusiast = 1;
     }
 }
 

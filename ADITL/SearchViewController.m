@@ -37,8 +37,9 @@
     NSDictionary *categoryCooking = @{@"Cooking": [UIImage imageNamed:@"cooking"]};
     self.categoriesArray = @[categoryArt, categoryCooking];
     self.categoriesKeysArray = @[@"Art", @"Cooking"];
-    self.userArray = [NSMutableArray new];
 }
+
+#pragma mark - collection view delegate methods
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
@@ -55,6 +56,8 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    self.userArray = [NSMutableArray new];
+    
     if (self.fromEnthusiast)
     {
         PFQuery *searchResultsQuery = [PFQuery queryWithClassName:@"EnthusiastInterest"];
@@ -97,6 +100,8 @@
     }
 }
 
+#pragma mark - table view delegate methods
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.searchResultsArray.count;
@@ -117,7 +122,10 @@
                     cell.userImageView.image = photo;
                 }
             }];
-            
+        }
+        else
+        {
+            cell.userImageView.image = [UIImage imageNamed:@"default_user"];
         }
     }
     cell.userPriceLabel.text = [self.searchResultsArray objectAtIndex:indexPath.row][@"price"];
@@ -137,6 +145,8 @@
         [self performSegueWithIdentifier:@"SearchToLeaderSegue" sender:self];
     }
 }
+
+#pragma mark - segue methods
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UICollectionViewCell *)cell
 {

@@ -12,5 +12,6 @@
 @interface EnthusiastProfileViewController : UIViewController
 @property (strong, nonatomic) PFUser *enthusiastChosenFromSearch;
 @property BOOL fromSearch;
+@property BOOL fromSearchLeader;
 
 @end

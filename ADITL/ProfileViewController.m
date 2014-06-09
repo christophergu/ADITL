@@ -130,6 +130,13 @@
     }
 }
 
+- (void) handleBack:(id)sender
+{
+    // pop to root view controller
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -147,6 +154,21 @@
     self.aboutMeTextView.clipsToBounds = YES;
     
     PFUser *currentUser = [PFUser currentUser];
+    
+    if (self.fromSearchEnthusiast)
+    {
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"back"
+                                                                       style:UIBarButtonItemStyleBordered
+                                                                      target:self
+                                                                      action:@selector(handleBack:)];
+        
+        
+        
+        self.navigationItem.leftBarButtonItem = backButton;
+        
+        [self.logoutBarButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor clearColor]} forState:UIControlStateNormal];
+        self.logoutBarButtonItem.enabled = NO;
+    }
     
     if (self.fromSearch)
     {
@@ -222,11 +244,8 @@
     }
     else
     {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        EnthusiastProfileViewController *epvc =[storyboard instantiateViewControllerWithIdentifier:@"EnthusiastProfileViewControllerID"];
-        
         [UIView beginAnimations:@"animation" context:nil];
-        [self.navigationController pushViewController:epvc animated:NO];
+        [self performSegueWithIdentifier:@"FromLeaderSegue" sender:self];
         [UIView setAnimationDuration:0.8];
         [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.navigationController.view cache:NO];
         [UIView commitAnimations];
@@ -299,10 +318,10 @@
         ProfileConversationBoxViewController *pcbvc = segue.destinationViewController;
         pcbvc.conversationArray = self.conversationArray;
     }
-    else if ([segue.identifier isEqualToString:@"AddInterestSegue"])
+    else if ([segue.identifier isEqualToString:@"FromLeaderSegue"])
     {
-//        ProfileConversationBoxViewController *pcbvc = segue.destinationViewController;
-//        pcbvc.conversationArray = self.conversationArray;
+        EnthusiastProfileViewController *epvc = segue.destinationViewController;
+        epvc.fromSearchLeader = 1;
     }
 }
 

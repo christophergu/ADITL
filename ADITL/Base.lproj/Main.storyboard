@@ -473,6 +473,7 @@
                         <outlet property="uiViewForScrollView" destination="Vua-ai-LEc" id="DOn-r3-Y1v"/>
                         <outlet property="websiteTextField" destination="l9t-Q5-NJ7" id="ugb-LL-4VQ"/>
                         <segue destination="hPf-Xa-Mqy" kind="push" identifier="ConversationBoxSegue" id="O6V-i9-Vrh"/>
+                        <segue destination="0Tz-kO-7CU" kind="push" identifier="FromLeaderSegue" id="3Jr-o1-tG9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OdB-Np-ZEq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -504,7 +505,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AddToShareCellReuseID" id="zBz-E8-bDn" customClass="AddToShareCollectionViewCell">
-                                        <rect key="frame" x="0.0" y="64" width="100" height="100"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
@@ -930,7 +931,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ConversationCellReuseID" textLabel="haY-FY-AW4" detailTextLabel="8mO-gy-Og6" style="IBUITableViewCellStyleSubtitle" id="aVr-FX-9D4">
-                                        <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aVr-FX-9D4" id="3TS-O1-L8l">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -1290,9 +1291,10 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="AdV-Jf-0Ua"/>
         <segue reference="s07-k2-dOL"/>
-        <segue reference="Fpu-Rf-qjf"/>
+        <segue reference="doy-5C-BRo"/>
         <segue reference="OuL-kD-t26"/>
+        <segue reference="3Jr-o1-tG9"/>
+        <segue reference="O6V-i9-Vrh"/>
     </inferredMetricsTieBreakers>
 </document>
