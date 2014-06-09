@@ -836,6 +836,16 @@
                                                 <rect key="frame" x="152" y="183" width="25" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nbu-Aj-kVL">
+                                                <rect key="frame" x="201" y="59" width="99" height="100"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="onImageViewButtonPressed:" destination="0Tz-kO-7CU" eventType="touchUpInside" id="43n-oJ-s1V"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
@@ -897,6 +907,7 @@
                         <outlet property="interestAddButton" destination="npJ-ge-9Ez" id="Y1s-2d-hhg"/>
                         <outlet property="locationTextField" destination="ipd-9I-cj4" id="h9A-wB-CZO"/>
                         <outlet property="logoutBarButtonItem" destination="sVk-Kl-sZs" id="FlH-2W-tCr"/>
+                        <outlet property="myAvatarPhotoButton" destination="Nbu-Aj-kVL" id="s2Z-0D-WTS"/>
                         <outlet property="myTableView" destination="eQ1-Vo-Dic" id="ElQ-go-mgn"/>
                         <outlet property="nameTextField" destination="t90-Wa-1MF" id="USJ-OJ-2W7"/>
                         <outlet property="passwordTextField" destination="LMo-fR-FUB" id="TYm-d3-qKc"/>
@@ -1291,10 +1302,10 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="s07-k2-dOL"/>
-        <segue reference="doy-5C-BRo"/>
-        <segue reference="OuL-kD-t26"/>
+        <segue reference="AdV-Jf-0Ua"/>
         <segue reference="3Jr-o1-tG9"/>
-        <segue reference="O6V-i9-Vrh"/>
+        <segue reference="OuL-kD-t26"/>
+        <segue reference="Fpu-Rf-qjf"/>
+        <segue reference="s07-k2-dOL"/>
     </inferredMetricsTieBreakers>
 </document>

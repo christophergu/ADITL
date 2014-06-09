@@ -42,6 +42,108 @@
 
 @implementation ProfileViewController
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    self.segmentedControl.selectedSegmentIndex=0;
+    [self fetchInterestsToShare];
+    
+    if (self.currentUser[@"avatar"])
+    {
+        [self.currentUser[@"avatar"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            if (!error) {
+                UIImage *photo = [UIImage imageWithData:data];
+                self.avatarImageView.image = photo;
+            }
+        }];
+    }
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    self.currentUser = [PFUser currentUser];
+    
+    self.interestAddButton.layer.cornerRadius = 5.0f;
+    
+    self.interestEditDelButton.layer.cornerRadius = 5.0f;
+    
+    self.aboutMeTextView.textColor = [UIColor colorWithWhite: 0.8 alpha:1]; //optional
+    [self.aboutMeTextView.layer setBorderColor:[[UIColor colorWithWhite: 0.8 alpha:1] CGColor]];
+    [self.aboutMeTextView.layer setBorderWidth:0.5];
+    self.aboutMeTextView.layer.cornerRadius = 5;
+    self.aboutMeTextView.clipsToBounds = YES;
+    
+    PFUser *currentUser = [PFUser currentUser];
+    
+    // checks which view controller directed you here
+    if (self.fromSearchEnthusiast)
+    {
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"back"
+                                                                       style:UIBarButtonItemStyleBordered
+                                                                      target:self
+                                                                      action:@selector(handleBack:)];
+        self.navigationItem.leftBarButtonItem = backButton;
+        
+        [self.logoutBarButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor clearColor]} forState:UIControlStateNormal];
+        self.logoutBarButtonItem.enabled = NO;
+    }
+    
+    if (self.fromSearch)
+    {
+        [self.logoutBarButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor clearColor]} forState:UIControlStateNormal];
+        self.logoutBarButtonItem.enabled = NO;
+        
+        self.nameTextField.text = self.leaderChosenFromSearch[@"username"];
+        self.emailTextField.text = self.leaderChosenFromSearch[@"email"];
+    }
+    else
+    {
+        self.nameTextField.text = currentUser[@"username"];
+        self.passwordTextField.text = currentUser[@"password"]; // change placeholder to "Change password?"
+        self.emailTextField.text = currentUser[@"email"];
+    }
+    
+    NSArray *currentUserArray = @[currentUser[@"email"]];
+    
+    PFQuery *conversationQuery = [PFQuery queryWithClassName:@"ConversationThread"];
+    [conversationQuery whereKey:@"chattersArray" containsAllObjectsInArray:currentUserArray];
+    [conversationQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        self.conversationCounterLabel.text = [NSString stringWithFormat:@"x%lu",(unsigned long)[objects count]];
+        self.conversationArray = objects;
+    }];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    self.scrollView.contentSize = CGSizeMake(320, 800);
+    self.scrollView.scrollEnabled = YES;
+    self.scrollView.userInteractionEnabled = YES;
+    [self.scrollView addSubview:self.uiViewForScrollView];
+}
+
+//#pragma mark - what i can share text view delegate methods (for placehoder text to exist)
+//
+//- (void)textViewDidBeginEditing:(UITextView *)textView
+//{
+//    if ([self.aboutMeTextView.text isEqualToString:@"About Me"]) {
+//        self.aboutMeTextView.text = @"";
+//        self.aboutMeTextView.textColor = [UIColor blackColor]; //optional
+////        [self.aboutMeTextView becomeFirstResponder];
+//    }
+//}
+//
+//- (void)textViewDidEndEditing:(UITextView *)textView
+//{
+//    if ([self.aboutMeTextView.text isEqualToString:@""]) {
+//        self.aboutMeTextView.text = @"About Me";
+//        self.aboutMeTextView.textColor = [UIColor colorWithWhite: 0.8 alpha:1]; //optional
+//        [self.aboutMeTextView resignFirstResponder];
+//    }
+//}
+
+#pragma mark - table view delegate methods
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return self.interestGroupsArray.count;
@@ -76,6 +178,8 @@
     return groupName;
 }
 
+#pragma mark - helpter methods
+
 - (void)fetchInterestsToShare
 {
     self.interestGroupsArray = [NSMutableArray new];
@@ -84,8 +188,6 @@
     [postQuery whereKey:@"leaderEmail" equalTo:self.currentUser.email];
     [postQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
      {
-         //        self.postArray = objects;
-         
          self.interestDictionary = [NSMutableDictionary new];
          
          for (PFObject *post in objects)
@@ -109,120 +211,17 @@
              }
              [self.interestDictionary setObject:postArray forKey:groupName];
          }
-         
          [self.myTableView reloadData];
      }];
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
-    self.segmentedControl.selectedSegmentIndex=0;
-    [self fetchInterestsToShare];
-    
-    if (self.currentUser[@"avatar"])
-    {
-        [self.currentUser[@"avatar"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-            if (!error) {
-                UIImage *photo = [UIImage imageWithData:data];
-                self.avatarImageView.image = photo;
-            }
-        }];
-    }
-}
+#pragma mark - button methods
 
 - (void) handleBack:(id)sender
 {
     // pop to root view controller
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
-
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.currentUser = [PFUser currentUser];
-    
-    self.interestAddButton.layer.cornerRadius = 5.0f;
-    
-    self.interestEditDelButton.layer.cornerRadius = 5.0f;
-    
-    self.aboutMeTextView.textColor = [UIColor colorWithWhite: 0.8 alpha:1]; //optional
-    [self.aboutMeTextView.layer setBorderColor:[[UIColor colorWithWhite: 0.8 alpha:1] CGColor]];
-    [self.aboutMeTextView.layer setBorderWidth:0.5];
-    self.aboutMeTextView.layer.cornerRadius = 5;
-    self.aboutMeTextView.clipsToBounds = YES;
-    
-    PFUser *currentUser = [PFUser currentUser];
-    
-    if (self.fromSearchEnthusiast)
-    {
-        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"back"
-                                                                       style:UIBarButtonItemStyleBordered
-                                                                      target:self
-                                                                      action:@selector(handleBack:)];
-        
-        
-        
-        self.navigationItem.leftBarButtonItem = backButton;
-        
-        [self.logoutBarButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor clearColor]} forState:UIControlStateNormal];
-        self.logoutBarButtonItem.enabled = NO;
-    }
-    
-    if (self.fromSearch)
-    {
-        [self.logoutBarButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor clearColor]} forState:UIControlStateNormal];
-        self.logoutBarButtonItem.enabled = NO;
-        
-        self.nameTextField.text = self.leaderChosenFromSearch[@"username"];
-        self.emailTextField.text = self.leaderChosenFromSearch[@"email"];
-    }
-    else
-    {
-        self.nameTextField.text = currentUser[@"username"];
-        self.passwordTextField.text = currentUser[@"password"]; // change placeholder to "Change password?"
-        self.emailTextField.text = currentUser[@"email"];
-    }
-    
-    NSArray *currentUserArray = @[currentUser[@"email"]];
-    
-    PFQuery *conversationQuery = [PFQuery queryWithClassName:@"ConversationThread"];
-    [conversationQuery whereKey:@"chattersArray" containsAllObjectsInArray:currentUserArray];
-    [conversationQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        self.conversationCounterLabel.text = [NSString stringWithFormat:@"x%lu",(unsigned long)[objects count]];
-        self.conversationArray = objects;
-    }];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-//    self.scrollView.pagingEnabled = YES;
-    self.scrollView.contentSize = CGSizeMake(320, 800);
-    self.scrollView.scrollEnabled = YES;
-    self.scrollView.userInteractionEnabled = YES;
-    [self.scrollView addSubview:self.uiViewForScrollView];
-}
-
-//#pragma mark - what i can share text view delegate methods (for placehoder text to exist)
-//
-//- (void)textViewDidBeginEditing:(UITextView *)textView
-//{
-//    if ([self.aboutMeTextView.text isEqualToString:@"About Me"]) {
-//        self.aboutMeTextView.text = @"";
-//        self.aboutMeTextView.textColor = [UIColor blackColor]; //optional
-////        [self.aboutMeTextView becomeFirstResponder];
-//    }
-//}
-//
-//- (void)textViewDidEndEditing:(UITextView *)textView
-//{
-//    if ([self.aboutMeTextView.text isEqualToString:@""]) {
-//        self.aboutMeTextView.text = @"About Me";
-//        self.aboutMeTextView.textColor = [UIColor colorWithWhite: 0.8 alpha:1]; //optional
-//        [self.aboutMeTextView resignFirstResponder];
-//    }
-//}
 
 - (IBAction)segmentedControlIndexChanged:(id)sender {
     if(self.segmentedControl.selectedSegmentIndex==1)
@@ -268,10 +267,7 @@
     [self performSegueWithIdentifier:@"ConversationBoxSegue" sender:self];
 }
 
-- (IBAction)onViewPostsButtonPressed:(id)sender
-{
-    [self performSegueWithIdentifier:@"ViewPostsSegue" sender:self];
-}
+#pragma mark - image picker methods
 
 - (IBAction)onImageViewButtonPressed:(id)sender
 {
@@ -310,6 +306,8 @@
     
     [user saveInBackground];
 }
+
+#pragma mark - segue methods
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {

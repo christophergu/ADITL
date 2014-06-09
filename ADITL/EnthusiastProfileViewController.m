@@ -11,7 +11,7 @@
 #import "ProfileConversationBoxViewController.h"
 #import "AddToShareViewController.h"
 
-@interface EnthusiastProfileViewController () <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface EnthusiastProfileViewController () <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIView *uiViewForScrollView;
 @property (strong, nonatomic) IBOutlet UIButton *saveButton;
@@ -34,11 +34,86 @@
 @property (strong, nonatomic) PFUser *currentUser;
 @property (strong, nonatomic) IBOutlet UITableView *myTableView;
 @property (strong, nonatomic) IBOutlet UIImageView *avatarImageView;
+@property (strong, nonatomic) IBOutlet UIButton *myAvatarPhotoButton;
 
 @end
 
 @implementation EnthusiastProfileViewController
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self fetchInterestsToShare];
+    
+    if (self.currentUser[@"avatar"])
+    {
+        [self.currentUser[@"avatar"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            if (!error) {
+                UIImage *photo = [UIImage imageWithData:data];
+                self.avatarImageView.image = photo;
+            }
+        }];
+    }
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    self.currentUser = [PFUser currentUser];
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"back"
+                                                                   style:UIBarButtonItemStyleBordered
+                                                                  target:self
+                                                                  action:@selector(handleBack:)];
+    self.navigationItem.leftBarButtonItem = backButton;
+    
+    self.segmentedControl.selectedSegmentIndex=1;
+    
+    self.interestAddButton.layer.cornerRadius = 5.0f;
+    
+    self.aboutMeTextView.textColor = [UIColor colorWithWhite: 0.8 alpha:1]; //optional
+    [self.aboutMeTextView.layer setBorderColor:[[UIColor colorWithWhite: 0.8 alpha:1] CGColor]];
+    [self.aboutMeTextView.layer setBorderWidth:0.5];
+    self.aboutMeTextView.layer.cornerRadius = 5;
+    self.aboutMeTextView.clipsToBounds = YES;
+    
+    PFUser *currentUser = [PFUser currentUser];
+    
+    if (self.fromSearch || self.fromSearchLeader)
+    {
+        [self.logoutBarButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor clearColor]} forState:UIControlStateNormal];
+        self.logoutBarButtonItem.enabled = NO;
+        
+        self.nameTextField.text = self.enthusiastChosenFromSearch[@"username"];
+        self.emailTextField.text = self.enthusiastChosenFromSearch[@"email"];
+    }
+    else
+    {
+        self.nameTextField.text = currentUser[@"username"];
+        self.passwordTextField.text = currentUser[@"password"]; // change placeholder to "Change password?"
+        self.emailTextField.text = currentUser[@"email"];
+    }
+    
+    NSArray *currentUserArray = @[currentUser[@"email"]];
+    
+    PFQuery *conversationQuery = [PFQuery queryWithClassName:@"ConversationThread"];
+    [conversationQuery whereKey:@"chattersArray" containsAllObjectsInArray:currentUserArray];
+    [conversationQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        self.conversationCounterLabel.text = [NSString stringWithFormat:@"x%lu",(unsigned long)[objects count]];
+        self.conversationArray = objects;
+    }];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    //    self.scrollView.pagingEnabled = YES;
+    self.scrollView.contentSize = CGSizeMake(320, 800);
+    self.scrollView.scrollEnabled = YES;
+    self.scrollView.userInteractionEnabled = YES;
+    [self.scrollView addSubview:self.uiViewForScrollView];
+}
+
+#pragma mark - table view delegate methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -72,6 +147,8 @@
     NSString *groupName = [self.interestGroupsArray objectAtIndex:section];
     return groupName;
 }
+
+#pragma mark - helper methods
 
 - (void)fetchInterestsToShare
 {
@@ -110,86 +187,12 @@
      }];
 }
 
+#pragma mark - button methods
+
 - (void) handleBack:(id)sender
 {
     // pop to root view controller
     [self.navigationController popToRootViewControllerAnimated:YES];
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.currentUser = [PFUser currentUser];
-    
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"back"
-                                                             style:UIBarButtonItemStyleBordered
-                                                                  target:self
-                                                                  action:@selector(handleBack:)];
-    
-    
-    
-    self.navigationItem.leftBarButtonItem = backButton;
-    
-    self.segmentedControl.selectedSegmentIndex=1;
-    
-    self.interestAddButton.layer.cornerRadius = 5.0f;
-    
-    self.aboutMeTextView.textColor = [UIColor colorWithWhite: 0.8 alpha:1]; //optional
-    [self.aboutMeTextView.layer setBorderColor:[[UIColor colorWithWhite: 0.8 alpha:1] CGColor]];
-    [self.aboutMeTextView.layer setBorderWidth:0.5];
-    self.aboutMeTextView.layer.cornerRadius = 5;
-    self.aboutMeTextView.clipsToBounds = YES;
-    
-    PFUser *currentUser = [PFUser currentUser];
-    
-    if (self.fromSearch || self.fromSearchLeader)
-    {
-        [self.logoutBarButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor clearColor]} forState:UIControlStateNormal];
-        self.logoutBarButtonItem.enabled = NO;
-
-        self.nameTextField.text = self.enthusiastChosenFromSearch[@"username"];
-        self.emailTextField.text = self.enthusiastChosenFromSearch[@"email"];
-    }
-    else
-    {
-        self.nameTextField.text = currentUser[@"username"];
-        self.passwordTextField.text = currentUser[@"password"]; // change placeholder to "Change password?"
-        self.emailTextField.text = currentUser[@"email"];
-    }
-    
-    NSArray *currentUserArray = @[currentUser[@"email"]];
-    
-    PFQuery *conversationQuery = [PFQuery queryWithClassName:@"ConversationThread"];
-    [conversationQuery whereKey:@"chattersArray" containsAllObjectsInArray:currentUserArray];
-    [conversationQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        self.conversationCounterLabel.text = [NSString stringWithFormat:@"x%lu",(unsigned long)[objects count]];
-        self.conversationArray = objects;
-    }];
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [self fetchInterestsToShare];
-    
-    if (self.currentUser[@"avatar"])
-    {
-        [self.currentUser[@"avatar"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-            if (!error) {
-                UIImage *photo = [UIImage imageWithData:data];
-                self.avatarImageView.image = photo;
-            }
-        }];
-    }
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    //    self.scrollView.pagingEnabled = YES;
-    self.scrollView.contentSize = CGSizeMake(320, 800);
-    self.scrollView.scrollEnabled = YES;
-    self.scrollView.userInteractionEnabled = YES;
-    [self.scrollView addSubview:self.uiViewForScrollView];
 }
 
 //#pragma mark - what i can share text view delegate methods (for placehoder text to exist)
@@ -252,6 +255,48 @@
 {
     [self performSegueWithIdentifier:@"ConversationBoxSegue" sender:self];
 }
+
+#pragma mark - image picker methods
+
+- (IBAction)onImageViewButtonPressed:(id)sender
+{
+    UIImagePickerController * picker = [[UIImagePickerController alloc] init];
+	picker.delegate = self;
+    
+	if((UIButton *) sender == self.myAvatarPhotoButton)
+    {
+		picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+	} else
+    {
+		picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+	}
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [[picker presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+    
+    // saving a uiimage to pffile
+    UIImage *pickedImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    NSData* data = UIImagePNGRepresentation(pickedImage);// UIImageJPEGRepresentation(pickedImage,1.0f);
+    PFFile *imageFile = [PFFile fileWithData:data];
+    PFUser *user = [PFUser currentUser];
+    
+    user[@"avatar"] = imageFile;
+    
+    // getting a uiimage from pffile
+    [user[@"avatar"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        if (!error) {
+            UIImage *photo = [UIImage imageWithData:data];
+            self.avatarImageView.image = photo;
+        }
+    }];
+    
+    [user saveInBackground];
+}
+
+#pragma mark - segue methods
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
