@@ -39,6 +39,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *appointmentCounterLabel;
 @property (strong, nonatomic) IBOutlet UIButton *interestEditDelButton;
 @property (strong, nonatomic) IBOutlet UIButton *websiteButton;
+@property (strong, nonatomic) IBOutlet UILabel *conversationStartLabel;
+@property (strong, nonatomic) IBOutlet UILabel *appointmentRequestLabel;
 
 @end
 
@@ -104,6 +106,8 @@
         self.interestEditDelButton.alpha = 0.0;
         self.conversationCounterLabel.alpha = 0.0;
         self.appointmentCounterLabel.alpha = 0.0;
+        self.conversationStartLabel.alpha = 1.0;
+        self.appointmentRequestLabel.alpha = 1.0;
         
         self.nameTextField.borderStyle = UITextBorderStyleNone;
         self.nameTextField.enabled = NO;
@@ -122,6 +126,11 @@
     }
     else
     {
+        self.conversationCounterLabel.alpha = 1.0;
+        self.appointmentCounterLabel.alpha = 1.0;
+        self.conversationStartLabel.alpha = 0.0;
+        self.appointmentRequestLabel.alpha = 0.0;
+        
         self.nameTextField.text = currentUser[@"username"];
         self.passwordTextField.text = currentUser[@"password"]; // change placeholder to "Change password?"
         self.emailTextField.text = currentUser[@"email"];

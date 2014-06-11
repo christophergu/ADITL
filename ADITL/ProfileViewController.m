@@ -38,6 +38,8 @@
 @property (strong, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (strong, nonatomic) IBOutlet UILabel *appointmentCounterLabel;
 @property (strong, nonatomic) IBOutlet UIButton *websiteButton;
+@property (strong, nonatomic) IBOutlet UILabel *conversationStartLabel;
+@property (strong, nonatomic) IBOutlet UILabel *appointmentRequestLabel;
 
 
 @end
@@ -100,6 +102,8 @@
         self.interestEditDelButton.alpha = 0.0;
         self.conversationCounterLabel.alpha = 0.0;
         self.appointmentCounterLabel.alpha = 0.0;
+        self.conversationStartLabel.alpha = 1.0;
+        self.appointmentRequestLabel.alpha = 1.0;
         
         self.nameTextField.borderStyle = UITextBorderStyleNone;
         self.nameTextField.enabled = NO;
@@ -119,6 +123,10 @@
     else
     {
         self.websiteButton.alpha = 0.0;
+        self.conversationCounterLabel.alpha = 1.0;
+        self.appointmentCounterLabel.alpha = 1.0;
+        self.conversationStartLabel.alpha = 0.0;
+        self.appointmentRequestLabel.alpha = 0.0;
         
         self.interestAddButton.layer.cornerRadius = 5.0f;
         self.interestEditDelButton.layer.cornerRadius = 5.0f;
@@ -210,6 +218,17 @@
 
 #pragma mark - helpter methods
 
+- (void)retrieveConversationInfo
+{
+    NSArray *currentUserArray = @[self.currentUser[@"username"]];
+    
+    PFQuery *conversationQuery = [PFQuery queryWithClassName:@"ConversationThread"];
+    [conversationQuery whereKey:@"chattersArray" containsAllObjectsInArray:currentUserArray];
+    [conversationQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        self.conversationArray = objects;
+    }];
+}
+
 - (void)fetchInterestsToShare
 {
     self.interestGroupsArray = [NSMutableArray new];
@@ -279,7 +298,6 @@
 {
     if (self.fromSearchEnthusiast)
     {
-        NSLog(@"from search enthusiast %hhd",self.fromSearchEnthusiast);
         [UIView beginAnimations:@"animation" context:nil];
         [UIView setAnimationDuration:0.8];
         [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:self.navigationController.view cache:NO];
@@ -308,7 +326,32 @@
 
 - (IBAction)onConversationButtonPressed:(id)sender
 {
-    [self performSegueWithIdentifier:@"ConversationBoxSegue" sender:self];
+    if (self.leaderChosenFromSearch && [self.currentUser[@"email"] isEqual:self.leaderChosenFromSearch[@"email"]])
+    {
+        UIAlertView *yourselfAlert = [[UIAlertView alloc] initWithTitle:@"Oops!"
+                                                                message:@"This is your own profile."
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles: nil];
+        [yourselfAlert show];
+    }
+    else if (self.fromSearch || self.fromSearchEnthusiast)
+    {
+        PFObject *conversation = [PFObject objectWithClassName:@"ConversationThread"];
+        conversation[@"senderString"] = self.currentUser[@"username"];
+        [conversation addObject:self.currentUser forKey:@"chattersUsersArray"];
+        [conversation addObject:self.leaderChosenFromSearch forKey:@"chattersUsersArray"];
+        conversation[@"createdDate"] = [NSDate date];
+        self.conversationArray = @[conversation];
+        
+        [conversation saveInBackground];
+        [self performSegueWithIdentifier:@"ConversationBoxSegue" sender:self];
+    }
+    else
+    {
+        [self retrieveConversationInfo];
+        [self performSegueWithIdentifier:@"ConversationBoxSegue" sender:self];
+    }
 }
 
 #pragma mark - image picker methods

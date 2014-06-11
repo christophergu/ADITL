@@ -143,7 +143,6 @@
     self.message[@"belongsToConversationWithDate"] = self.conversation[@"createdDate"];
 
     [self.message saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//        [self.conversation addObject:self.message forKey:@"messageArray"];
         [self.conversation saveInBackground];
     }];
     

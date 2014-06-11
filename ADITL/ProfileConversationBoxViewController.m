@@ -11,6 +11,9 @@
 
 @interface ProfileConversationBoxViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property int viewConversationIndexPathRow;
+@property (strong, nonatomic) PFUser *currentUser;
+@property (strong, nonatomic) IBOutlet UITableView *myTableView;
+@property (strong, nonatomic) NSArray *conversationWithUsersArray;
 
 @end
 
@@ -19,6 +22,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.currentUser = [PFUser currentUser];
+    
+    PFQuery *conversationQuery = [PFQuery queryWithClassName:@"ConversationThread"];
+    [conversationQuery includeKey:@"chattersUsersArray"];
+    [conversationQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        self.conversationWithUsersArray = objects;
+        
+        [self.myTableView reloadData];
+    }];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -30,10 +42,19 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ConversationCellReuseID"];
     
-    NSString *chattersString = [self.conversationArray[indexPath.row][@"chattersArray"] componentsJoinedByString:@", "];
-    cell.textLabel.text = chattersString;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"by %@", self.conversationArray[indexPath.row][@"senderString"]];
-    
+    if (self.conversationWithUsersArray)
+    {
+        for (PFUser *user in self.conversationWithUsersArray[indexPath.row][@"chattersUsersArray"])
+        {
+            if (![user[@"email"] isEqualToString:self.currentUser.email])
+            {
+                NSLog(@"%@",user);
+                cell.textLabel.text = user.username;
+                cell.detailTextLabel.text = user.email;
+            }
+        }
+    }
+
     return cell;
 }
 

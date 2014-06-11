@@ -187,7 +187,6 @@
         {
             self.enthusiastInterest[@"enthusiastPointer"] = self.currentUser;
             [self.enthusiastInterest saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                NSLog(@"enthusiast interest complete");
             }];
         }
         else
@@ -208,7 +207,6 @@
         {
             self.leaderInterest[@"leaderPointer"] = self.currentUser;
             [self.leaderInterest saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                NSLog(@"leader interest complete");
             }];
         }
         else
