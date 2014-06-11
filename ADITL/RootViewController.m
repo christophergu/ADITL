@@ -9,12 +9,15 @@
 #import "RootViewController.h"
 #import "RootCollectionViewCell.h"
 #import "SearchViewController.h"
+#import "ProfileViewController.h"
 #import <Parse/Parse.h>
 
 @interface RootViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 @property (strong, nonatomic) IBOutlet UIButton *loginButton;
 @property (strong, nonatomic) NSArray *userArray;
 @property (strong, nonatomic) IBOutlet UICollectionView *myCollectionView;
+@property (strong, nonatomic) NSIndexPath *selectedIndexPath;
+@property int *selectedIndexPathRow;
 
 @end
 
@@ -40,10 +43,30 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     RootCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"RootCellReuseID" forIndexPath:indexPath];
-//    cell.categoryLabel.text = [self.categoriesArray[indexPath.row] allKeys][0];
-//    cell.categoryImageView.image = self.categoriesArray[indexPath.row][cell.categoryLabel.text];
+    
+    if (self.userArray[indexPath.row][@"avatar"])
+    {
+        [self.userArray[indexPath.row][@"avatar"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            if (!error) {
+                UIImage *photo = [UIImage imageWithData:data];
+                cell.imageView.image = photo;
+            }
+        }];
+    }
+    else
+    {
+        cell.imageView.image = [UIImage imageNamed:@"default_user"];
+    }
+    
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    self.selectedIndexPath = indexPath;
+    [self performSegueWithIdentifier:@"RootCollectionToProfileSegue" sender:self];
 }
 
 - (IBAction)onMentorLogInButtonPressed:(id)sender
@@ -66,16 +89,16 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    SearchViewController *svc = segue.destinationViewController;
-    
-    if ([segue.identifier isEqualToString:@"SearchLeadersSegue"])
+    if ([segue.identifier isEqualToString:@"SearchEnthusiastsSegue"])
     {
-        NSLog(@"leader");
-    }
-    else if ([segue.identifier isEqualToString:@"SearchEnthusiastsSegue"])
-    {
-        NSLog(@"enthusiast");
+        SearchViewController *svc = segue.destinationViewController;
         svc.fromEnthusiast = 1;
+    }
+    else if ([segue.identifier isEqualToString:@"RootCollectionToProfileSegue"])
+    {
+        ProfileViewController *pvc = segue.destinationViewController;
+        pvc.leaderChosenFromSearch = self.userArray[self.selectedIndexPath.row];
+        pvc.fromSearch = 1;
     }
 }
 
