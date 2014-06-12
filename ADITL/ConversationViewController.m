@@ -143,7 +143,22 @@
     self.message[@"belongsToConversationWithDate"] = self.conversation[@"createdDate"];
 
     [self.message saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        [self.conversation saveInBackground];
+        PFQuery *query = [PFQuery queryWithClassName:@"Message"];
+        [query whereKey:@"belongsToConversationWithDate" equalTo:self.conversation[@"createdDate"]];
+        [query countObjectsInBackgroundWithBlock:^(int count, NSError *error) {
+            if (!error) {
+                // The count request succeeded. Log the count
+                NSLog(@"Sean has played %d games", count);
+                NSLog(@"%@",self.currentUser.objectId);
+                NSDictionary *messageCounterHelperDictionary = @{self.currentUser.objectId: @(count)};
+                self.conversation[@"messageCounterHelper"] = messageCounterHelperDictionary;
+//                self.conversation[@"messageCounter"] = @(count);
+            } else {
+                // The request failed
+                NSLog(@"na error");
+            }
+            [self.conversation saveInBackground];
+        }];
     }];
     
     [self.scrollView setContentOffset:CGPointMake(0, self.containerViewHeight)];
