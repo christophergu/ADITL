@@ -16,6 +16,7 @@
 		DF107B4A19367ED200C23952 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF107B4919367ED200C23952 /* ConversationViewController.m */; };
 		DF107B4E1936C60500C23952 /* ProfileConversationBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF107B4D1936C60500C23952 /* ProfileConversationBoxViewController.m */; };
 		DF172301193A9D560041914F /* ConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF172300193A9D560041914F /* ConfirmationViewController.m */; };
+		DF4EB97B19495FB800F88F28 /* ProfileConversationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DF4EB97A19495FB800F88F28 /* ProfileConversationTableViewCell.m */; };
 		DF75ACC81926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = DF75ACC71926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.m */; };
 		DF75ACCB1926DD4F002FA12A /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF75ACCA1926DD4F002FA12A /* RootViewController.m */; };
 		DF75ACCD1926E0AC002FA12A /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF75ACCC1926E0AC002FA12A /* FacebookSDK.framework */; };
@@ -81,6 +82,8 @@
 		DF107B4D1936C60500C23952 /* ProfileConversationBoxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileConversationBoxViewController.m; sourceTree = "<group>"; };
 		DF1722FF193A9D560041914F /* ConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmationViewController.h; sourceTree = "<group>"; };
 		DF172300193A9D560041914F /* ConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmationViewController.m; sourceTree = "<group>"; };
+		DF4EB97919495FB800F88F28 /* ProfileConversationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileConversationTableViewCell.h; sourceTree = "<group>"; };
+		DF4EB97A19495FB800F88F28 /* ProfileConversationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileConversationTableViewCell.m; sourceTree = "<group>"; };
 		DF75ACC61926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollViewThatDoesNotAnimateWithKeyboard.h; sourceTree = "<group>"; };
 		DF75ACC71926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollViewThatDoesNotAnimateWithKeyboard.m; sourceTree = "<group>"; };
 		DF75ACC91926DD4F002FA12A /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
@@ -246,6 +249,8 @@
 				DFF2ADA8192D67D300564407 /* SearchCollectionViewCell.m */,
 				DF0B777319426BB100B4ED61 /* AddToShareCollectionViewCell.h */,
 				DF0B777419426BB100B4ED61 /* AddToShareCollectionViewCell.m */,
+				DF4EB97919495FB800F88F28 /* ProfileConversationTableViewCell.h */,
+				DF4EB97A19495FB800F88F28 /* ProfileConversationTableViewCell.m */,
 				DFF0AF401924084900843BC7 /* Supporting Files */,
 			);
 			path = ADITL;
@@ -391,6 +396,7 @@
 				DFF0AF4A1924084900843BC7 /* AppDelegate.m in Sources */,
 				DF0B77721942687300B4ED61 /* AddToShareViewController.m in Sources */,
 				DF0B776F19422C8B00B4ED61 /* EnthusiastProfileViewController.m in Sources */,
+				DF4EB97B19495FB800F88F28 /* ProfileConversationTableViewCell.m in Sources */,
 				DFF0AF461924084900843BC7 /* main.m in Sources */,
 				DF0F00BE1926B4CB009EA0CB /* ProfileViewController.m in Sources */,
 				DF107B4E1936C60500C23952 /* ProfileConversationBoxViewController.m in Sources */,

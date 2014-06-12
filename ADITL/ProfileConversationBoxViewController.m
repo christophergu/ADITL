@@ -7,6 +7,7 @@
 //
 
 #import "ProfileConversationBoxViewController.h"
+#import "ProfileConversationTableViewCell.h"
 #import "ConversationViewController.h"
 
 @interface ProfileConversationBoxViewController ()<UITableViewDataSource, UITableViewDelegate>
@@ -40,7 +41,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ConversationCellReuseID"];
+    ProfileConversationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ConversationCellReuseID"];
     
     if (self.conversationWithUsersArray)
     {
@@ -49,8 +50,21 @@
             if (![user[@"email"] isEqualToString:self.currentUser.email])
             {
                 NSLog(@"%@",user);
-                cell.textLabel.text = user.username;
-                cell.detailTextLabel.text = user.email;
+                cell.myNameTextLabel.text = user.username;
+                
+                if (user[@"avatar"])
+                {
+                    [user[@"avatar"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                        if (!error) {
+                            UIImage *photo = [UIImage imageWithData:data];
+                            cell.myImageView.image = photo;
+                        }
+                    }];
+                }
+                else
+                {
+                    cell.myImageView.image = [UIImage imageNamed:@"default_user"];
+                }
             }
         }
     }
