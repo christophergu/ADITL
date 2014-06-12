@@ -317,37 +317,34 @@
 
 - (IBAction)onConversationButtonPressed:(id)sender
 {
-//    if (self.leaderChosenFromSearch)
-//    {
-//        if ([self.currentUser[@"email"] isEqual:self.leaderChosenFromSearch[@"email"]])
-//        {
-//            UIAlertView *yourselfAlert = [[UIAlertView alloc] initWithTitle:@"Oops!"
-//                                                                    message:@"This is your own profile."
-//                                                                   delegate:nil
-//                                                          cancelButtonTitle:@"OK"
-//                                                          otherButtonTitles: nil];
-//            [yourselfAlert show];
-//        }
-//    }
-//    else if (self.fromSearch || self.fromSearchEnthusiast)
-//    {
-//        NSLog(@"this is for starting a new conversation");
-//        PFObject *conversation = [PFObject objectWithClassName:@"ConversationThread"];
-//        conversation[@"senderString"] = self.currentUser[@"username"];
-//        conversation[@"chattersArray"] = @[self.currentUser[@"email"],self.leaderChosenFromSearch[@"email"]];
-//        [conversation addObject:self.currentUser forKey:@"chattersUsersArray"];
-//        [conversation addObject:self.leaderChosenFromSearch forKey:@"chattersUsersArray"];
-//        conversation[@"createdDate"] = [NSDate date];
-//        self.conversationArray = @[conversation];
-//        
-//        [conversation saveInBackground];
-//        [self performSegueWithIdentifier:@"ConversationBoxSegue" sender:self];
-//    }
-//    else
-//    {
-//        NSLog(@"this is your own profile and conversations");
+    if (self.leaderChosenFromSearch && [self.currentUser[@"email"] isEqual:self.leaderChosenFromSearch[@"email"]])
+    {
+        UIAlertView *yourselfAlert = [[UIAlertView alloc] initWithTitle:@"Oops!"
+                                                                message:@"This is your own profile."
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles: nil];
+        [yourselfAlert show];
+    }
+    else if (self.fromSearch || self.fromSearchEnthusiast)
+    {
+        NSLog(@"this is for starting a new conversation");
+        PFObject *conversation = [PFObject objectWithClassName:@"ConversationThread"];
+        conversation[@"senderString"] = self.currentUser[@"username"];
+        conversation[@"chattersArray"] = @[self.currentUser[@"email"],self.leaderChosenFromSearch[@"email"]];
+        [conversation addObject:self.currentUser forKey:@"chattersUsersArray"];
+        [conversation addObject:self.leaderChosenFromSearch forKey:@"chattersUsersArray"];
+        conversation[@"createdDate"] = [NSDate date];
+        self.conversationArray = @[conversation];
+        
+        [conversation saveInBackground];
         [self performSegueWithIdentifier:@"ConversationBoxSegue" sender:self];
-//    }
+    }
+    else
+    {
+        NSLog(@"this is your own profile and conversations");
+        [self performSegueWithIdentifier:@"ConversationBoxSegue" sender:self];
+    }
 }
 
 #pragma mark - image picker methods

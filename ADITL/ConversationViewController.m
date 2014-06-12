@@ -147,18 +147,19 @@
         [query whereKey:@"belongsToConversationWithDate" equalTo:self.conversation[@"createdDate"]];
         [query countObjectsInBackgroundWithBlock:^(int count, NSError *error) {
             if (!error) {
-                // The count request succeeded. Log the count
-                NSDictionary *messageCounterHelperDictionary = @{self.currentUser.objectId: @(count)};
+                NSMutableDictionary *messageCounterHelperDictionary = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@(count), self.currentUser.objectId, nil];
+                NSMutableArray *markedForDeletionArray = [NSMutableArray new];
+                NSMutableArray *tempCounterHelperArray = self.conversation[@"messageCounterHelper"];
                 
                 // keeping track of count for each user in the conversation
                 if ([self.conversation[@"mcHelperIDsArray"] containsObject:self.currentUser.objectId])
                 {
                     NSLog(@"contains");
-                    for (NSDictionary *counterHelper in self.conversation[@"messageCounterHelper"])
+                    for (NSMutableDictionary *dict in self.conversation[@"messageCounterHelper"])
                     {
-                        if (counterHelper[self.currentUser.objectId])
+                        if ([dict valueForKey:self.currentUser.objectId]!=nil)
                         {
-                            [self.conversation[@"messageCounterHelper"] removeObject:counterHelper];
+                            [markedForDeletionArray addObject:dict];
                         }
                     }
                 }
@@ -166,6 +167,8 @@
                 {
                     [self.conversation addObject:self.currentUser.objectId forKey:@"mcHelperIDsArray"];
                 }
+                [tempCounterHelperArray removeObjectsInArray:markedForDeletionArray];
+                self.conversation[@"messageCounterHelper"] = tempCounterHelperArray;
                 [self.conversation addObject:messageCounterHelperDictionary forKey:@"messageCounterHelper"];
             }
             else
