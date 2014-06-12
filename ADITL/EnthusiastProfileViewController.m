@@ -344,7 +344,6 @@
     if ([segue.identifier isEqualToString:@"ConversationBoxSegue"])
     {
         ProfileConversationBoxViewController *pcbvc = segue.destinationViewController;
-        pcbvc.conversationArray = self.conversationArray;
     }
     else if ([segue.identifier isEqualToString:@"AddInterestFromEnthusiastSegue"])
     {

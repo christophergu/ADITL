@@ -14,7 +14,6 @@
 @property int viewConversationIndexPathRow;
 @property (strong, nonatomic) PFUser *currentUser;
 @property (strong, nonatomic) IBOutlet UITableView *myTableView;
-@property (strong, nonatomic) NSArray *conversationWithUsersArray;
 @property (strong, nonatomic) NSMutableArray *addedMessageCheckerArray;
 
 @end
@@ -27,52 +26,51 @@
     self.currentUser = [PFUser currentUser];
     self.addedMessageCheckerArray = [NSMutableArray new];
     
+    NSArray *currentUserArray = @[self.currentUser[@"email"]];
+    
     PFQuery *conversationQuery = [PFQuery queryWithClassName:@"ConversationThread"];
+    [conversationQuery whereKey:@"chattersArray" containsAllObjectsInArray:currentUserArray];
     [conversationQuery includeKey:@"chattersUsersArray"];
     [conversationQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        self.conversationWithUsersArray = objects;
+        self.conversationArray = objects;
+        NSLog(@"%@",self.conversationArray);
         
-        for (PFObject *conversation in self.conversationWithUsersArray)
+        // check if there are new messages from the last time this user viewed
+        for (PFObject *conversation in self.conversationArray)
         {
             PFQuery *query = [PFQuery queryWithClassName:@"Message"];
             [query whereKey:@"belongsToConversationWithDate" equalTo:conversation[@"createdDate"]];
             [query countObjectsInBackgroundWithBlock:^(int count, NSError *error) {
                 if (!error) {
-                    NSLog(@"%@",conversation[@"messageCounterHelper"]);
-                    
-                    NSArray *messageCounterHelperKeyArray = [conversation[@"messageCounterHelper"] allKeys];
-                    
-                    if ([self.currentUser.objectId isEqualToString: messageCounterHelperKeyArray.firstObject])
+                    for (NSDictionary *counterHelper in conversation[@"messageCounterHelper"])
                     {
-                        int previousMessageCount = [conversation[@"messageCounterHelper"][self.currentUser.objectId] intValue];
-                        
-                        NSLog(@"previous message count %d",previousMessageCount);
+                        NSArray *messageCounterHelperKeyArray = [counterHelper allKeys];
 
-
-                        if (previousMessageCount < count)
+                        if ([self.currentUser.objectId isEqualToString: messageCounterHelperKeyArray.firstObject])
                         {
-                            NSLog(@"different count");
-                            [self.addedMessageCheckerArray addObject:@1];
-                            [self.myTableView reloadData];
-                        }
-                        else
-                        {
-                            NSLog(@"same count");
-                            [self.addedMessageCheckerArray addObject:@0];
-                            [self.myTableView reloadData];
+                            int previousMessageCount = [counterHelper[self.currentUser.objectId] intValue];
+                            
+                            if (previousMessageCount < count)
+                            {
+                                NSLog(@"different count");
+                                [self.addedMessageCheckerArray addObject:@1];
+                            }
+                            else
+                            {
+                                NSLog(@"same count");
+                                [self.addedMessageCheckerArray addObject:@0];
+                            }
                         }
                     }
-                    else
-                    {
-                        [self.myTableView reloadData];
-                    }
+                    [self.myTableView reloadData];
                 }
                 else
                 {
-                    NSLog(@"error counting");
+//                    NSLog(@"error counting");
                 }
             }];
         }
+
     }];
 }
 
@@ -85,11 +83,11 @@
 {
     ProfileConversationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ConversationCellReuseID"];
     
-    if (self.conversationWithUsersArray)
+    if (self.conversationArray)
     {
-        for (PFUser *user in self.conversationWithUsersArray[indexPath.row][@"chattersUsersArray"])
+        for (PFUser *user in self.conversationArray[indexPath.row][@"chattersUsersArray"])
         {
-            if (![user[@"email"] isEqualToString:self.currentUser.email])
+            if (![user.objectId isEqualToString:self.currentUser.objectId])
             {
                 cell.myNameTextLabel.text = user.username;
                 
@@ -107,18 +105,25 @@
                     cell.myImageView.image = [UIImage imageNamed:@"default_user"];
                 }
                 
-                
-//                BOOL b = [[self.addedMessageCheckerArray objectAtIndex:indexPath.row] boolValue];
-//                if (b)
-//                {
-//                    NSLog(@"show");
-//                    cell.myNewMessageLabel.alpha = 1.0;
-//                }
-//                else
-//                {
-//                    NSLog(@"don't show");
-//                    cell.myNewMessageLabel.alpha = 0.0;
-//                }
+                if (self.addedMessageCheckerArray.count)
+                {
+                    BOOL b = [[self.addedMessageCheckerArray objectAtIndex:indexPath.row] boolValue];
+                    if (b)
+                    {
+                        NSLog(@"show");
+                        cell.myNewMessageLabel.alpha = 1.0;
+                    }
+                    else
+                    {
+                        NSLog(@"don't show");
+                        cell.myNewMessageLabel.alpha = 0.0;
+                    }
+                }
+                else
+                {
+                    NSLog(@"show");
+                    cell.myNewMessageLabel.alpha = 1.0;
+                }
             }
         }
     }

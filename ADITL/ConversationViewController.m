@@ -148,14 +148,29 @@
         [query countObjectsInBackgroundWithBlock:^(int count, NSError *error) {
             if (!error) {
                 // The count request succeeded. Log the count
-                NSLog(@"Sean has played %d games", count);
-                NSLog(@"%@",self.currentUser.objectId);
                 NSDictionary *messageCounterHelperDictionary = @{self.currentUser.objectId: @(count)};
-                self.conversation[@"messageCounterHelper"] = messageCounterHelperDictionary;
-//                self.conversation[@"messageCounter"] = @(count);
-            } else {
+                
+                // keeping track of count for each user in the conversation
+                if ([self.conversation[@"mcHelperIDsArray"] containsObject:self.currentUser.objectId])
+                {
+                    NSLog(@"contains");
+                    for (NSDictionary *counterHelper in self.conversation[@"messageCounterHelper"])
+                    {
+                        if (counterHelper[self.currentUser.objectId])
+                        {
+                            [self.conversation[@"messageCounterHelper"] removeObject:counterHelper];
+                        }
+                    }
+                }
+                else
+                {
+                    [self.conversation addObject:self.currentUser.objectId forKey:@"mcHelperIDsArray"];
+                }
+                [self.conversation addObject:messageCounterHelperDictionary forKey:@"messageCounterHelper"];
+            }
+            else
+            {
                 // The request failed
-                NSLog(@"na error");
             }
             [self.conversation saveInBackground];
         }];

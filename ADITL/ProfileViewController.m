@@ -142,6 +142,8 @@
         self.emailTextField.text = self.currentUser[@"email"];
     }
     
+    
+    // just change this to count rather than find
     NSArray *currentUserArray = @[self.currentUser[@"email"]];
     
     PFQuery *conversationQuery = [PFQuery queryWithClassName:@"ConversationThread"];
@@ -217,17 +219,6 @@
 }
 
 #pragma mark - helpter methods
-
-- (void)retrieveConversationInfo
-{
-    NSArray *currentUserArray = @[self.currentUser[@"username"]];
-    
-    PFQuery *conversationQuery = [PFQuery queryWithClassName:@"ConversationThread"];
-    [conversationQuery whereKey:@"chattersArray" containsAllObjectsInArray:currentUserArray];
-    [conversationQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        self.conversationArray = objects;
-    }];
-}
 
 - (void)fetchInterestsToShare
 {
@@ -326,32 +317,37 @@
 
 - (IBAction)onConversationButtonPressed:(id)sender
 {
-    if (self.leaderChosenFromSearch && [self.currentUser[@"email"] isEqual:self.leaderChosenFromSearch[@"email"]])
-    {
-        UIAlertView *yourselfAlert = [[UIAlertView alloc] initWithTitle:@"Oops!"
-                                                                message:@"This is your own profile."
-                                                               delegate:nil
-                                                      cancelButtonTitle:@"OK"
-                                                      otherButtonTitles: nil];
-        [yourselfAlert show];
-    }
-    else if (self.fromSearch || self.fromSearchEnthusiast)
-    {
-        PFObject *conversation = [PFObject objectWithClassName:@"ConversationThread"];
-        conversation[@"senderString"] = self.currentUser[@"username"];
-        [conversation addObject:self.currentUser forKey:@"chattersUsersArray"];
-        [conversation addObject:self.leaderChosenFromSearch forKey:@"chattersUsersArray"];
-        conversation[@"createdDate"] = [NSDate date];
-        self.conversationArray = @[conversation];
-        
-        [conversation saveInBackground];
+//    if (self.leaderChosenFromSearch)
+//    {
+//        if ([self.currentUser[@"email"] isEqual:self.leaderChosenFromSearch[@"email"]])
+//        {
+//            UIAlertView *yourselfAlert = [[UIAlertView alloc] initWithTitle:@"Oops!"
+//                                                                    message:@"This is your own profile."
+//                                                                   delegate:nil
+//                                                          cancelButtonTitle:@"OK"
+//                                                          otherButtonTitles: nil];
+//            [yourselfAlert show];
+//        }
+//    }
+//    else if (self.fromSearch || self.fromSearchEnthusiast)
+//    {
+//        NSLog(@"this is for starting a new conversation");
+//        PFObject *conversation = [PFObject objectWithClassName:@"ConversationThread"];
+//        conversation[@"senderString"] = self.currentUser[@"username"];
+//        conversation[@"chattersArray"] = @[self.currentUser[@"email"],self.leaderChosenFromSearch[@"email"]];
+//        [conversation addObject:self.currentUser forKey:@"chattersUsersArray"];
+//        [conversation addObject:self.leaderChosenFromSearch forKey:@"chattersUsersArray"];
+//        conversation[@"createdDate"] = [NSDate date];
+//        self.conversationArray = @[conversation];
+//        
+//        [conversation saveInBackground];
+//        [self performSegueWithIdentifier:@"ConversationBoxSegue" sender:self];
+//    }
+//    else
+//    {
+//        NSLog(@"this is your own profile and conversations");
         [self performSegueWithIdentifier:@"ConversationBoxSegue" sender:self];
-    }
-    else
-    {
-        [self retrieveConversationInfo];
-        [self performSegueWithIdentifier:@"ConversationBoxSegue" sender:self];
-    }
+//    }
 }
 
 #pragma mark - image picker methods
@@ -401,7 +397,7 @@
     if ([segue.identifier isEqualToString:@"ConversationBoxSegue"])
     {
         ProfileConversationBoxViewController *pcbvc = segue.destinationViewController;
-        pcbvc.conversationArray = self.conversationArray;
+//        pcbvc.conversationArray = self.conversationArray;
     }
     else if ([segue.identifier isEqualToString:@"FromLeaderSegue"])
     {
