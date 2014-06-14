@@ -150,6 +150,7 @@
                 NSMutableDictionary *messageCounterHelperDictionary = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@(count), self.currentUser.objectId, nil];
                 NSMutableArray *markedForDeletionArray = [NSMutableArray new];
                 NSMutableArray *tempCounterHelperArray = self.conversation[@"messageCounterHelper"];
+                NSLog(@"tempcounterhelperarray %@",tempCounterHelperArray);
                 
                 // keeping track of count for each user in the conversation
                 if ([self.conversation[@"mcHelperIDsArray"] containsObject:self.currentUser.objectId])

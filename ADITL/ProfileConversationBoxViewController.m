@@ -23,36 +23,43 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    NSLog(@"view will appear");
     self.currentUser = [PFUser currentUser];
     self.addedMessageCheckerArray = [NSMutableArray new];
     
-    NSArray *currentUserArray = @[self.currentUser[@"email"]];
-    
     PFQuery *conversationQuery = [PFQuery queryWithClassName:@"ConversationThread"];
-    [conversationQuery whereKey:@"chattersArray" containsAllObjectsInArray:currentUserArray];
+    [conversationQuery whereKey:@"chattersArray" containsAllObjectsInArray:@[self.currentUser[@"email"]]];
     [conversationQuery includeKey:@"chattersUsersArray"];
     [conversationQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         self.conversationArray = objects;
-        NSLog(@"%@",self.conversationArray);
         
-        // check if there are new messages from the last time this user viewed
+        // checks if there are new messages from the last time this user viewed
         for (PFObject *conversation in self.conversationArray)
         {
             PFQuery *query = [PFQuery queryWithClassName:@"Message"];
             [query whereKey:@"belongsToConversationWithDate" equalTo:conversation[@"createdDate"]];
             [query countObjectsInBackgroundWithBlock:^(int count, NSError *error) {
                 if (!error) {
+                    // goes through each messageCounterHelper and finds the object that corresponds to the current
+                    // user's message records, if it is the current user testing to see if there are new messages
+                    // wil commence
                     for (NSDictionary *counterHelper in conversation[@"messageCounterHelper"])
                     {
                         NSArray *messageCounterHelperKeyArray = [counterHelper allKeys];
-
+                        
                         if ([self.currentUser.objectId isEqualToString: messageCounterHelperKeyArray.firstObject])
                         {
                             int previousMessageCount = [counterHelper[self.currentUser.objectId] intValue];
                             
+                            // populates an array that the table cells correspond with that tell the cell whether or not
+                            // there is a new message for the current user
                             if (previousMessageCount < count)
                             {
-                                NSLog(@"different count");
+                                NSLog(@"different count previousMessageCount %d  count %d",previousMessageCount, count);
                                 [self.addedMessageCheckerArray addObject:@1];
                             }
                             else
@@ -66,11 +73,11 @@
                 }
                 else
                 {
-//                    NSLog(@"error counting");
+                    //                    NSLog(@"error counting");
                 }
             }];
         }
-
+        
     }];
 }
 
@@ -105,6 +112,10 @@
                     cell.myImageView.image = [UIImage imageNamed:@"default_user"];
                 }
                 
+                // if the current user has written any messages then a messageCounterHelper object will have been made
+                // if a messageCounterHelper object exists, an addedMessageCheckerArray will have been populated
+                // the cell is checking if it's corresponding index in the addedMessageCheckerArray says it should
+                // display a NEW message notice or not
                 if (self.addedMessageCheckerArray.count)
                 {
                     BOOL b = [[self.addedMessageCheckerArray objectAtIndex:indexPath.row] boolValue];
@@ -121,7 +132,7 @@
                 }
                 else
                 {
-                    NSLog(@"show");
+                    NSLog(@"didn't write a message yet, show");
                     cell.myNewMessageLabel.alpha = 1.0;
                 }
             }
