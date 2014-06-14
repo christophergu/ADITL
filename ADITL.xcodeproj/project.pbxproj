@@ -51,6 +51,8 @@
 		DFF0AF8419242B3200843BC7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF8319242B3200843BC7 /* SystemConfiguration.framework */; };
 		DFF2ADA9192D67D300564407 /* SearchCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DFF2ADA8192D67D300564407 /* SearchCollectionViewCell.m */; };
 		DFF5D588194C00BE0058D818 /* AppointmentRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFF5D587194C00BE0058D818 /* AppointmentRequestViewController.m */; };
+		DFF5D58A194C82DA0058D818 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF5D589194C82DA0058D818 /* MapKit.framework */; };
+		DFF5D58C194C83FE0058D818 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF5D58B194C83FE0058D818 /* AddressBook.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,6 +129,8 @@
 		DFF2ADA8192D67D300564407 /* SearchCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchCollectionViewCell.m; sourceTree = "<group>"; };
 		DFF5D586194C00BE0058D818 /* AppointmentRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentRequestViewController.h; sourceTree = "<group>"; };
 		DFF5D587194C00BE0058D818 /* AppointmentRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentRequestViewController.m; sourceTree = "<group>"; };
+		DFF5D589194C82DA0058D818 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		DFF5D58B194C83FE0058D818 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +138,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFF5D58C194C83FE0058D818 /* AddressBook.framework in Frameworks */,
+				DFF5D58A194C82DA0058D818 /* MapKit.framework in Frameworks */,
 				DF75ACD71926E0FF002FA12A /* Social.framework in Frameworks */,
 				DF75ACD51926E0F1002FA12A /* libsqlite3.dylib in Frameworks */,
 				DF75ACD31926E0DF002FA12A /* Accounts.framework in Frameworks */,
@@ -190,6 +196,8 @@
 		DFF0AF381924084900843BC7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DFF5D58B194C83FE0058D818 /* AddressBook.framework */,
+				DFF5D589194C82DA0058D818 /* MapKit.framework */,
 				DF75ACD61926E0FF002FA12A /* Social.framework */,
 				DF75ACD41926E0F1002FA12A /* libsqlite3.dylib */,
 				DF75ACD21926E0DF002FA12A /* Accounts.framework */,

@@ -27,7 +27,6 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    NSLog(@"view will appear");
     self.currentUser = [PFUser currentUser];
     self.addedMessageCheckerArray = [NSMutableArray new];
     
@@ -45,9 +44,6 @@
             [query whereKey:@"belongsToConversationWithDate" equalTo:conversation[@"createdDate"]];
             [query countObjectsInBackgroundWithBlock:^(int count, NSError *error) {
                 if (!error) {
-                    
-                    NSLog(@"fast enum through conversations");
-
                     // goes through each messageCounterHelper and finds the object that corresponds to the current
                     // user's message records, if it is the current user testing to see if there are new messages
                     // wil commence
@@ -65,12 +61,10 @@
                                 // there is a new message for the current user
                                 if (previousMessageCount < count)
                                 {
-                                    NSLog(@"different count previousMessageCount %d  count %d",previousMessageCount, count);
                                     [self.addedMessageCheckerArray addObject:@1];
                                 }
                                 else
                                 {
-                                    NSLog(@"same count");
                                     [self.addedMessageCheckerArray addObject:@0];
                                 }
                             }
@@ -78,7 +72,6 @@
                     }
                     else
                     {
-                        NSLog(@"empty conversation");
                         [self.addedMessageCheckerArray addObject:@1];
                     }
                     [self.myTableView reloadData];
@@ -129,32 +122,24 @@
                 // the cell is checking if it's corresponding index in the addedMessageCheckerArray says it should
                 // display a NEW message notice or not
                 
-                // to fix the bug preventing two different chat threads, somthing checking if something was written yet checker
-                // needs to be fixed because it there are no messages for the new thread and once it gets here this
-                // addedMessageCheckerArray is empty
-                // RESOLVED cellForRowAtIndexPath was going too fast for viewWillAppear
+                // this conditional is required because cellForRowAtIndexPath was going too fast for viewWillAppear
+                // and it resulting in the addedMessageCheckerArray getting populated too slowly
                 if (self.addedMessageCheckerArray.count == self.conversationArray.count)
                 {
-                    NSLog(@"same");
                     if (self.addedMessageCheckerArray.count)
                     {
-                        NSLog(@"addedmessagecheckerarray %@",self.addedMessageCheckerArray);
                         BOOL b = [[self.addedMessageCheckerArray objectAtIndex:indexPath.row] boolValue];
                         if (b)
                         {
-                            NSLog(@"show");
                             cell.myNewMessageLabel.alpha = 1.0;
                         }
                         else
                         {
-                            NSLog(@"don't show");
                             cell.myNewMessageLabel.alpha = 0.0;
                         }
                     }
                     else
                     {
-                        NSLog(@"didn't write a message yet, show");
-                        //                    [self.addedMessageCheckerArray addObject:@1];
                         cell.myNewMessageLabel.alpha = 1.0;
                     }
                 }

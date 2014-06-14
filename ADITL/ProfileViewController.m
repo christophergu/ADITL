@@ -9,10 +9,13 @@
 #import "ProfileViewController.h"
 #import "ProfileConversationBoxViewController.h"
 #import "EnthusiastProfileViewController.h"
+#import <MapKit/MapKit.h>
+#import <AddressBook/AddressBook.h>
+
 
 #define allTrim( object ) [object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ]
 
-@interface ProfileViewController () <UIScrollViewDelegate,UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate>
+@interface ProfileViewController () <UIScrollViewDelegate,UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate, MKMapViewDelegate>
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIView *uiViewForScrollView;
@@ -225,6 +228,43 @@
     return groupName;
 }
 
+#pragma mark - location methods
+// this delegate is called when the app successfully finds your current location
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    // this creates a MKReverseGeocoder to find a placemark using the found coordinates
+    MKReverseGeocoder *geoCoder = [[MKReverseGeocoder alloc] initWithCoordinate:newLocation.coordinate];
+    geoCoder.delegate = self;
+    [geoCoder start];
+}
+
+
+// this delegate method is called if an error occurs in locating your current location
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"locationManager:%@ didFailWithError:%@", manager, error);
+}
+
+// update these deprecated with CLGeocoder
+
+// this delegate is called when the reverseGeocoder finds a placemark
+- (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFindPlacemark:(MKPlacemark *)placemark
+{
+    MKPlacemark * myPlacemark = placemark;
+    // with the placemark you can now retrieve the city name
+    NSString *city = [myPlacemark.addressDictionary objectForKey:(NSString*) kABPersonAddressCityKey];
+    NSString *state = [myPlacemark.addressDictionary objectForKey:(NSString*) kABPersonAddressStateKey];
+
+    NSLog(@"%@, %@",city,state);
+
+}
+
+// this delegate is called when the reversegeocoder fails to find a placemark
+- (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFailWithError:(NSError *)error
+{
+    NSLog(@"reverseGeocoder:%@ didFailWithError:%@", geocoder, error);
+}
+
 #pragma mark - helpter methods
 
 - (void)fetchInterestsToShare
@@ -316,6 +356,7 @@
 {
     self.locationManager = [CLLocationManager new];
     self.locationManager.delegate = self;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
     [self.locationManager startUpdatingLocation];
 }
 
