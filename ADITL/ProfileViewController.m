@@ -148,10 +148,15 @@
     
     PFQuery *conversationQuery = [PFQuery queryWithClassName:@"ConversationThread"];
     [conversationQuery whereKey:@"chattersArray" containsAllObjectsInArray:currentUserArray];
-    [conversationQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        self.conversationCounterLabel.text = [NSString stringWithFormat:@"x%lu",(unsigned long)[objects count]];
-        self.conversationArray = objects;
+    
+    [conversationQuery  countObjectsInBackgroundWithBlock:^(int count, NSError *error) {
+        self.conversationCounterLabel.text = [NSString stringWithFormat:@"x%d",count];
     }];
+    
+//    [conversationQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+//        self.conversationCounterLabel.text = [NSString stringWithFormat:@"x%lu",(unsigned long)[objects count]];
+//        self.conversationArray = objects;
+//    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -394,7 +399,7 @@
     if ([segue.identifier isEqualToString:@"ConversationBoxSegue"])
     {
         ProfileConversationBoxViewController *pcbvc = segue.destinationViewController;
-//        pcbvc.conversationArray = self.conversationArray;
+        pcbvc.conversationArray = self.conversationArray;
     }
     else if ([segue.identifier isEqualToString:@"FromLeaderSegue"])
     {

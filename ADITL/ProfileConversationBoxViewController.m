@@ -68,6 +68,11 @@
                                 [self.addedMessageCheckerArray addObject:@0];
                             }
                         }
+                        else
+                        {
+                            NSLog(@"empty conversation");
+                            [self.addedMessageCheckerArray addObject:@1];
+                        }
                     }
                     [self.myTableView reloadData];
                 }
@@ -116,8 +121,13 @@
                 // if a messageCounterHelper object exists, an addedMessageCheckerArray will have been populated
                 // the cell is checking if it's corresponding index in the addedMessageCheckerArray says it should
                 // display a NEW message notice or not
+                
+                // to fix the bug preventing two different chat threads, somthing checking if something was written yet checker
+                // needs to be fixed because it there are no messages for the new thread and once it gets here this
+                // addedMessageCheckerArray is empty
                 if (self.addedMessageCheckerArray.count)
                 {
+                    NSLog(@"addedmessagecheckerarray %@",self.addedMessageCheckerArray);
                     BOOL b = [[self.addedMessageCheckerArray objectAtIndex:indexPath.row] boolValue];
                     if (b)
                     {
