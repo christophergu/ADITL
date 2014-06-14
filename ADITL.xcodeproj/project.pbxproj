@@ -15,7 +15,6 @@
 		DF0F00BE1926B4CB009EA0CB /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0F00BD1926B4CB009EA0CB /* ProfileViewController.m */; };
 		DF107B4A19367ED200C23952 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF107B4919367ED200C23952 /* ConversationViewController.m */; };
 		DF107B4E1936C60500C23952 /* ProfileConversationBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF107B4D1936C60500C23952 /* ProfileConversationBoxViewController.m */; };
-		DF172301193A9D560041914F /* ConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF172300193A9D560041914F /* ConfirmationViewController.m */; };
 		DF4EB97B19495FB800F88F28 /* ProfileConversationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DF4EB97A19495FB800F88F28 /* ProfileConversationTableViewCell.m */; };
 		DF75ACC81926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = DF75ACC71926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.m */; };
 		DF75ACCB1926DD4F002FA12A /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF75ACCA1926DD4F002FA12A /* RootViewController.m */; };
@@ -51,6 +50,7 @@
 		DFF0AF8219242B2700843BC7 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF8119242B2700843BC7 /* StoreKit.framework */; };
 		DFF0AF8419242B3200843BC7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF8319242B3200843BC7 /* SystemConfiguration.framework */; };
 		DFF2ADA9192D67D300564407 /* SearchCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DFF2ADA8192D67D300564407 /* SearchCollectionViewCell.m */; };
+		DFF5D588194C00BE0058D818 /* AppointmentRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFF5D587194C00BE0058D818 /* AppointmentRequestViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,8 +80,6 @@
 		DF107B4919367ED200C23952 /* ConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationViewController.m; sourceTree = "<group>"; };
 		DF107B4C1936C60500C23952 /* ProfileConversationBoxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileConversationBoxViewController.h; sourceTree = "<group>"; };
 		DF107B4D1936C60500C23952 /* ProfileConversationBoxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileConversationBoxViewController.m; sourceTree = "<group>"; };
-		DF1722FF193A9D560041914F /* ConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmationViewController.h; sourceTree = "<group>"; };
-		DF172300193A9D560041914F /* ConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmationViewController.m; sourceTree = "<group>"; };
 		DF4EB97919495FB800F88F28 /* ProfileConversationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileConversationTableViewCell.h; sourceTree = "<group>"; };
 		DF4EB97A19495FB800F88F28 /* ProfileConversationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileConversationTableViewCell.m; sourceTree = "<group>"; };
 		DF75ACC61926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollViewThatDoesNotAnimateWithKeyboard.h; sourceTree = "<group>"; };
@@ -127,6 +125,8 @@
 		DFF0AF8319242B3200843BC7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		DFF2ADA7192D67D300564407 /* SearchCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchCollectionViewCell.h; sourceTree = "<group>"; };
 		DFF2ADA8192D67D300564407 /* SearchCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchCollectionViewCell.m; sourceTree = "<group>"; };
+		DFF5D586194C00BE0058D818 /* AppointmentRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentRequestViewController.h; sourceTree = "<group>"; };
+		DFF5D587194C00BE0058D818 /* AppointmentRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentRequestViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,8 +236,8 @@
 				DF75ACDC1927281C002FA12A /* SearchViewController.m */,
 				DF107B4819367ED200C23952 /* ConversationViewController.h */,
 				DF107B4919367ED200C23952 /* ConversationViewController.m */,
-				DF1722FF193A9D560041914F /* ConfirmationViewController.h */,
-				DF172300193A9D560041914F /* ConfirmationViewController.m */,
+				DFF5D586194C00BE0058D818 /* AppointmentRequestViewController.h */,
+				DFF5D587194C00BE0058D818 /* AppointmentRequestViewController.m */,
 				DFF0AF511924084900843BC7 /* Images.xcassets */,
 				DF75ACC61926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.h */,
 				DF75ACC71926D098002FA12A /* ScrollViewThatDoesNotAnimateWithKeyboard.m */,
@@ -383,7 +383,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF172301193A9D560041914F /* ConfirmationViewController.m in Sources */,
 				DF75ACDA1926E1A8002FA12A /* LogInViewController.m in Sources */,
 				DF0E341C1944321800F654E0 /* SearchTableViewCell.m in Sources */,
 				DF0B777519426BB100B4ED61 /* AddToShareCollectionViewCell.m in Sources */,
@@ -395,6 +394,7 @@
 				DF107B4A19367ED200C23952 /* ConversationViewController.m in Sources */,
 				DFF0AF4A1924084900843BC7 /* AppDelegate.m in Sources */,
 				DF0B77721942687300B4ED61 /* AddToShareViewController.m in Sources */,
+				DFF5D588194C00BE0058D818 /* AppointmentRequestViewController.m in Sources */,
 				DF0B776F19422C8B00B4ED61 /* EnthusiastProfileViewController.m in Sources */,
 				DF4EB97B19495FB800F88F28 /* ProfileConversationTableViewCell.m in Sources */,
 				DFF0AF461924084900843BC7 /* main.m in Sources */,

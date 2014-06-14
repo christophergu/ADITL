@@ -320,6 +320,28 @@
     [self.passwordTextField endEditing:YES];
 }
 
+- (IBAction)onAppointmentButtonPressed:(id)sender
+{
+    if (self.leaderChosenFromSearch && [self.currentUser[@"email"] isEqual:self.leaderChosenFromSearch[@"email"]])
+    {
+        UIAlertView *yourselfAlert = [[UIAlertView alloc] initWithTitle:@"Oops!"
+                                                                message:@"This is your own profile."
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles: nil];
+        [yourselfAlert show];
+    }
+    else if (self.fromSearch || self.fromSearchEnthusiast)
+    {
+        [self performSegueWithIdentifier:@"AppointmentRequestSegue" sender:self];
+    }
+    else
+    {
+        NSLog(@"this is your own profile and appointments");
+        [self performSegueWithIdentifier:@"AppointmentListSegue" sender:self];
+    }
+}
+
 - (IBAction)onConversationButtonPressed:(id)sender
 {
     if (self.leaderChosenFromSearch && [self.currentUser[@"email"] isEqual:self.leaderChosenFromSearch[@"email"]])
