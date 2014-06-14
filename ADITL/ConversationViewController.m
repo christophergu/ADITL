@@ -149,7 +149,7 @@
             if (!error) {
                 NSMutableDictionary *messageCounterHelperDictionary = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@(count), self.currentUser.objectId, nil];
                 NSMutableArray *markedForDeletionArray = [NSMutableArray new];
-                NSMutableArray *tempCounterHelperArray = self.conversation[@"messageCounterHelper"];
+                NSMutableArray *tempCounterHelperArray = [self.conversation[@"messageCounterHelper"] mutableCopy];
                 NSLog(@"tempcounterhelperarray %@",tempCounterHelperArray);
                 
                 // keeping track of count for each user in the conversation
@@ -168,8 +168,12 @@
                 {
                     [self.conversation addObject:self.currentUser.objectId forKey:@"mcHelperIDsArray"];
                 }
+                NSLog(@"marked for deletion array %@",markedForDeletionArray);
                 [tempCounterHelperArray removeObjectsInArray:markedForDeletionArray];
+                
                 self.conversation[@"messageCounterHelper"] = tempCounterHelperArray;
+                NSLog(@"self.conversation's array after deletion %@",self.conversation[@"messageCounterHelper"]);
+
                 [self.conversation addObject:messageCounterHelperDictionary forKey:@"messageCounterHelper"];
             }
             else
