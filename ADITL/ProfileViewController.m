@@ -12,7 +12,8 @@
 
 #define allTrim( object ) [object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ]
 
-@interface ProfileViewController () <UIScrollViewDelegate,UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface ProfileViewController () <UIScrollViewDelegate,UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate>
+@property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIView *uiViewForScrollView;
 @property (strong, nonatomic) IBOutlet UIButton *saveButton;
@@ -40,6 +41,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *websiteButton;
 @property (strong, nonatomic) IBOutlet UILabel *conversationStartLabel;
 @property (strong, nonatomic) IBOutlet UILabel *appointmentRequestLabel;
+@property (strong, nonatomic) IBOutlet UIButton *findLocationButton;
 
 
 @end
@@ -98,6 +100,7 @@
             [self.websiteButton setTitle:self.leaderChosenFromSearch[@"website"] forState:UIControlStateNormal];
         }
         
+        self.findLocationButton.alpha = 0.0;
         self.interestAddButton.alpha = 0.0;
         self.interestEditDelButton.alpha = 0.0;
         self.conversationCounterLabel.alpha = 0.0;
@@ -122,11 +125,16 @@
     }
     else
     {
+        // this is if it's your own profile
+        
         self.websiteButton.alpha = 0.0;
         self.conversationCounterLabel.alpha = 1.0;
         self.appointmentCounterLabel.alpha = 1.0;
         self.conversationStartLabel.alpha = 0.0;
         self.appointmentRequestLabel.alpha = 0.0;
+        
+        self.findLocationButton.alpha = 1.0;
+        self.findLocationButton.layer.cornerRadius = 5.0f;
         
         self.interestAddButton.layer.cornerRadius = 5.0f;
         self.interestEditDelButton.layer.cornerRadius = 5.0f;
@@ -143,7 +151,6 @@
     }
     
     
-    // just change this to count rather than find
     NSArray *currentUserArray = @[self.currentUser[@"email"]];
     
     PFQuery *conversationQuery = [PFQuery queryWithClassName:@"ConversationThread"];
@@ -152,11 +159,6 @@
     [conversationQuery  countObjectsInBackgroundWithBlock:^(int count, NSError *error) {
         self.conversationCounterLabel.text = [NSString stringWithFormat:@"x%d",count];
     }];
-    
-//    [conversationQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-//        self.conversationCounterLabel.text = [NSString stringWithFormat:@"x%lu",(unsigned long)[objects count]];
-//        self.conversationArray = objects;
-//    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -308,6 +310,13 @@
         [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.navigationController.view cache:NO];
         [UIView commitAnimations];
     }
+}
+
+- (IBAction)onFindLocationButtonPressed:(id)sender
+{
+    self.locationManager = [CLLocationManager new];
+    self.locationManager.delegate = self;
+    [self.locationManager startUpdatingLocation];
 }
 
 - (IBAction)onDismissKeyboardButtonPressed:(id)sender
