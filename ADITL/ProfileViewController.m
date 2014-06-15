@@ -11,7 +11,7 @@
 #import "EnthusiastProfileViewController.h"
 #import <MapKit/MapKit.h>
 #import <AddressBook/AddressBook.h>
-
+#import <QuartzCore/QuartzCore.h>
 
 #define allTrim( object ) [object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ]
 
@@ -45,6 +45,9 @@
 @property (strong, nonatomic) IBOutlet UILabel *conversationStartLabel;
 @property (strong, nonatomic) IBOutlet UILabel *appointmentRequestLabel;
 @property (strong, nonatomic) IBOutlet UIButton *findLocationButton;
+@property (strong, nonatomic) IBOutlet UILabel *findLocationLabel;
+@property (strong, nonatomic) NSString *city;
+@property (strong, nonatomic) NSString *state;
 
 
 @end
@@ -103,6 +106,7 @@
             [self.websiteButton setTitle:self.leaderChosenFromSearch[@"website"] forState:UIControlStateNormal];
         }
         
+        self.findLocationLabel.alpha = 0.0;
         self.findLocationButton.alpha = 0.0;
         self.interestAddButton.alpha = 0.0;
         self.interestEditDelButton.alpha = 0.0;
@@ -130,12 +134,16 @@
     {
         // this is if it's your own profile
         
+        // check if you already have a location before assigning findlocationlabel's alpha
+        self.findLocationLabel.alpha = 1.0;
+        
         self.websiteButton.alpha = 0.0;
         self.conversationCounterLabel.alpha = 1.0;
         self.appointmentCounterLabel.alpha = 1.0;
         self.conversationStartLabel.alpha = 0.0;
         self.appointmentRequestLabel.alpha = 0.0;
         
+        self.findLocationLabel.layer.cornerRadius = 5.0f;
         self.findLocationButton.alpha = 1.0;
         self.findLocationButton.layer.cornerRadius = 5.0f;
         
@@ -252,11 +260,26 @@
 {
     MKPlacemark * myPlacemark = placemark;
     // with the placemark you can now retrieve the city name
-    NSString *city = [myPlacemark.addressDictionary objectForKey:(NSString*) kABPersonAddressCityKey];
-    NSString *state = [myPlacemark.addressDictionary objectForKey:(NSString*) kABPersonAddressStateKey];
+    self.city = [myPlacemark.addressDictionary objectForKey:(NSString*) kABPersonAddressCityKey];
+    self.state = [myPlacemark.addressDictionary objectForKey:(NSString*) kABPersonAddressStateKey];
 
-    NSLog(@"%@, %@",city,state);
-
+    [self.locationManager stopUpdatingLocation];
+    
+    [UIView animateKeyframesWithDuration:2.0f delay:0.0f options:0 animations:^{
+        [UIView addKeyframeWithRelativeStartTime:0.0 relativeDuration:0.25 animations:^{
+            self.findLocationLabel.text = @"Searching...";
+            self.findLocationLabel.alpha = 1.0;
+        }];
+        [UIView addKeyframeWithRelativeStartTime:0.25 relativeDuration:0.5 animations:^{
+            // do nothing
+        }];
+        [UIView addKeyframeWithRelativeStartTime:0.75 relativeDuration:0.25 animations:^{
+            self.locationTextField.text = [NSString stringWithFormat:@"%@, %@",self.city, self.state];
+            self.findLocationLabel.alpha = 0.0;
+        }];
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 // this delegate is called when the reversegeocoder fails to find a placemark

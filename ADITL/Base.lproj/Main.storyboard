@@ -408,11 +408,20 @@
                                                     <action selector="onWebsiteButtonPressed:" destination="YlF-tT-kZb" eventType="touchUpInside" id="BTB-Y5-N4u"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="et4-mm-mVt">
-                                                <rect key="frame" x="129" y="94" width="169" height="30"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Find Location" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Olu-xr-TF7">
+                                                <rect key="frame" x="128" y="93" width="170" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" red="0.32939796570000002" green="0.56717608080000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <state key="normal" title="Find Location">
+                                                <color key="backgroundColor" red="0.26803562600000003" green="0.4743202413" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="et4-mm-mVt" userLabel="Button - findLocation clear">
+                                                <rect key="frame" x="129" y="94" width="170" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <state key="normal">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -489,6 +498,7 @@
                         <outlet property="dismissKeyboardButton" destination="PaX-P3-l7d" id="v9e-WT-uUN"/>
                         <outlet property="emailTextField" destination="YIl-Yo-T63" id="vNL-Ex-E1K"/>
                         <outlet property="findLocationButton" destination="et4-mm-mVt" id="WKn-cJ-obS"/>
+                        <outlet property="findLocationLabel" destination="Olu-xr-TF7" id="ysj-WI-TEi"/>
                         <outlet property="interestAddButton" destination="qwq-FK-bs1" id="Zdr-oR-mQ1"/>
                         <outlet property="interestEditDelButton" destination="MZL-TW-cl4" id="xIM-gW-qC1"/>
                         <outlet property="locationTextField" destination="crm-3d-sir" id="cCn-8i-gzq"/>
