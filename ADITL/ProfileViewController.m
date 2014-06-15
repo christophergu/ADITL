@@ -46,8 +46,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *appointmentRequestLabel;
 @property (strong, nonatomic) IBOutlet UIButton *findLocationButton;
 @property (strong, nonatomic) IBOutlet UILabel *findLocationLabel;
-@property (strong, nonatomic) NSString *city;
-@property (strong, nonatomic) NSString *state;
 
 
 @end
@@ -135,7 +133,15 @@
         // this is if it's your own profile
         
         // check if you already have a location before assigning findlocationlabel's alpha
-        self.findLocationLabel.alpha = 1.0;
+        if (self.currentUser[@"city"] && self.currentUser[@"state"]) {
+            self.findLocationLabel.alpha = 0.0;
+            self.locationTextField.text = [NSString stringWithFormat:@"%@, %@",self.currentUser[@"city"],self.currentUser[@"state"]];
+        }
+        else
+        {
+            self.findLocationLabel.alpha = 1.0;
+
+        }
         
         self.websiteButton.alpha = 0.0;
         self.conversationCounterLabel.alpha = 1.0;
@@ -260,11 +266,18 @@
 {
     MKPlacemark * myPlacemark = placemark;
     // with the placemark you can now retrieve the city name
-    self.city = [myPlacemark.addressDictionary objectForKey:(NSString*) kABPersonAddressCityKey];
-    self.state = [myPlacemark.addressDictionary objectForKey:(NSString*) kABPersonAddressStateKey];
+    NSString *city = [myPlacemark.addressDictionary objectForKey:(NSString*) kABPersonAddressCityKey];
+    NSString *state = [myPlacemark.addressDictionary objectForKey:(NSString*) kABPersonAddressStateKey];
 
     [self.locationManager stopUpdatingLocation];
     
+    self.currentUser[@"city"] = city;
+    self.currentUser[@"state"] = state;
+    self.currentUser[@"latitude"] = @(self.locationManager.location.coordinate.latitude);
+    self.currentUser[@"longitude"] = @(self.locationManager.location.coordinate.longitude);
+    [self.currentUser saveInBackground];
+    
+    // findLocationLabel animations
     [UIView animateKeyframesWithDuration:2.0f delay:0.0f options:0 animations:^{
         [UIView addKeyframeWithRelativeStartTime:0.0 relativeDuration:0.25 animations:^{
             self.findLocationLabel.text = @"Searching...";
@@ -274,12 +287,14 @@
             // do nothing
         }];
         [UIView addKeyframeWithRelativeStartTime:0.75 relativeDuration:0.25 animations:^{
-            self.locationTextField.text = [NSString stringWithFormat:@"%@, %@",self.city, self.state];
+            self.locationTextField.text = [NSString stringWithFormat:@"%@, %@",city, state];
             self.findLocationLabel.alpha = 0.0;
         }];
     } completion:^(BOOL finished) {
         
     }];
+    
+
 }
 
 // this delegate is called when the reversegeocoder fails to find a placemark
