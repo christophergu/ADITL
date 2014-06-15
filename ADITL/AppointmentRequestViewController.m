@@ -11,6 +11,7 @@
 @interface AppointmentRequestViewController ()
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIView *uiViewForScrollView;
+@property (strong, nonatomic) IBOutlet UIDatePicker *datePicker;
 
 
 @end
@@ -43,6 +44,11 @@
     [self dismissViewControllerAnimated:YES completion:^{
         
     }];
+}
+
+- (IBAction)onTimeButtonPressed:(id)sender
+{
+    
 }
 
 @end
