@@ -9,9 +9,11 @@
 #import "ProfileViewController.h"
 #import "ProfileConversationBoxViewController.h"
 #import "EnthusiastProfileViewController.h"
+#import "AppointmentRequestViewController.h"
 #import <MapKit/MapKit.h>
 #import <AddressBook/AddressBook.h>
 #import <QuartzCore/QuartzCore.h>
+
 
 #define allTrim( object ) [object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ]
 
@@ -516,6 +518,11 @@
         EnthusiastProfileViewController *epvc = segue.destinationViewController;
         epvc.enthusiastChosenFromSearch = self.leaderChosenFromSearch;
         epvc.fromSearchLeader = 1;
+    }
+    else if ([segue.identifier isEqualToString:@"AppointmentRequestSegue"])
+    {
+        AppointmentRequestViewController *arvc = segue.destinationViewController;
+        arvc.chosenUser = self.leaderChosenFromSearch;
     }
 }
 

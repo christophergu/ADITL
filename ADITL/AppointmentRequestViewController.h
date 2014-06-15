@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 
 @interface AppointmentRequestViewController : UIViewController
+@property (strong, nonatomic) PFUser *chosenUser;
 
 @end

@@ -1294,6 +1294,9 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="meetingLocationTextFieldDidEndOnExit:" destination="sGJ-Es-gag" eventType="editingDidEndOnExit" id="NpW-uX-40T"/>
+                                                </connections>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Meeting Time Here" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="izW-Jb-XvX">
                                                 <rect key="frame" x="20" y="54" width="280" height="30"/>
@@ -1304,7 +1307,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OUq-SN-Xch">
                                                 <rect key="frame" x="20" y="54" width="280" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="time button">
+                                                <state key="normal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
@@ -1345,7 +1348,7 @@
                                 </constraints>
                             </scrollView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LZM-qn-oNu">
-                                <rect key="frame" x="0.0" y="377" width="320" height="191"/>
+                                <rect key="frame" x="0.0" y="568" width="320" height="191"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LEs-qu-8YW">
@@ -1355,6 +1358,9 @@
                                         <state key="normal" title="done">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="onDatePickerDoneButtonPressed:" destination="sGJ-Es-gag" eventType="touchUpInside" id="h1W-WL-wQi"/>
+                                        </connections>
                                     </button>
                                     <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="I8T-S8-wzT">
                                         <rect key="frame" x="0.0" y="29" width="320" height="162"/>
@@ -1363,7 +1369,7 @@
                                             <!--2014-06-15 02:45:09 +0000-->
                                         </date>
                                         <timeZone key="timeZone" name="America/Los_Angeles">
-                                            <mutableData key="data">
+                                            <data key="data">
 VFppZgAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAC5AAAABAAAABCepkign7sVkKCGKqChmveQ
 y4kaoNIj9HDSYSYQ1v50INiArZDa/tGg28CQENzes6DdqayQ3r6VoN+JjpDgnneg4WlwkOJ+WaDjSVKQ
 5F47oOUpNJDmR1gg5xJREOgnOiDo8jMQ6gccIOrSFRDr5v4g7LH3EO3G4CDukdkQ76/8oPBxuxDxj96g
@@ -1381,7 +1387,7 @@ f5gqkAABAAECAwEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
-</mutableData>
+</data>
                                         </timeZone>
                                     </datePicker>
                                 </subviews>
@@ -1399,8 +1405,11 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                     <navigationItem key="navigationItem" id="eAt-5D-7pk"/>
                     <connections>
                         <outlet property="datePicker" destination="I8T-S8-wzT" id="hXh-mC-Q3n"/>
+                        <outlet property="meetingLocationTextField" destination="ZJl-Hq-eIQ" id="xZu-bL-CEl"/>
+                        <outlet property="meetingTimeTextField" destination="izW-Jb-XvX" id="4xR-1j-bdb"/>
                         <outlet property="scrollView" destination="vrr-T6-De7" id="9ET-Fl-qhn"/>
                         <outlet property="uiViewForScrollView" destination="3E8-Ze-yug" id="d4c-l0-w2B"/>
+                        <outlet property="uiViewWithDatePicker" destination="LZM-qn-oNu" id="DiL-6N-C1v"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hI3-78-EuZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
