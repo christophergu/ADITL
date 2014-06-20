@@ -26,6 +26,7 @@
 		DF75ACD71926E0FF002FA12A /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF75ACD61926E0FF002FA12A /* Social.framework */; };
 		DF75ACDA1926E1A8002FA12A /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF75ACD91926E1A8002FA12A /* LogInViewController.m */; };
 		DF75ACDD1927281C002FA12A /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF75ACDC1927281C002FA12A /* SearchViewController.m */; };
+		DFEA89691952112D000CBCCB /* AppointmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFEA89681952112D000CBCCB /* AppointmentViewController.m */; };
 		DFF0AF3A1924084900843BC7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF391924084900843BC7 /* Foundation.framework */; };
 		DFF0AF3C1924084900843BC7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF3B1924084900843BC7 /* CoreGraphics.framework */; };
 		DFF0AF3E1924084900843BC7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF3D1924084900843BC7 /* UIKit.framework */; };
@@ -98,6 +99,8 @@
 		DF75ACD91926E1A8002FA12A /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
 		DF75ACDB1927281C002FA12A /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		DF75ACDC1927281C002FA12A /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		DFEA89671952112D000CBCCB /* AppointmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentViewController.h; sourceTree = "<group>"; };
+		DFEA89681952112D000CBCCB /* AppointmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentViewController.m; sourceTree = "<group>"; };
 		DFF0AF361924084900843BC7 /* ADITL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ADITL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFF0AF391924084900843BC7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DFF0AF3B1924084900843BC7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -244,6 +247,8 @@
 				DF75ACDC1927281C002FA12A /* SearchViewController.m */,
 				DF107B4819367ED200C23952 /* ConversationViewController.h */,
 				DF107B4919367ED200C23952 /* ConversationViewController.m */,
+				DFEA89671952112D000CBCCB /* AppointmentViewController.h */,
+				DFEA89681952112D000CBCCB /* AppointmentViewController.m */,
 				DFF5D586194C00BE0058D818 /* AppointmentRequestViewController.h */,
 				DFF5D587194C00BE0058D818 /* AppointmentRequestViewController.m */,
 				DFF0AF511924084900843BC7 /* Images.xcassets */,
@@ -401,6 +406,7 @@
 				DF75ACDD1927281C002FA12A /* SearchViewController.m in Sources */,
 				DF107B4A19367ED200C23952 /* ConversationViewController.m in Sources */,
 				DFF0AF4A1924084900843BC7 /* AppDelegate.m in Sources */,
+				DFEA89691952112D000CBCCB /* AppointmentViewController.m in Sources */,
 				DF0B77721942687300B4ED61 /* AddToShareViewController.m in Sources */,
 				DFF5D588194C00BE0058D818 /* AppointmentRequestViewController.m in Sources */,
 				DF0B776F19422C8B00B4ED61 /* EnthusiastProfileViewController.m in Sources */,

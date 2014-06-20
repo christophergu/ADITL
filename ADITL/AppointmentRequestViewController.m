@@ -43,15 +43,14 @@
 
 - (IBAction)onConfirmButtonPressed:(id)sender
 {
-
-    
     if (!(allTrim(self.meetingTimeTextField.text).length == 0) && !(allTrim(self.meetingLocationTextField.text).length == 0) )
     {
         PFObject *appointment = [PFObject objectWithClassName:@"Appointment"];
         appointment[@"meetingTime"] = self.date;
         appointment[@"meetingLocation"] = self.meetingLocationTextField.text;
-        appointment[@"sender"] = self.currentUser.objectId;
-        appointment[@"receiver"] = self.chosenUser.objectId;
+        appointment[@"sender"] = self.currentUser;
+        appointment[@"receiver"] = self.chosenUser;
+        appointment[@"senderAndReceiverArray"] = @[self.currentUser.objectId, self.chosenUser.objectId];
         appointment[@"senderConfirmCheck"] = [@{self.currentUser.objectId: @1} mutableCopy];
         appointment[@"receiverConfirmCheck"] = [@{self.chosenUser.objectId: @0} mutableCopy];
         
