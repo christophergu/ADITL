@@ -11,5 +11,7 @@
 
 @interface AppointmentRequestViewController : UIViewController
 @property (strong, nonatomic) PFUser *chosenUser;
+@property (strong, nonatomic) PFObject *selectedAppointment;
+@property int checkingAppointmentRequest;
 
 @end

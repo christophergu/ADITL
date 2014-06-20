@@ -170,13 +170,20 @@
     }
     
     
-    NSArray *currentUserArray = @[self.currentUser[@"email"]];
+    NSArray *currentUserArray = @[self.currentUser.objectId];
     
     PFQuery *conversationQuery = [PFQuery queryWithClassName:@"ConversationThread"];
     [conversationQuery whereKey:@"chattersArray" containsAllObjectsInArray:currentUserArray];
     
     [conversationQuery  countObjectsInBackgroundWithBlock:^(int count, NSError *error) {
         self.conversationCounterLabel.text = [NSString stringWithFormat:@"x%d",count];
+    }];
+    
+    PFQuery *appointmentQuery = [PFQuery queryWithClassName:@"Appointment"];
+    [appointmentQuery whereKey:@"senderAndReceiverArray" containsAllObjectsInArray:currentUserArray];
+    
+    [appointmentQuery  countObjectsInBackgroundWithBlock:^(int count, NSError *error) {
+        self.appointmentCounterLabel.text = [NSString stringWithFormat:@"x%d",count];
     }];
 }
 
@@ -448,7 +455,7 @@
         NSLog(@"this is for starting a new conversation");
         PFObject *conversation = [PFObject objectWithClassName:@"ConversationThread"];
         conversation[@"senderString"] = self.currentUser[@"username"];
-        conversation[@"chattersArray"] = @[self.currentUser[@"email"],self.leaderChosenFromSearch[@"email"]];
+        conversation[@"chattersArray"] = @[self.currentUser.objectId,self.leaderChosenFromSearch.objectId];
         [conversation addObject:self.currentUser forKey:@"chattersUsersArray"];
         [conversation addObject:self.leaderChosenFromSearch forKey:@"chattersUsersArray"];
         conversation[@"createdDate"] = [NSDate date];

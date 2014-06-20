@@ -20,6 +20,7 @@
 @property BOOL timeBoolForButton;
 @property (strong, nonatomic) IBOutlet UITextField *meetingLocationTextField;
 @property (strong, nonatomic) PFUser *currentUser;
+@property (strong, nonatomic) IBOutlet UIButton *datePickerButton;
 
 
 @end
@@ -31,6 +32,19 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.currentUser = [PFUser currentUser];
+    
+    if (self.checkingAppointmentRequest)
+    {
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"EEEE MMMM d, YYYY hh:mm aaa"];
+        NSString *dateString = [dateFormat stringFromDate:self.selectedAppointment[@"meetingTime"]];
+        
+        self.meetingTimeTextField.text = dateString;
+        self.datePickerButton.enabled = NO;
+        
+        self.meetingLocationTextField.text = self.selectedAppointment[@"meetingLocation"];
+        self.meetingLocationTextField.enabled = NO;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -43,36 +57,51 @@
 
 - (IBAction)onConfirmButtonPressed:(id)sender
 {
-    if (!(allTrim(self.meetingTimeTextField.text).length == 0) && !(allTrim(self.meetingLocationTextField.text).length == 0) )
+    if (self.checkingAppointmentRequest)
     {
-        PFObject *appointment = [PFObject objectWithClassName:@"Appointment"];
-        appointment[@"meetingTime"] = self.date;
-        appointment[@"meetingLocation"] = self.meetingLocationTextField.text;
-        appointment[@"sender"] = self.currentUser;
-        appointment[@"receiver"] = self.chosenUser;
-        appointment[@"senderAndReceiverArray"] = @[self.currentUser.objectId, self.chosenUser.objectId];
-        appointment[@"senderConfirmCheck"] = [@{self.currentUser.objectId: @1} mutableCopy];
-        appointment[@"receiverConfirmCheck"] = [@{self.chosenUser.objectId: @0} mutableCopy];
-        
-        [appointment saveInBackground];
-        
-        UILocalNotification *note = [[UILocalNotification alloc] init];
-        note.alertBody = @"You have a meeting";
-        note.fireDate = self.date;
-        
-        [[UIApplication sharedApplication] scheduleLocalNotification:note];
+        if (self.selectedAppointment[@"receiver"])
+        {
+            self.selectedAppointment[@"receiverConfirmCheck"] = [@{self.currentUser.objectId:@1} mutableCopy];
+            [self.selectedAppointment saveInBackground];
+        }
         [self dismissViewControllerAnimated:YES completion:^{
             
         }];
     }
     else
     {
-        UIAlertView *incompleteAlert = [[UIAlertView alloc] initWithTitle:@"Oops!"
-                                                                  message:@"You much provide both a meeting time and a meeting location."
-                                                                 delegate:self
-                                                        cancelButtonTitle:@"OK"
-                                                        otherButtonTitles: nil];
-        [incompleteAlert show];
+        if (!(allTrim(self.meetingTimeTextField.text).length == 0) && !(allTrim(self.meetingLocationTextField.text).length == 0) )
+        {
+            PFObject *appointment = [PFObject objectWithClassName:@"Appointment"];
+            appointment[@"meetingTime"] = self.date;
+            appointment[@"meetingLocation"] = self.meetingLocationTextField.text;
+            appointment[@"sender"] = self.currentUser;
+            appointment[@"receiver"] = self.chosenUser;
+            appointment[@"senderAndReceiverArray"] = @[self.currentUser.objectId, self.chosenUser.objectId];
+            appointment[@"senderConfirmCheck"] = [@{self.currentUser.objectId: @1} mutableCopy];
+            appointment[@"receiverConfirmCheck"] = [@{self.chosenUser.objectId: @0} mutableCopy];
+            
+            [appointment saveInBackground];
+
+//            UILocalNotification *note = [[UILocalNotification alloc] init];
+//            note.alertBody = @"You have a meeting";
+//            note.fireDate = self.date;
+//            
+//            [[UIApplication sharedApplication] scheduleLocalNotification:note];
+            
+            [self dismissViewControllerAnimated:YES completion:^{
+                
+            }];
+        }
+        else
+        {
+            UIAlertView *incompleteAlert = [[UIAlertView alloc] initWithTitle:@"Oops!"
+                                                                      message:@"You much provide both a meeting time and a meeting location."
+                                                                     delegate:self
+                                                            cancelButtonTitle:@"OK"
+                                                            otherButtonTitles: nil];
+            [incompleteAlert show];
+        }
     }
 }
 

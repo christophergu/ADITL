@@ -51,6 +51,7 @@
 		DFF0AF8219242B2700843BC7 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF8119242B2700843BC7 /* StoreKit.framework */; };
 		DFF0AF8419242B3200843BC7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF0AF8319242B3200843BC7 /* SystemConfiguration.framework */; };
 		DFF2ADA9192D67D300564407 /* SearchCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DFF2ADA8192D67D300564407 /* SearchCollectionViewCell.m */; };
+		DFF3435D1954CB2D00C8E4D6 /* AppointmentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DFF3435C1954CB2D00C8E4D6 /* AppointmentTableViewCell.m */; };
 		DFF5D588194C00BE0058D818 /* AppointmentRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFF5D587194C00BE0058D818 /* AppointmentRequestViewController.m */; };
 		DFF5D58A194C82DA0058D818 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF5D589194C82DA0058D818 /* MapKit.framework */; };
 		DFF5D58C194C83FE0058D818 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFF5D58B194C83FE0058D818 /* AddressBook.framework */; };
@@ -130,6 +131,8 @@
 		DFF0AF8319242B3200843BC7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		DFF2ADA7192D67D300564407 /* SearchCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchCollectionViewCell.h; sourceTree = "<group>"; };
 		DFF2ADA8192D67D300564407 /* SearchCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchCollectionViewCell.m; sourceTree = "<group>"; };
+		DFF3435B1954CB2D00C8E4D6 /* AppointmentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentTableViewCell.h; sourceTree = "<group>"; };
+		DFF3435C1954CB2D00C8E4D6 /* AppointmentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentTableViewCell.m; sourceTree = "<group>"; };
 		DFF5D586194C00BE0058D818 /* AppointmentRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentRequestViewController.h; sourceTree = "<group>"; };
 		DFF5D587194C00BE0058D818 /* AppointmentRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentRequestViewController.m; sourceTree = "<group>"; };
 		DFF5D589194C82DA0058D818 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -264,6 +267,8 @@
 				DF0B777419426BB100B4ED61 /* AddToShareCollectionViewCell.m */,
 				DF4EB97919495FB800F88F28 /* ProfileConversationTableViewCell.h */,
 				DF4EB97A19495FB800F88F28 /* ProfileConversationTableViewCell.m */,
+				DFF3435B1954CB2D00C8E4D6 /* AppointmentTableViewCell.h */,
+				DFF3435C1954CB2D00C8E4D6 /* AppointmentTableViewCell.m */,
 				DFF0AF401924084900843BC7 /* Supporting Files */,
 			);
 			path = ADITL;
@@ -410,6 +415,7 @@
 				DF0B77721942687300B4ED61 /* AddToShareViewController.m in Sources */,
 				DFF5D588194C00BE0058D818 /* AppointmentRequestViewController.m in Sources */,
 				DF0B776F19422C8B00B4ED61 /* EnthusiastProfileViewController.m in Sources */,
+				DFF3435D1954CB2D00C8E4D6 /* AppointmentTableViewCell.m in Sources */,
 				DF4EB97B19495FB800F88F28 /* ProfileConversationTableViewCell.m in Sources */,
 				DFF0AF461924084900843BC7 /* main.m in Sources */,
 				DF0F00BE1926B4CB009EA0CB /* ProfileViewController.m in Sources */,

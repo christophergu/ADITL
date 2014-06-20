@@ -7,6 +7,8 @@
 //
 
 #import "AppointmentViewController.h"
+#import "AppointmentTableViewCell.h"
+#import "AppointmentRequestViewController.h"
 #import <Parse/Parse.h>
 
 @interface AppointmentViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -16,6 +18,7 @@
 @property (strong, nonatomic) IBOutlet UITableView *myTableView;
 @property (strong, nonatomic) NSDateFormatter *dateFormat;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *mySegmentedControl;
+@property int viewAppointmentIndexPathRow;
 
 @end
 
@@ -79,42 +82,79 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AppointmentCellReuseID"];
-    PFUser *tempUser = self.appointmentArray[indexPath.row][@"sender"];
+    AppointmentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AppointmentCellReuseID"];
     
-    NSString *dateString = [self.dateFormat stringFromDate: self.appointmentArray[indexPath.row][@"meetingTime"]];
+    cell.myStatusLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    cell.myStatusLabel.numberOfLines = 2;
     
     if(self.mySegmentedControl.selectedSegmentIndex==0)
     {
+        PFUser *tempUser = self.appointmentArray[indexPath.row][@"sender"];
+        NSString *dateString = [self.dateFormat stringFromDate: self.appointmentArray[indexPath.row][@"meetingTime"]];
+        
         if ([tempUser.objectId isEqualToString:self.currentUser.objectId])
         {
-            cell.textLabel.text = dateString;
-            cell.detailTextLabel.text = self.appointmentArray[indexPath.row][@"receiver"][@"username"];
+            cell.myDateLabel.text = dateString;
+            cell.myNameLabel.text = self.appointmentArray[indexPath.row][@"receiver"][@"username"];
+            cell.myStatusLabel.text = @"Request Sent";
         }
         else
         {
-            cell.textLabel.text = dateString;
-            cell.detailTextLabel.text = self.appointmentArray[indexPath.row][@"sender"][@"username"];
+            cell.myDateLabel.text = dateString;
+            cell.myNameLabel.text = self.appointmentArray[indexPath.row][@"sender"][@"username"];
+            cell.myStatusLabel.text = @"Request Received";
         }
     }
     else if(self.mySegmentedControl.selectedSegmentIndex==1)
     {
+        PFUser *tempUser = self.appointmentConfirmedArray[indexPath.row][@"sender"];
+        NSString *dateString = [self.dateFormat stringFromDate: self.appointmentConfirmedArray[indexPath.row][@"meetingTime"]];
+        
+        cell.myStatusLabel.text = @"Confirmed";
+
         if ([tempUser.objectId isEqualToString:self.currentUser.objectId])
         {
-            cell.textLabel.text = dateString;
-            cell.detailTextLabel.text = self.appointmentArray[indexPath.row][@"receiver"][@"username"];
+            cell.myDateLabel.text = dateString;
+            cell.myNameLabel.text = self.appointmentConfirmedArray[indexPath.row][@"receiver"][@"username"];
         }
         else
         {
-            cell.textLabel.text = dateString;
-            cell.detailTextLabel.text = self.appointmentArray[indexPath.row][@"sender"][@"username"];
+            cell.myDateLabel.text = dateString;
+            cell.myNameLabel.text = self.appointmentConfirmedArray[indexPath.row][@"sender"][@"username"];
         }
     }
 
     return cell;
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    self.viewAppointmentIndexPathRow = (int)indexPath.row;
+    if (self.isViewLoaded)
+    {
+        [self performSegueWithIdentifier:@"AppointmentToAppointmentRequestSegue" sender:self];
+    }
+}
+
 - (IBAction)onSegmentedControlIndexChanged:(id)sender {
     [self.myTableView reloadData];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"AppointmentToAppointmentRequestSegue"])
+    {
+        AppointmentRequestViewController *arvc = segue.destinationViewController;
+        if (self.mySegmentedControl.selectedSegmentIndex == 0)
+        {
+            arvc.selectedAppointment = self.appointmentArray[self.viewAppointmentIndexPathRow];
+        }
+        else if (self.mySegmentedControl.selectedSegmentIndex == 1)
+        {
+            arvc.selectedAppointment = self.appointmentConfirmedArray[self.viewAppointmentIndexPathRow];
+        }
+        arvc.checkingAppointmentRequest = 1;
+    }
 }
 
 @end

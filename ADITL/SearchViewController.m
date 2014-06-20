@@ -13,6 +13,8 @@
 #import "SearchTableViewCell.h"
 #import <Parse/Parse.h>
 
+#define allTrim( object ) [object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+
 @interface SearchViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) NSArray *categoriesArray;
 @property (strong, nonatomic) NSArray *categoriesKeysArray;
@@ -23,7 +25,9 @@
 @property (strong, nonatomic) IBOutlet UIView *subcategoryView;
 @property (strong, nonatomic) IBOutlet UITableView *subcategoryTableView;
 @property (strong, nonatomic) IBOutlet UITableView *myTableView;
+@property (strong, nonatomic) PFUser *currentUser;
 @property (strong, nonatomic) PFUser *chosenUser;
+@property (strong, nonatomic) CLLocation *userLocation;
 
 @end
 
@@ -37,6 +41,10 @@
     NSDictionary *categoryCooking = @{@"Cooking": [UIImage imageNamed:@"cooking"]};
     self.categoriesArray = @[categoryArt, categoryCooking];
     self.categoriesKeysArray = @[@"Art", @"Cooking"];
+    
+    self.currentUser = [PFUser currentUser];
+    
+    self.userLocation = [[CLLocation alloc] initWithLatitude:[self.currentUser[@"latitude"] doubleValue] longitude:[self.currentUser[@"longitude"] doubleValue]];
 }
 
 #pragma mark - collection view delegate methods
@@ -58,21 +66,38 @@
 {
     self.userArray = [NSMutableArray new];
     
+    int radius = [self.locationTextField.text intValue];
+    
+    if (!(allTrim(self.locationTextField.text).length == 0))
+    {
+        [self searchCategoryHelperWithRadius:radius andIndexPath:indexPath];
+    }
+    else
+    {
+        [self searchCategoryHelperWithRadius:50 andIndexPath:indexPath];
+    }
+}
+
+- (void) searchCategoryHelperWithRadius:(int)radius andIndexPath:(NSIndexPath *)indexPath
+{
     if (self.fromEnthusiast)
     {
         PFQuery *searchResultsQuery = [PFQuery queryWithClassName:@"EnthusiastInterest"];
         [searchResultsQuery includeKey:@"enthusiastPointer"];
         [searchResultsQuery whereKey:@"category" equalTo:self.categoriesKeysArray[indexPath.row]];
-        //        if (self.locationString.length)
-        //        {
-        //            [searchResultsQuery whereKey:@"locationCity" equalTo:self.locationString];
-        //        }
+        
         [searchResultsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             self.searchResultsArray = objects;
             
             for (PFObject *enthusiastInterest in self.searchResultsArray)
             {
-                [self.userArray addObject:enthusiastInterest[@"enthusiastPointer"]];
+                CLLocation *potentialUserLocation = [[CLLocation alloc] initWithLatitude:[enthusiastInterest[@"enthusiastPointer"][@"latitude"] doubleValue] longitude:[enthusiastInterest[@"enthusiastPointer"][@"longitude"] doubleValue]];
+                
+                float distance = [self.userLocation distanceFromLocation:potentialUserLocation]*0.000621371;
+                
+                if (distance <= radius) {
+                    [self.userArray addObject:enthusiastInterest[@"enthusiastPointer"]];
+                }
             }
             
             [self.myTableView reloadData];
@@ -83,16 +108,20 @@
         PFQuery *searchResultsQuery = [PFQuery queryWithClassName:@"LeaderInterest"];
         [searchResultsQuery includeKey:@"leaderPointer"];
         [searchResultsQuery whereKey:@"category" equalTo:self.categoriesKeysArray[indexPath.row]];
-        //        if (self.locationString.length)
-        //        {
-        //            [searchResultsQuery whereKey:@"locationCity" equalTo:self.locationString];
-        //        }
+        
         [searchResultsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             self.searchResultsArray = objects;
             
             for (PFObject *leaderInterest in self.searchResultsArray)
             {
-                [self.userArray addObject:leaderInterest[@"leaderPointer"]];
+                CLLocation *potentialUserLocation = [[CLLocation alloc] initWithLatitude:[leaderInterest[@"leaderPointer"][@"latitude"] doubleValue] longitude:[leaderInterest[@"leaderPointer"][@"longitude"] doubleValue]];
+                
+                float distance = [self.userLocation distanceFromLocation:potentialUserLocation]*0.000621371;
+                
+                if (distance <= 50)
+                {
+                    [self.userArray addObject:leaderInterest[@"leaderPointer"]];
+                }
             }
             
             [self.myTableView reloadData];

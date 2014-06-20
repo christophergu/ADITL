@@ -31,7 +31,7 @@
     self.addedMessageCheckerArray = [NSMutableArray new];
     
     PFQuery *conversationQuery = [PFQuery queryWithClassName:@"ConversationThread"];
-    [conversationQuery whereKey:@"chattersArray" containsAllObjectsInArray:@[self.currentUser[@"email"]]];
+    [conversationQuery whereKey:@"chattersArray" containsAllObjectsInArray:@[self.currentUser.objectId]];
     [conversationQuery includeKey:@"chattersUsersArray"];
     [conversationQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         self.conversationArray = objects;
@@ -151,13 +151,24 @@
         }
     }
 
+    if (self.isViewLoaded)
+    {
+        NSLog(@"loaded");
+    }
+    else
+    {
+        NSLog(@"still loading");
+    }
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.viewConversationIndexPathRow = (int)indexPath.row;
-    [self performSegueWithIdentifier:@"ProfileViewConversationSegue" sender:self];
+    if (self.isViewLoaded)
+    {
+        [self performSegueWithIdentifier:@"ProfileViewConversationSegue" sender:self];
+    }
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
