@@ -28,6 +28,11 @@
 @property (strong, nonatomic) IBOutlet UILabel *categoryHeaderLabel;
 @property (strong, nonatomic) IBOutlet UILabel *subcategoryHeaderLabel;
 @property (strong, nonatomic) IBOutlet UILabel *priceHeaderLabel;
+@property (strong, nonatomic) IBOutlet UITextView *myMoreTextView;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet UIView *uiViewForScrollView;
+@property (strong, nonatomic) IBOutlet UIButton *moreDoneButton;
+@property (strong, nonatomic) IBOutlet UIView *categoryMoreView;
 
 @end
 
@@ -41,10 +46,27 @@
     self.currentUser = [PFUser currentUser];
     
     self.doneButton.layer.cornerRadius = 5.0f;
+
+    self.modalPresentationStyle = UIModalPresentationCurrentContext;
     
     NSDictionary *categoryArt = @{@"Art": [UIImage imageNamed:@"art"]};
     NSDictionary *categoryCooking = @{@"Cooking": [UIImage imageNamed:@"cooking"]};
     self.categoriesArray = @[categoryArt, categoryCooking];
+    
+    self.myMoreTextView.textColor = [UIColor colorWithWhite: 0.8 alpha:1]; //optional
+    self.myMoreTextView.text = @"A more indepth description of what you can offer can go here.";
+    [self.myMoreTextView.layer setBorderColor:[[UIColor colorWithWhite: 0.8 alpha:1] CGColor]];
+    [self.myMoreTextView.layer setBorderWidth:0.5];
+    self.myMoreTextView.layer.cornerRadius = 5;
+    self.moreDoneButton.layer.cornerRadius = 5.0f;
+    self.myMoreTextView.clipsToBounds = YES;
+    self.categoryMoreView.alpha = 0.0;
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self
+                                   action:@selector(dismissKeyboard)];
+    [tap setCancelsTouchesInView:NO];
+    [self.view addGestureRecognizer:tap];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -70,6 +92,18 @@
         
         self.doneButton.backgroundColor = [UIColor colorWithRed:68.0/255.0 green:121.0/255.0 blue:255.0/255.0 alpha:1];
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    self.scrollView.contentSize = CGSizeMake(320, 640);
+    self.scrollView.scrollEnabled = YES;
+    self.scrollView.userInteractionEnabled = YES;
+    [self.scrollView addSubview:self.uiViewForScrollView];
+}
+
+-(void)dismissKeyboard {
+    [self.myMoreTextView resignFirstResponder];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -163,6 +197,27 @@
     }
 }
 
+#pragma mark - what i can share text view delegate methods (for placehoder text to exist)
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    if ([self.myMoreTextView.text isEqualToString:@"A more indepth description of what you can offer can go here."]) {
+        self.myMoreTextView.text = @"";
+        self.myMoreTextView.textColor = [UIColor blackColor]; //optional
+        [self.myMoreTextView becomeFirstResponder];
+    }
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    if ([self.myMoreTextView.text isEqualToString:@""]) {
+        self.myMoreTextView.text = @"A more indepth description of what you can offer can go here.";
+        self.myMoreTextView.textColor = [UIColor colorWithWhite: 0.8 alpha:1]; //optional
+        [self.myMoreTextView resignFirstResponder];
+    }
+}
+
+
 - (IBAction)priceDidEndOnExit:(id)sender
 {
     if (self.fromEnthusiast)
@@ -175,6 +230,29 @@
         [UIView animateWithDuration:0.4 animations:^{
             self.doneButton.alpha = 1.0;
         }];
+    }
+}
+
+- (IBAction)onMoreButtonPressed:(id)sender
+{
+    [UIView animateWithDuration:0.5f animations:^{
+        self.categoryMoreView.alpha = 1.0;
+    }];
+}
+- (IBAction)onMoreDoneButtonPressed:(id)sender {
+    [UIView animateWithDuration:0.5f animations:^{
+        self.categoryMoreView.alpha = 0.0;
+    }];
+    if (![self.myMoreTextView.text isEqualToString:@"All fields must be completed to add."] && !(allTrim(self.myMoreTextView.text).length == 0))
+    {
+        if (self.fromEnthusiast)
+        {
+            self.enthusiastInterest[@"more"] = self.myMoreTextView.text;
+        }
+        else
+        {
+            self.leaderInterest[@"more"] = self.myMoreTextView.text;
+        }
     }
 }
 
@@ -221,5 +299,12 @@
     }
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"CategoryExtraDetailsSegue"])
+    {
+        NSLog(@"hi");
+    }
+}
 
 @end
